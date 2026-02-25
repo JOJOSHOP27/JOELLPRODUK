@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>JOELL MOD — with logo</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 10% 20%, #0b0d1a, #030514);
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 12px;
+            color: #eaeef2;
+        }
+
+        /* GLASS CARD — fully responsive, fluid */
+        .glass-panel {
+            background: rgba(15, 25, 35, 0.6);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(90, 190, 255, 0.15);
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 255, 255, 0.1) inset, 0 0 30px rgba(0, 180, 255, 0.2);
+            padding: 20px;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            transition: all 0.3s;
+        }
+
+        /* ----- HEADERS DENGAN LOGO 1:1 ----- */
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
+            box-shadow: 0 0 20px #00a6ff, 0 0 40px #0077ff;
+            object-fit: cover;
+            background: #0a1a2a;
+            border: 2px solid rgba(0, 200, 255, 0.5);
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #00e0ff;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #00e0ff, 0 0 60px #0077ff;
+        }
+
+        .logo-text h1 {
+            font-size: clamp(1.6rem, 5vw, 2.5rem);
+            font-weight: 800;
+            background: linear-gradient(145deg, #d6ecff, #8ac9ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 20px cyan;
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        .logo-text p {
+            color: #96d9ff;
+            font-size: 0.8rem;
+            margin: 0;
+        }
+
+        .login-mini {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            background: rgba(0, 40, 70, 0.5);
+            padding: 6px 14px;
+            border-radius: 60px;
+            border: 1px solid #2f6080;
+            backdrop-filter: blur(5px);
+            flex-wrap: wrap;
+        }
+
+        .login-mini input {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #3d7895;
+            border-radius: 40px;
+            padding: 8px 14px;
+            color: white;
+            font-family: 'Inter', monospace;
+            outline: none;
+            min-width: 150px;
+            font-size: 0.85rem;
+        }
+        .login-mini input:focus {
+            border-color: #00e0ff;
+            box-shadow: 0 0 12px #00b7ff;
+        }
+
+        .btn-mini {
+            background: transparent;
+            border: 2px solid #00e0ff;
+            color: #00e0ff;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+            font-size: 0.85rem;
+        }
+        .btn-mini:hover {
+            background: #00e0ff20;
+            border-color: #fff;
+            color: #fff;
+            box-shadow: 0 0 20px #0af;
+        }
+
+        .btn-logout {
+            background: rgba(255, 70, 100, 0.15);
+            border: 1px solid #ff4d6d;
+            color: #ffb3c1;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .btn-logout:hover {
+            background: #ff4d6d30;
+            border-color: #ffb0b0;
+            color: white;
+            box-shadow: 0 0 22px #ff4d6d;
+        }
+
+        /* upload section (admin only) */
+        .upload-section {
+            background: rgba(10, 20, 33, 0.6);
+            border-radius: 36px;
+            padding: 20px;
+            backdrop-filter: blur(12px);
+            border: 1px solid #2b5777;
+            margin-bottom: 35px;
+            box-shadow: 0 20px 35px -10px black;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .neo-input {
+            width: 100%;
+            background: rgba(0, 20, 40, 0.6);
+            border: 1px solid #2c5270;
+            border-radius: 24px;
+            padding: 12px 18px;
+            font-size: 0.95rem;
+            color: white;
+            outline: none;
+            transition: all 0.25s;
+            font-family: 'Inter', sans-serif;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .neo-input:focus {
+            border-color: #00d0ff;
+            box-shadow: 0 0 18px #00b7ff, 0 4px 20px #000;
+        }
+
+        .file-zone {
+            background: #07111e80;
+            border: 2px dashed #2f80ed;
+            border-radius: 20px;
+            padding: 16px;
+            text-align: center;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .file-zone:hover {
+            border-color: #00c3ff;
+            background: #0a1b2f80;
+            box-shadow: 0 0 20px #00a6ff60;
+        }
+        .file-zone i {
+            font-size: 2rem;
+            color: #4aa1ff;
+            filter: drop-shadow(0 0 8px #0077ff);
+        }
+        .file-zone span {
+            display: block;
+            margin-top: 6px;
+            font-weight: 300;
+            font-size: 0.8rem;
+        }
+        #image-preview {
+            max-width: 100%;
+            max-height: 100px;
+            border-radius: 12px;
+            margin-top: 10px;
+            border: 2px solid cyan;
+            box-shadow: 0 0 20px #0af;
+            display: none;
+        }
+
+        .btn-primary {
+            background: #00a6ff20;
+            border: 2px solid #00b8ff;
+            color: #e2f0ff;
+            padding: 14px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            backdrop-filter: blur(5px);
+            letter-spacing: 1px;
+            width: 100%;
+            box-shadow: 0 0 25px #0077ff;
+        }
+        .btn-primary:hover {
+            background: #0077ff40;
+            border-color: white;
+            box-shadow: 0 0 40px #0af, 0 0 20px #0af inset;
+        }
+
+        /* PRODUCT GRID — 2 kolom di HP, fleksibel */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .product-card {
+            background: rgba(18, 30, 45, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid #2a6480;
+            border-radius: 24px;
+            padding: 16px;
+            transition: all 0.25s;
+            box-shadow: 0 10px 28px -10px #000, 0 0 0 1px #00d9ff33 inset;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card:hover {
+            transform: translateY(-4px) scale(1.01);
+            border-color: #00dcff;
+            box-shadow: 0 20px 30px -10px #000, 0 0 25px #00b3ff;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 16px;
+            background: #112b3f;
+            border: 1px solid #006a9e;
+            box-shadow: 0 8px 16px -5px black;
+            margin-bottom: 12px;
+        }
+
+        .product-img-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #102433, #011222);
+            color: #4f92b0;
+            font-size: 2.5rem;
+            border-radius: 16px;
+            height: 140px;
+            margin-bottom: 12px;
+            border: 1px dashed #2b7a9c;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #fff, #c1e4ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 8px;
+            word-wrap: break-word;
+            line-height: 1.3;
+        }
+
+        .product-desc {
+            font-weight: 300;
+            line-height: 1.5;
+            color: #bcd3e6;
+            margin-bottom: 16px;
+            max-height: 120px;
+            overflow-y: auto;
+            padding-right: 6px;
+            scrollbar-width: thin;
+            scrollbar-color: #00a6ff #001c33;
+            word-wrap: break-word;
+            font-size: 0.85rem;
+        }
+        .product-desc::-webkit-scrollbar {
+            width: 4px;
+        }
+        .product-desc::-webkit-scrollbar-track {
+            background: #001c33;
+            border-radius: 10px;
+        }
+        .product-desc::-webkit-scrollbar-thumb {
+            background: #0af;
+            border-radius: 10px;
+        }
+
+        .delete-btn {
+            background: rgba(200, 30, 60, 0.2);
+            border: 1px solid #ff3860;
+            color: #ffacc0;
+            padding: 10px 8px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            backdrop-filter: blur(4px);
+        }
+        .delete-btn:hover {
+            background: #ff386050;
+            color: white;
+            border-color: #ffb0b0;
+            box-shadow: 0 0 22px #ff3860;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px 16px;
+            font-size: 1.3rem;
+            opacity: 0.6;
+            font-weight: 200;
+            border: 2px dashed #2a6280;
+            border-radius: 40px;
+            background: #051a2a20;
+            backdrop-filter: blur(5px);
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            opacity: 0.4;
+            font-size: 0.7rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* layar sangat kecil (<360px) — turun jadi 1 kolom */
+        @media (max-width: 359px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* mobile tweaks umum */
+        @media (max-width: 600px) {
+            .glass-panel {
+                padding: 14px;
+                border-radius: 24px;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+            .header-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .login-mini {
+                width: 100%;
+            }
+            .login-mini input {
+                flex: 1;
+                min-width: 0;
+            }
+            .btn-logout {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* public vs admin screens */
+        #publicScreen, #adminScreen {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-panel" id="appWrapper">
+        <!-- PUBLIC VIEW (bisa dilihat semua orang) -->
+        <div id="publicScreen">
+            <div class="header-row">
+                <div class="logo-area">
+                    <!-- LOGO JOELL MOD 1:1 dengan ikon kubus khas -->
+                    <div class="logo-img">
+                        <i class="fa-regular fa-cube"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>JOELL MOD</h1>
+                        <p>collection showcase</p>
+                    </div>
+                </div>
+                <!-- form login mini -->
+                <div class="login-mini">
+                    <input type="password" id="publicPassword" placeholder="admin password">
+                    <button class="btn-mini" id="publicLoginBtn"><i class="fa-regular fa-lock-open"></i> login</button>
+                </div>
+            </div>
+
+            <!-- produk untuk publik (tanpa delete) -->
+            <h2 style="margin: 25px 0 10px; font-size: 1.3rem;"><i class="fa-regular fa-grid-2"></i> all products</h2>
+            <div id="publicProducts" class="products-grid"></div>
+            <footer>JOELL MOD · public view · no edit</footer>
+        </div>
+
+        <!-- ADMIN VIEW (hanya setelah login) -->
+        <div id="adminScreen" class="hidden">
+            <div class="header-row">
+                <div class="logo-area">
+                    <!-- LOGO JOELL MOD yang sama untuk admin -->
+                    <div class="logo-img">
+                        <i class="fa-regular fa-cube"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>JOELL MOD</h1>
+                        <p>product vault · unlimited</p>
+                    </div>
+                </div>
+                <button class="btn-logout" id="logoutBtn"><i class="fa-solid fa-sign-out-alt"></i> logout</button>
+            </div>
+
+            <!-- FORM UPLOAD (khusus admin) -->
+            <div class="upload-section">
+                <h2 style="margin-bottom: 16px; font-size: 1.3rem;"><i class="fa-regular fa-square-plus"></i> upload new product</h2>
+                <div class="form-grid">
+                    <div>
+                        <label style="margin-bottom: 4px; display: block; font-size:0.9rem;">product name</label>
+                        <input type="text" id="productName" class="neo-input" placeholder="e.g. JOELL X-1">
+                    </div>
+                    <div class="full-width" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div>
+                            <label style="margin-bottom: 4px; display: block; font-size:0.9rem;">description (unlimited)</label>
+                            <textarea id="productDesc" class="neo-input" rows="4" placeholder="describe without limits..."></textarea>
+                        </div>
+                        <div>
+                            <label style="margin-bottom: 4px; display: block; font-size:0.9rem;">product image (optional)</label>
+                            <div class="file-zone" id="fileZone">
+                                <i class="fa-regular fa-images"></i>
+                                <span>click or drop (max 2MB)</span>
+                                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                                <img id="image-preview" alt="preview">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-primary" id="saveProductBtn" style="margin-top: 16px;"><i class="fa-regular fa-cloud-arrow-up"></i> save product</button>
+            </div>
+
+            <h2 style="margin: 25px 0 10px; font-size: 1.3rem;"><i class="fa-regular fa-grid-2"></i> manage products</h2>
+            <div id="adminProducts" class="products-grid"></div>
+            <footer>JOELL MOD · admin · delete enabled</footer>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // --- constants ---
+            const STORAGE_KEY = 'joellmod_products';
+            const AUTH_KEY = 'joellmod_auth';
+            const PASSWORD = 'joellmod';  // ganti sesuai keinginan
+
+            // --- elements ---
+            const publicScreen = document.getElementById('publicScreen');
+            const adminScreen = document.getElementById('adminScreen');
+            const publicLoginBtn = document.getElementById('publicLoginBtn');
+            const publicPassword = document.getElementById('publicPassword');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            // admin form elements
+            const productName = document.getElementById('productName');
+            const productDesc = document.getElementById('productDesc');
+            const fileInput = document.getElementById('fileInput');
+            const fileZone = document.getElementById('fileZone');
+            const imagePreview = document.getElementById('image-preview');
+            const saveBtn = document.getElementById('saveProductBtn');
+
+            // product containers
+            const publicContainer = document.getElementById('publicProducts');
+            const adminContainer = document.getElementById('adminProducts');
+
+            // --- state ---
+            let products = [];
+
+            // --- cek auth saat load ---
+            function checkAuth() {
+                const isAuth = localStorage.getItem(AUTH_KEY) === 'true';
+                if (isAuth) {
+                    showAdmin();
+                } else {
+                    showPublic();
+                }
+            }
+
+            function showPublic() {
+                publicScreen.classList.remove('hidden');
+                adminScreen.classList.add('hidden');
+                loadProducts();      // ambil data
+                renderAllProducts(); // render untuk publik (tanpa delete)
+            }
+
+            function showAdmin() {
+                publicScreen.classList.add('hidden');
+                adminScreen.classList.remove('hidden');
+                loadProducts();
+                renderAllProducts(); // render untuk admin (dengan delete)
+            }
+
+            // --- login dari publik ---
+            publicLoginBtn.addEventListener('click', () => {
+                const pwd = publicPassword.value.trim();
+                if (pwd === PASSWORD) {
+                    localStorage.setItem(AUTH_KEY, 'true');
+                    showAdmin();
+                } else {
+                    alert('wrong password');
+                }
+            });
+            publicPassword.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') publicLoginBtn.click();
+            });
+
+            // --- logout ---
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem(AUTH_KEY);
+                showPublic();
+                publicPassword.value = ''; // bersihkan input
+            });
+
+            // --- load products from localStorage ---
+            function loadProducts() {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) {
+                    try {
+                        products = JSON.parse(stored);
+                    } catch (e) {
+                        products = [];
+                    }
+                } else {
+                    products = [];
+                }
+            }
+
+            // --- save products to localStorage ---
+            function saveProducts() {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+                renderAllProducts();  // update kedua tampilan
+            }
+
+            // --- render produk di kedua container (public & admin) ---
+            function renderAllProducts() {
+                // render public (tanpa tombol hapus)
+                if (publicContainer) {
+                    if (products.length === 0) {
+                        publicContainer.innerHTML = `<div class="empty-state"><i class="fa-regular fa-box-open" style="font-size:3rem; display:block; margin-bottom:16px;"></i>no products yet</div>`;
+                    } else {
+                        let html = '';
+                        products.forEach(prod => {
+                            const hasImage = prod.image && prod.image.startsWith('data:image');
+                            html += `
+                                <div class="product-card">
+                                    ${hasImage ? `<img src="${prod.image}" class="product-img" alt="product">` : `<div class="product-img-placeholder"><i class="fa-regular fa-image"></i></div>`}
+                                    <div class="product-title">${escapeHTML(prod.name) || 'untitled'}</div>
+                                    <div class="product-desc">${escapeHTML(prod.desc) || '— no description —'}</div>
+                                </div>
+                            `;
+                        });
+                        publicContainer.innerHTML = html;
+                    }
+                }
+
+                // render admin (dengan tombol hapus)
+                if (adminContainer) {
+                    if (products.length === 0) {
+                        adminContainer.innerHTML = `<div class="empty-state"><i class="fa-regular fa-box-open" style="font-size:3rem; display:block; margin-bottom:16px;"></i>no products yet · upload first</div>`;
+                    } else {
+                        let html = '';
+                        products.forEach(prod => {
+                            const hasImage = prod.image && prod.image.startsWith('data:image');
+                            html += `
+                                <div class="product-card" data-id="${prod.id}">
+                                    ${hasImage ? `<img src="${prod.image}" class="product-img" alt="product">` : `<div class="product-img-placeholder"><i class="fa-regular fa-image"></i></div>`}
+                                    <div class="product-title">${escapeHTML(prod.name) || 'untitled'}</div>
+                                    <div class="product-desc">${escapeHTML(prod.desc) || '— no description —'}</div>
+                                    <button class="delete-btn" data-id="${prod.id}"><i class="fa-regular fa-trash-can"></i> delete product</button>
+                                </div>
+                            `;
+                        });
+                        adminContainer.innerHTML = html;
+                        // attach delete events
+                        document.querySelectorAll('#adminProducts .delete-btn').forEach(btn => {
+                            btn.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                const id = btn.getAttribute('data-id');
+                                deleteProductById(id);
+                            });
+                        });
+                    }
+                }
+            }
+
+            // escape HTML
+            function escapeHTML(str) {
+                if (!str) return '';
+                return String(str).replace(/[&<>"]/g, function(m) {
+                    if (m === '&') return '&amp;';
+                    if (m === '<') return '&lt;';
+                    if (m === '>') return '&gt;';
+                    if (m === '"') return '&quot;';
+                    return m;
+                });
+            }
+
+            // delete product by id (hanya dipanggil dari admin)
+            function deleteProductById(id) {
+                products = products.filter(p => p.id != id);
+                saveProducts();
+            }
+
+            // --- image preview (admin) ---
+            fileZone.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('Max file size 2MB');
+                    fileInput.value = '';
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    imagePreview.src = event.target.result;
+                    imagePreview.style.display = 'block';
+                    fileZone.setAttribute('data-preview', event.target.result);
+                };
+                reader.readAsDataURL(file);
+            });
+
+            // --- save product (admin) ---
+            saveBtn.addEventListener('click', () => {
+                const name = productName.value.trim();
+                const desc = productDesc.value.trim();
+                if (!name) {
+                    alert('Product name is required');
+                    return;
+                }
+
+                if (fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    if (file.size > 2 * 1024 * 1024) {
+                        alert('image too large (max 2MB)');
+                        return;
+                    }
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        finishSave(name, desc, ev.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    finishSave(name, desc, null);
+                }
+            });
+
+            function finishSave(name, desc, imageBase64) {
+                const newProduct = {
+                    id: Date.now() + Math.random().toString(36).substr(2, 5),
+                    name: name,
+                    desc: desc,
+                    image: imageBase64,
+                    createdAt: new Date().toISOString()
+                };
+                products.push(newProduct);
+                saveProducts();
+
+                // reset form
+                productName.value = '';
+                productDesc.value = '';
+                fileInput.value = '';
+                imagePreview.style.display = 'none';
+                imagePreview.src = '';
+                fileZone.removeAttribute('data-preview');
+            }
+
+            // --- drag & drop untuk fileZone ---
+            fileZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileZone.style.borderColor = '#00ffff';
+                fileZone.style.background = '#0a1f33';
+            });
+            fileZone.addEventListener('dragleave', () => {
+                fileZone.style.borderColor = '#2f80ed';
+                fileZone.style.background = '#07111e80';
+            });
+            fileZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileZone.style.borderColor = '#2f80ed';
+                const files = e.dataTransfer.files;
+                if (files.length > 0 && files[0].type.startsWith('image/')) {
+                    fileInput.files = files;
+                    const event = new Event('change', { bubbles: true });
+                    fileInput.dispatchEvent(event);
+                } else {
+                    alert('please drop an image');
+                }
+            });
+
+            // --- initial check ---
+            checkAuth();
+
+            // --- sinkron jika localStorage berubah di tab lain ---
+            window.addEventListener('storage', (e) => {
+                if (e.key === STORAGE_KEY) {
+                    loadProducts();
+                    renderAllProducts();
+                }
+                if (e.key === AUTH_KEY) {
+                    checkAuth();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
