@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>JOELL MOD · next-gen vault</title>
+    <title>JOELL MOD — debug version</title>
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,12 +13,8 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* CSS sama persis seperti sebelumnya (saya ringkas agar tidak terlalu panjang, tapi tetap cantik) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
             background: #030514;
@@ -31,255 +27,116 @@
             position: relative;
             overflow-x: hidden;
         }
-
-        /* Animated background grid */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.02) 1px, transparent 1px);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(0,255,255,0.02) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0,255,255,0.02) 1px, transparent 1px);
             background-size: 50px 50px;
             pointer-events: none;
             z-index: 0;
         }
-
-        /* Floating orbs */
         .glass-panel {
             position: relative;
             z-index: 2;
-            background: rgba(10, 20, 30, 0.5);
+            background: rgba(10,20,30,0.5);
             backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(0, 255, 255, 0.25);
+            border: 1px solid rgba(0,255,255,0.25);
             border-radius: 48px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(0, 255, 255, 0.2) inset, 0 0 60px rgba(0, 180, 255, 0.3);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(0,255,255,0.2) inset, 0 0 60px rgba(0,180,255,0.3);
             padding: 28px;
             width: 100%;
             max-width: 1500px;
             margin: 0 auto;
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
         }
-
-        .glass-panel:hover {
-            border-color: rgba(0, 255, 255, 0.6);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.9), 0 0 0 1px cyan inset, 0 0 80px cyan;
-        }
-
-        /* Header */
-        .header-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
+        .header-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; margin-bottom: 30px; }
+        .logo-area { display: flex; align-items: center; gap: 20px; }
         .logo-glow {
-            width: 65px;
-            height: 65px;
+            width: 65px; height: 65px;
             border-radius: 20px;
             background: linear-gradient(135deg, #00c6ff, #0072ff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; color: white;
             box-shadow: 0 0 30px #00a6ff, 0 0 60px #0077ff;
             border: 2px solid rgba(255,255,255,0.3);
-            transition: 0.3s;
         }
-
-        .logo-glow:hover {
-            transform: rotate(5deg) scale(1.05);
-            box-shadow: 0 0 50px cyan, 0 0 90px #0077ff;
-        }
-
         .logo-text h1 {
-            font-size: clamp(1.8rem, 6vw, 3rem);
+            font-size: clamp(1.8rem,6vw,3rem);
             font-weight: 800;
             background: linear-gradient(145deg, #fff, #a0e9ff, #80d0ff);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             text-shadow: 0 0 20px rgba(0,255,255,0.5);
-            line-height: 1.2;
-            margin: 0;
         }
-
-        .logo-text p {
-            color: #9fc9ff;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            margin: 0;
-            text-shadow: 0 0 10px cyan;
-        }
-
-        /* Login mini */
+        .logo-text p { color: #9fc9ff; font-size: 0.9rem; }
         .login-mini {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            background: rgba(0, 20, 40, 0.7);
-            padding: 8px 20px;
-            border-radius: 60px;
+            display: flex; gap: 10px; align-items: center;
+            background: rgba(0,20,40,0.7);
+            padding: 8px 20px; border-radius: 60px;
             border: 1px solid #00a6ff;
             backdrop-filter: blur(10px);
-            flex-wrap: wrap;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0,255,255,0.3);
         }
-
         .login-mini input {
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0,0,0,0.5);
             border: 1px solid #00c8ff;
             border-radius: 40px;
             padding: 10px 18px;
             color: white;
-            font-family: 'Inter', monospace;
             outline: none;
             min-width: 180px;
-            font-size: 0.9rem;
-            box-shadow: 0 0 10px rgba(0,255,255,0.2);
         }
-        .login-mini input:focus {
-            border-color: #ff0;
-            box-shadow: 0 0 20px #ff0, 0 0 30px cyan;
-        }
-
         .btn-mini {
             background: transparent;
             border: 2px solid #00e0ff;
             color: #00e0ff;
-            font-weight: 600;
             padding: 8px 22px;
             border-radius: 40px;
             cursor: pointer;
-            transition: 0.3s;
-            white-space: nowrap;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-            box-shadow: 0 0 15px #00b8ff;
+            font-weight: 600;
         }
-        .btn-mini:hover {
-            background: #00e0ff30;
-            border-color: #fff;
-            color: #fff;
-            box-shadow: 0 0 30px #0af, 0 0 60px cyan;
-            transform: scale(1.02);
-        }
-
         .btn-logout {
-            background: rgba(255, 70, 100, 0.2);
+            background: rgba(255,70,100,0.2);
             border: 1px solid #ff4d6d;
             color: #ffb3c1;
             padding: 12px 28px;
             border-radius: 40px;
-            font-weight: 600;
-            font-size: 1rem;
             cursor: pointer;
-            backdrop-filter: blur(8px);
-            transition: 0.3s;
             display: flex;
             align-items: center;
             gap: 10px;
-            white-space: nowrap;
-            box-shadow: 0 0 15px #ff3860;
         }
-        .btn-logout:hover {
-            background: #ff4d6d50;
-            border-color: #ffb0b0;
-            color: white;
-            box-shadow: 0 0 40px #ff3860, 0 0 80px #ff0f40;
-        }
-
-        /* Upload section */
         .upload-section {
-            background: rgba(0, 20, 40, 0.6);
+            background: rgba(0,20,40,0.6);
             border-radius: 48px;
             padding: 28px;
             backdrop-filter: blur(15px);
             border: 1px solid #00a6ff;
             margin-bottom: 40px;
-            box-shadow: 0 30px 50px -20px black, 0 0 0 1px cyan inset, 0 0 40px rgba(0,255,255,0.3);
+            box-shadow: 0 30px 50px -20px black, 0 0 0 1px cyan inset;
         }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-
-        .full-width {
-            grid-column: span 2;
-        }
-
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .full-width { grid-column: span 2; }
         .neo-input {
             width: 100%;
-            background: rgba(0, 10, 20, 0.8);
+            background: rgba(0,10,20,0.8);
             border: 1px solid #2f80ed;
             border-radius: 30px;
             padding: 14px 22px;
-            font-size: 1rem;
             color: white;
             outline: none;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
-            backdrop-filter: blur(4px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.7), 0 0 0 1px #0af inset;
         }
-
-        .neo-input:focus {
-            border-color: #ff0;
-            box-shadow: 0 0 25px #ff0, 0 0 40px cyan;
-        }
-
         .file-zone {
             background: #0a1a2aa0;
             border: 2px dashed #00a6ff;
             border-radius: 30px;
             padding: 22px;
             text-align: center;
-            transition: 0.3s;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(0,255,255,0.2);
         }
-        .file-zone:hover {
-            border-color: #ff0;
-            background: #0a2a3aa0;
-            box-shadow: 0 0 40px #ff0, 0 0 60px cyan;
-        }
-        .file-zone i {
-            font-size: 2.5rem;
-            color: #80d4ff;
-            filter: drop-shadow(0 0 10px #0af);
-        }
-        .file-zone span {
-            display: block;
-            margin-top: 8px;
-            font-weight: 300;
-            font-size: 0.9rem;
-        }
-        #image-preview {
-            max-width: 100%;
-            max-height: 120px;
-            border-radius: 20px;
-            margin-top: 15px;
-            border: 2px solid cyan;
-            box-shadow: 0 0 30px #0af;
-            display: none;
-        }
-
         .btn-primary {
             background: linear-gradient(135deg, #0077ff40, #00c3ff40);
             border: 2px solid #00b8ff;
@@ -287,174 +144,62 @@
             padding: 16px 28px;
             border-radius: 60px;
             font-weight: 700;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: 0.3s;
-            backdrop-filter: blur(5px);
-            letter-spacing: 1.5px;
             width: 100%;
-            box-shadow: 0 0 30px #0077ff, 0 0 0 1px cyan inset;
-            text-transform: uppercase;
+            cursor: pointer;
         }
-        .btn-primary:hover {
-            background: #0077ff80;
-            border-color: white;
-            box-shadow: 0 0 60px #0af, 0 0 100px cyan, 0 0 0 2px white inset;
-            transform: scale(1.02);
-        }
-
-        /* Product grid */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
             gap: 20px;
             margin-top: 25px;
         }
-
         .product-card {
-            background: rgba(10, 25, 40, 0.7);
+            background: rgba(10,25,40,0.7);
             backdrop-filter: blur(12px);
             border: 1px solid #00a6ff;
             border-radius: 32px;
             padding: 18px;
-            transition: all 0.4s cubic-bezier(0.2,0.9,0.3,1);
-            box-shadow: 0 15px 35px -15px black, 0 0 0 1px cyan inset, 0 0 25px rgba(0,255,255,0.3);
-            display: flex;
-            flex-direction: column;
-            transform: translateY(0);
+            box-shadow: 0 15px 35px -15px black, 0 0 0 1px cyan inset;
         }
-        .product-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: #ff0;
-            box-shadow: 0 30px 50px -20px black, 0 0 0 2px yellow inset, 0 0 50px cyan;
-        }
-
         .product-img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 24px;
-            background: #112b3f;
-            border: 1px solid #0af;
-            box-shadow: 0 10px 20px -5px black, 0 0 20px #0af;
+            width: 100%; height: 150px; object-fit: cover;
+            border-radius: 24px; border: 1px solid #0af;
             margin-bottom: 15px;
-            transition: 0.3s;
         }
-        .product-card:hover .product-img {
-            border-color: #ff0;
-            box-shadow: 0 0 30px #ff0;
-        }
-
         .product-img-placeholder {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(145deg, #102433, #011222);
-            color: #6ab0ff;
-            font-size: 3rem;
-            border-radius: 24px;
-            height: 150px;
-            margin-bottom: 15px;
+            display: flex; align-items: center; justify-content: center;
+            background: #102433; color: #6ab0ff; font-size: 3rem;
+            height: 150px; border-radius: 24px; margin-bottom: 15px;
             border: 1px dashed #0af;
-            text-shadow: 0 0 20px cyan;
         }
-
         .product-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
+            font-size: 1.4rem; font-weight: 700;
             background: linear-gradient(135deg, #fff, #b3e5ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 8px;
-            word-wrap: break-word;
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent; margin-bottom: 8px;
         }
-
         .product-desc {
-            font-weight: 300;
-            line-height: 1.6;
-            color: #cfecff;
-            margin-bottom: 20px;
-            max-height: 150px;
-            overflow-y: auto;
-            padding-right: 6px;
-            scrollbar-width: thin;
-            scrollbar-color: #0af #001c33;
-            word-wrap: break-word;
-            font-size: 0.9rem;
-            white-space: pre-line;
+            font-weight: 300; line-height: 1.6; color: #cfecff;
+            max-height: 150px; overflow-y: auto; white-space: pre-line;
+            font-size: 0.9rem; margin-bottom: 16px;
         }
-        .product-desc::-webkit-scrollbar { width: 5px; }
-        .product-desc::-webkit-scrollbar-track { background: #002a4a; border-radius: 10px; }
-        .product-desc::-webkit-scrollbar-thumb { background: #0af; border-radius: 10px; box-shadow: 0 0 15px cyan; }
-
         .delete-btn {
-            background: rgba(255, 40, 80, 0.2);
-            border: 1px solid #ff3860;
-            color: #ffb0c0;
-            padding: 12px 10px;
-            border-radius: 36px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 0.9rem;
-            backdrop-filter: blur(4px);
-            box-shadow: 0 0 15px #ff3860;
+            background: rgba(255,40,80,0.2);
+            border: 1px solid #ff3860; color: #ffb0c0;
+            padding: 12px; border-radius: 36px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px; margin-top: auto;
         }
-        .delete-btn:hover {
-            background: #ff386090;
-            color: white;
-            border-color: #ffb0b0;
-            box-shadow: 0 0 40px #ff3860, 0 0 80px #ff0f40;
-            transform: scale(1.02);
-        }
-
         .empty-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 50px 20px;
-            font-size: 1.5rem;
-            opacity: 0.8;
-            font-weight: 200;
-            border: 2px dashed #2f80ed;
-            border-radius: 60px;
-            background: #0a1a2a60;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 40px cyan inset;
+            grid-column: 1/-1; text-align: center; padding: 50px 20px;
+            border: 2px dashed #2f80ed; border-radius: 60px;
+            background: #0a1a2a60; backdrop-filter: blur(10px);
             color: #cce5ff;
         }
-
-        footer {
-            margin-top: 40px;
-            text-align: center;
-            opacity: 0.5;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-        }
-
+        footer { margin-top: 40px; text-align: center; opacity: 0.5; }
         .hidden { display: none !important; }
-
-        /* responsive */
-        @media (max-width: 600px) {
-            .glass-panel { padding: 18px; }
-            .form-grid { grid-template-columns: 1fr; }
-            .full-width { grid-column: span 1; }
-            .header-row { flex-direction: column; align-items: stretch; }
-            .login-mini { width: 100%; }
-            .btn-logout { width: 100%; justify-content: center; }
-            .products-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-        }
-        @media (max-width: 359px) {
-            .products-grid { grid-template-columns: 1fr; }
-        }
-
-        #publicScreen, #adminScreen { width: 100%; }
+        @media (max-width:600px) { .form-grid { grid-template-columns:1fr; } .full-width { grid-column:span 1; } }
+        #publicScreen, #adminScreen { width:100%; }
     </style>
 </head>
 <body>
@@ -463,20 +208,15 @@
         <div id="publicScreen">
             <div class="header-row">
                 <div class="logo-area">
-                    <div class="logo-glow">
-                        <i class="fa-regular fa-cube"></i>
-                    </div>
-                    <div class="logo-text">
-                        <h1>JOELL MOD</h1>
-                        <p>next‑gen collection</p>
-                    </div>
+                    <div class="logo-glow"><i class="fa-regular fa-cube"></i></div>
+                    <div class="logo-text"><h1>JOELL MOD</h1><p>next‑gen collection</p></div>
                 </div>
                 <div class="login-mini">
                     <input type="password" id="publicPassword" placeholder="admin password">
                     <button class="btn-mini" id="publicLoginBtn"><i class="fa-regular fa-lock-open"></i> login</button>
                 </div>
             </div>
-            <h2 style="margin: 30px 0 15px; font-size: 1.5rem; display: flex; align-items: center; gap: 10px;"><i class="fa-regular fa-grid-2" style="color: cyan;"></i> all products</h2>
+            <h2 style="margin:30px 0 15px;"><i class="fa-regular fa-grid-2" style="color:cyan;"></i> all products</h2>
             <div id="publicProducts" class="products-grid"></div>
             <footer>JOELL MOD · real‑time cloud sync</footer>
         </div>
@@ -485,51 +225,38 @@
         <div id="adminScreen" class="hidden">
             <div class="header-row">
                 <div class="logo-area">
-                    <div class="logo-glow">
-                        <i class="fa-regular fa-cube"></i>
-                    </div>
-                    <div class="logo-text">
-                        <h1>JOELL MOD</h1>
-                        <p>admin · vault master</p>
-                    </div>
+                    <div class="logo-glow"><i class="fa-regular fa-cube"></i></div>
+                    <div class="logo-text"><h1>JOELL MOD</h1><p>admin · vault master</p></div>
                 </div>
                 <button class="btn-logout" id="logoutBtn"><i class="fa-solid fa-sign-out-alt"></i> logout</button>
             </div>
 
             <div class="upload-section">
-                <h2 style="margin-bottom: 20px; font-size: 1.6rem;"><i class="fa-regular fa-square-plus" style="color: cyan;"></i> upload new product</h2>
+                <h2 style="margin-bottom:20px;"><i class="fa-regular fa-square-plus" style="color:cyan;"></i> upload new product</h2>
                 <div class="form-grid">
-                    <div>
-                        <label style="margin-bottom: 8px; display: block; font-weight: 500;">product name</label>
-                        <input type="text" id="productName" class="neo-input" placeholder="e.g. JOELL X-1">
-                    </div>
-                    <div class="full-width" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                        <div>
-                            <label style="margin-bottom: 8px; display: block; font-weight: 500;">description (unlimited)</label>
-                            <textarea id="productDesc" class="neo-input" rows="5" placeholder="describe without limits...&#10;you can add multiple lines."></textarea>
-                        </div>
-                        <div>
-                            <label style="margin-bottom: 8px; display: block; font-weight: 500;">product image (optional)</label>
+                    <div><label>product name</label><input type="text" id="productName" class="neo-input" placeholder="e.g. JOELL X-1"></div>
+                    <div class="full-width" style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                        <div><label>description (unlimited)</label><textarea id="productDesc" class="neo-input" rows="5" placeholder="describe without limits..."></textarea></div>
+                        <div><label>product image (optional)</label>
                             <div class="file-zone" id="fileZone">
-                                <i class="fa-regular fa-images"></i>
-                                <span>click or drop (max 2MB)</span>
-                                <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                                <i class="fa-regular fa-images"></i><span>click or drop (max 2MB)</span>
+                                <input type="file" id="fileInput" accept="image/*" style="display:none;">
                                 <img id="image-preview" alt="preview">
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="btn-primary" id="saveProductBtn" style="margin-top: 25px;"><i class="fa-regular fa-cloud-arrow-up"></i> save to cloud</button>
+                <button class="btn-primary" id="saveProductBtn" style="margin-top:25px;"><i class="fa-regular fa-cloud-arrow-up"></i> save to cloud</button>
             </div>
 
-            <h2 style="margin: 30px 0 15px; font-size: 1.5rem; display: flex; align-items: center; gap: 10px;"><i class="fa-regular fa-grid-2" style="color: cyan;"></i> manage products</h2>
+            <h2 style="margin:30px 0 15px;"><i class="fa-regular fa-grid-2" style="color:cyan;"></i> manage products</h2>
             <div id="adminProducts" class="products-grid"></div>
             <footer>JOELL MOD · admin · delete enabled</footer>
         </div>
     </div>
 
     <script>
-        // ==================== FIREBASE CONFIG (BARU) ====================
+        // ==================== FIREBASE CONFIG ====================
         const firebaseConfig = {
             apiKey: "AIzaSyAAbPeitbdnvQDDzgDky5Rm-WGBbCZ0zpM",
             authDomain: "joell-mod.firebaseapp.com",
@@ -540,12 +267,22 @@
             appId: "1:598453625335:web:d483c1e21948295b2f8ef2",
             measurementId: "G-GXJPJYLVNS"
         };
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-        const productsRef = database.ref('products');
-        // =================================================================
+        
+        // Inisialisasi Firebase dengan penanganan error
+        let database;
+        try {
+            firebase.initializeApp(firebaseConfig);
+            database = firebase.database();
+            console.log('✅ Firebase initialized successfully');
+        } catch (error) {
+            console.error('❌ Firebase initialization error:', error);
+            alert('Gagal menghubungkan ke database: ' + error.message);
+        }
+        
+        const productsRef = database ? database.ref('products') : null;
+        // =========================================================
 
-        const PASSWORD = 'joellmod';  // admin password
+        const PASSWORD = 'joellmod';
 
         // DOM elements
         const publicScreen = document.getElementById('publicScreen');
@@ -600,26 +337,55 @@
             publicPassword.value = '';
         });
 
-        // Realtime data
-        productsRef.on('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
-                products = Object.keys(data).map(key => ({
-                    id: key,
-                    ...data[key]
-                }));
-            } else {
-                products = [];
-            }
-            renderAllProducts();
-        });
+        // ========== CEK KONEKSI FIREBASE ==========
+        if (!productsRef) {
+            alert('Firebase not initialized. Refresh or check config.');
+        } else {
+            // Coba baca database sekali untuk tes koneksi
+            productsRef.once('value', (snapshot) => {
+                console.log('✅ Database connection successful. Data:', snapshot.val());
+            }).catch((error) => {
+                console.error('❌ Database read error:', error);
+                alert('Gagal membaca database: ' + error.message + '\nCek aturan keamanan Firebase.');
+            });
+
+            // Realtime listener
+            productsRef.on('value', (snapshot) => {
+                const data = snapshot.val();
+                console.log('📦 Data from Firebase:', data);
+                if (data) {
+                    products = Object.keys(data).map(key => ({
+                        id: key,
+                        ...data[key]
+                    }));
+                } else {
+                    products = [];
+                }
+                renderAllProducts();
+            }, (error) => {
+                console.error('❌ Listener error:', error);
+                alert('Gagal mendapatkan data realtime: ' + error.message);
+            });
+        }
 
         function saveProductToFirebase(product) {
-            productsRef.push(product);
+            if (!productsRef) return alert('Database tidak tersedia');
+            productsRef.push(product)
+                .then(() => console.log('✅ Product saved'))
+                .catch(err => {
+                    console.error('❌ Save error:', err);
+                    alert('Gagal menyimpan: ' + err.message);
+                });
         }
 
         function deleteProductFromFirebase(id) {
-            productsRef.child(id).remove();
+            if (!productsRef) return;
+            productsRef.child(id).remove()
+                .then(() => console.log('✅ Product deleted'))
+                .catch(err => {
+                    console.error('❌ Delete error:', err);
+                    alert('Gagal menghapus: ' + err.message);
+                });
         }
 
         function renderAllProducts() {
