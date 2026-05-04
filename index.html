@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>FT RAMOT SESSION 19.00 — Premium Manager</title>
-    <!-- Google Fonts & Font Awesome -->
+    <title>FT RAMOT SESSION — Premium Turnamen Manager</title>
+    <!-- Google Fonts + Font Awesome -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- html2canvas untuk screenshot poster -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -22,13 +24,12 @@
             color: #edf2ff;
         }
 
-        /* container mewah */
         .premium-container {
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* header dengan glassmorphism + glow */
+        /* Header mewah */
         .hero-section {
             display: flex;
             justify-content: space-between;
@@ -105,7 +106,7 @@
             text-shadow: 0 0 8px rgba(255,180,50,0.3);
         }
 
-        /* toolbar premium */
+        /* Toolbar */
         .action-bar {
             display: flex;
             flex-wrap: wrap;
@@ -173,7 +174,16 @@
             background: #991b1b80;
         }
 
-        /* tabel mewah */
+        .btn-success {
+            border-color: #10b981;
+            color: #a7f3d0;
+        }
+
+        .btn-success:hover {
+            background: #065f46b3;
+        }
+
+        /* Tabel mewah tanpa kolom hapus */
         .table-wrapper {
             border-radius: 2rem;
             background: rgba(8, 14, 26, 0.65);
@@ -181,14 +191,14 @@
             border: 1px solid rgba(45, 212, 191, 0.3);
             overflow-x: auto;
             box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.6);
-            transition: all 0.3s;
+            margin-bottom: 2rem;
         }
 
         .luxury-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.85rem;
-            min-width: 1100px;
+            min-width: 1000px;
         }
 
         .luxury-table th {
@@ -215,7 +225,6 @@
             background: rgba(45, 212, 191, 0.08);
         }
 
-        /* input style mewah */
         .luxury-input {
             background: rgba(12, 20, 35, 0.9);
             border: 1px solid #2d3a5e;
@@ -242,7 +251,6 @@
             max-width: 180px;
             text-align: left;
             font-weight: 600;
-            letter-spacing: -0.2px;
         }
 
         .total-gold {
@@ -255,26 +263,71 @@
             text-shadow: 0 0 5px rgba(255,180,0,0.4);
         }
 
-        .delete-icon {
-            background: none;
-            border: none;
-            color: #ff8a8a;
-            font-size: 1.3rem;
-            cursor: pointer;
-            transition: 0.2s;
-            width: 32px;
-            border-radius: 30px;
-        }
-
-        .delete-icon:hover {
-            color: #ff3a3a;
-            transform: scale(1.1);
-            background: #ff000020;
-        }
-
         .rank-badge {
             font-weight: 700;
             color: #7e8ef0;
+        }
+
+        /* Podium juara */
+        .podium-section {
+            margin: 1.5rem 0 2rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .podium-card {
+            background: rgba(10, 20, 35, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            min-width: 200px;
+            border: 1px solid rgba(255,215,0,0.3);
+            transition: transform 0.2s;
+            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.5);
+        }
+        .podium-card:hover {
+            transform: translateY(-5px);
+        }
+        .podium-card.first {
+            border-color: #FFD700;
+            background: linear-gradient(145deg, #2a2418, #1a1a2a);
+        }
+        .podium-card.second {
+            border-color: #C0C0C0;
+        }
+        .podium-card.third {
+            border-color: #CD7F32;
+        }
+        .podium-icon {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .podium-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+            color: #f0f3ff;
+        }
+        .podium-points {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFE68F, #FFB347);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .podium-label {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: #b9c7dd;
+            margin-top: 0.3rem;
+        }
+        @media (max-width: 780px) {
+            .podium-card { padding: 1rem; min-width: 150px; }
+            .podium-icon { font-size: 2.5rem; }
+            .podium-points { font-size: 1.3rem; }
         }
 
         .footer-note {
@@ -298,7 +351,7 @@
     </style>
 </head>
 <body>
-<div class="premium-container">
+<div class="premium-container" id="posterArea">
     <div class="hero-section">
         <div class="title-area">
             <h1><i class="fas fa-crown"></i> FT RAMOT · SESI 19.00</h1>
@@ -317,10 +370,12 @@
         <div class="btn-group">
             <button class="btn-premium btn-primary" id="addTeamBtn"><i class="fas fa-plus-circle"></i> Tambah Tim</button>
             <button class="btn-premium" id="resetDefaultBtn"><i class="fas fa-undo-alt"></i> Reset Data (Gambar)</button>
-            <button class="btn-premium btn-warning" id="clearAllBtn"><i class="fas fa-trash-alt"></i> Hapus Semua</button>
+            <button class="btn-premium btn-danger" id="clearAllBtn"><i class="fas fa-trash-alt"></i> Hapus Semua</button>
         </div>
         <div class="btn-group">
-            <span style="font-size:0.7rem; background: #0e1a2a80; padding: 4px 12px; border-radius: 30px;"><i class="fas fa-memory"></i> Auto-save · localStorage</span>
+            <button class="btn-premium btn-success" id="downloadPosterBtn"><i class="fas fa-camera"></i> Download Poster (PNG)</button>
+            <button class="btn-premium btn-success" id="exportCsvBtn"><i class="fas fa-file-csv"></i> Export CSV</button>
+            <span style="font-size:0.7rem; background: #0e1a2a80; padding: 4px 12px; border-radius: 30px;"><i class="fas fa-memory"></i> Auto-save</span>
         </div>
     </div>
 
@@ -328,16 +383,27 @@
         <table class="luxury-table" id="rankTable">
             <thead>
                 <tr>
-                    <th>#</th><th>TEAM</th><th>M1</th><th>M2</th><th>M3</th><th>KILL</th><th>PLACE</th><th>TOTAL</th><th><i class="fas fa-trash-alt"></i></th>
+                    <th>#</th>
+                    <th>TEAM</th>
+                    <th>M1</th>
+                    <th>M2</th>
+                    <th>M3</th>
+                    <th>KILL</th>
+                    <th>PLACE</th>
+                    <th>TOTAL</th>
                 </tr>
             </thead>
-            <tbody id="tableBody">
-                <!-- dynamic rows -->
-            </tbody>
+            <tbody id="tableBody"></tbody>
         </table>
     </div>
+
+    <!-- PODIUM JUARA 1,2,3 -->
+    <div class="podium-section" id="podiumContainer">
+        <!-- akan diisi js -->
+    </div>
+
     <div class="footer-note">
-        <span><i class="fas fa-chart-simple"></i> Sistem poin: Total = Kill + Place | M1, M2, M3 hanya statistik per match</span>
+        <span><i class="fas fa-chart-simple"></i> Sistem poin: Total = Kill + Place | M1, M2, M3 statistik per match</span>
         <span><i class="fas fa-database"></i> Data tersimpan otomatis</span>
     </div>
 </div>
@@ -345,36 +411,33 @@
 <script>
     // ---------- DATA AWAL PERSIS SEPERTI FOTO ----------
     const DEFAULT_DATA = [
-        { name: "🏀 bapa daeng",    m1: 24, m2: 18, m3: 29, kill: 48, place: 23 },
-        { name: "🔥 LUPI JUSTICE",  m1: 10, m2: 15, m3: 34, kill: 43, place: 16 },
-        { name: "👾 nyocot bet",    m1: 10, m2: 21, m3: 20, kill: 42, place: 9 },
-        { name: "anak mami",        m1: 30, m2: 12, m3: 4,  kill: 22, place: 24 },
-        { name: "RTS THUNDER VEIL", m1: 15, m2: 10, m3: 20, kill: 38, place: 7 },
-        { name: "SDW ESPORT",       m1: 11, m2: 23, m3: 10, kill: 35, place: 9 },
-        { name: "NEXARION",         m1: 16, m2: 7,  m3: 20, kill: 27, place: 16 },
-        { name: "mw tium",          m1: 11, m2: 10, m3: 20, kill: 35, place: 6 },
-        { name: "KomodoPrime",      m1: 10, m2: 10, m3: 20, kill: 40, place: 0 },
-        { name: "RUMA DZAKWAN",     m1: 10, m2: 10, m3: 20, kill: 40, place: 0 },
-        { name: "SATTING",          m1: 6,  m2: 22, m3: 11, kill: 14, place: 25 },
-        { name: "oemji star8",      m1: 8,  m2: 10, m3: 20, kill: 35, place: 3 }
+        { name: "NEW TIM",    m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",  m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",    m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",        m1: 0, m2: 0, m3: 0,  kill: 0, place: 0 },
+        { name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",       m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",         m1: 0, m2: 0,  m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",          m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",      m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",     m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",          m1: 0,  m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",      m1: 0,  m2: 0, m3: 0, kill: 0, place: 0 }
     ];
 
-    let teams = [];  // { id, name, m1, m2, m3, kill, place }
+    let teams = [];
 
-    // Helper: generate ID
     function genId() { return Date.now() + '-' + Math.random().toString(36).substr(2, 6); }
 
-    // Simpan ke localStorage
     function persistData() {
         const store = teams.map(t => ({
             id: t.id, name: t.name, m1: t.m1, m2: t.m2, m3: t.m3, kill: t.kill, place: t.place
         }));
-        localStorage.setItem('ff_luxury_manager', JSON.stringify(store));
+        localStorage.setItem('ff_luxury_manager_no_delete', JSON.stringify(store));
     }
 
-    // Load dari localStorage
     function loadFromStorage() {
-        const raw = localStorage.getItem('ff_luxury_manager');
+        const raw = localStorage.getItem('ff_luxury_manager_no_delete');
         if (!raw) return false;
         try {
             const parsed = JSON.parse(raw);
@@ -394,7 +457,6 @@
         return false;
     }
 
-    // Inisialisasi default (data gambar)
     function setDefaultData() {
         teams = DEFAULT_DATA.map((item, idx) => ({
             id: genId() + '-def' + idx,
@@ -407,9 +469,9 @@
         }));
         persistData();
         renderTable();
+        updatePodium();
     }
 
-    // Update total kill & total poin global (untuk statistik atas)
     function updateGlobalStats() {
         let totalKill = 0, totalPoints = 0;
         for (let t of teams) {
@@ -422,28 +484,62 @@
         document.getElementById('globalPoints').innerText = totalPoints;
     }
 
-    // Render tabel lengkap dengan input modern
+    // Urutkan berdasarkan TOTAL (kill+place) descending untuk menentukan juara
+    function getSortedByTotal() {
+        return [...teams].sort((a,b) => (b.kill+b.place) - (a.kill+a.place));
+    }
+
+    function updatePodium() {
+        const podiumDiv = document.getElementById('podiumContainer');
+        if (!podiumDiv) return;
+        const sorted = getSortedByTotal();
+        const winners = sorted.slice(0,3);
+        // Definisikan konfigurasi podium
+        const medals = [
+            { label: 'JUARA 1', icon: '🥇', class: 'first', color: '#FFD700' },
+            { label: 'JUARA 2', icon: '🥈', class: 'second', color: '#C0C0C0' },
+            { label: 'JUARA 3', icon: '🥉', class: 'third', color: '#CD7F32' }
+        ];
+        podiumDiv.innerHTML = '';
+        winners.forEach((winner, idx) => {
+            const medal = medals[idx];
+            if (!winner) return;
+            const totalPoints = winner.kill + winner.place;
+            const card = document.createElement('div');
+            card.className = `podium-card ${medal.class}`;
+            card.innerHTML = `
+                <div class="podium-icon">${medal.icon}</div>
+                <div class="podium-name">${winner.name}</div>
+                <div class="podium-points">${totalPoints} pts</div>
+                <div class="podium-label">${medal.label}</div>
+            `;
+            podiumDiv.appendChild(card);
+        });
+        if (winners.length === 0) {
+            podiumDiv.innerHTML = '<div style="text-align:center; padding:1rem; background:rgba(0,0,0,0.4); border-radius:2rem;">Belum ada data untuk menampilkan juara</div>';
+        }
+    }
+
     function renderTable() {
         const tbody = document.getElementById('tableBody');
         if (!tbody) return;
         tbody.innerHTML = '';
         if (teams.length === 0) {
             const emptyRow = document.createElement('tr');
-            emptyRow.innerHTML = `<td colspan="9" style="text-align:center; padding: 3rem; color:#9aaec9;"><i class="fas fa-folder-open"></i> Belum ada data, klik "+ Tambah Tim" atau reset data</td>`;
+            emptyRow.innerHTML = `<td colspan="8" style="text-align:center; padding: 3rem; color:#9aaec9;"><i class="fas fa-folder-open"></i> Belum ada data, klik "+ Tambah Tim" atau reset data</td>`;
             tbody.appendChild(emptyRow);
             updateGlobalStats();
+            updatePodium();
             return;
         }
 
         teams.forEach((team, idx) => {
             const row = tbody.insertRow();
             
-            // No urut
             const noCell = row.insertCell(0);
             noCell.innerText = idx + 1;
             noCell.className = 'rank-badge';
             
-            // Nama tim (editable)
             const nameCell = row.insertCell(1);
             const nameInput = document.createElement('input');
             nameInput.type = 'text';
@@ -452,7 +548,6 @@
             nameInput.placeholder = 'Nama tim';
             nameCell.appendChild(nameInput);
             
-            // M1, M2, M3, Kill, Place
             const m1Cell = row.insertCell(2);
             const m1Input = document.createElement('input');
             m1Input.type = 'number'; m1Input.value = team.m1; m1Input.className = 'luxury-input'; m1Input.step = 1;
@@ -478,39 +573,31 @@
             placeInput.type = 'number'; placeInput.value = team.place; placeInput.className = 'luxury-input';
             placeCell.appendChild(placeInput);
             
-            // TOTAL (auto dari kill+place)
             const totalCell = row.insertCell(7);
             const totalSpan = document.createElement('span');
             totalSpan.className = 'total-gold';
-            const totalVal = (team.kill + team.place);
-            totalSpan.innerText = totalVal;
+            totalSpan.innerText = team.kill + team.place;
             totalCell.appendChild(totalSpan);
             
-            // Delete button
-            const delCell = row.insertCell(8);
-            const delBtn = document.createElement('button');
-            delBtn.innerHTML = '<i class="fas fa-times-circle"></i>';
-            delBtn.className = 'delete-icon';
-            delCell.appendChild(delBtn);
-            
-            // ----- Event listeners untuk update data & sinkronisasi -----
             const updateModelAndUI = () => {
                 const newKill = parseInt(killInput.value) || 0;
                 const newPlace = parseInt(placeInput.value) || 0;
                 totalSpan.innerText = newKill + newPlace;
                 updateGlobalStats();
                 persistData();
+                updatePodium(); // update podium setiap perubahan data
             };
             
             nameInput.addEventListener('change', () => {
                 team.name = nameInput.value.trim() === '' ? 'Nameless' : nameInput.value.trim();
                 persistData();
                 updateGlobalStats();
+                updatePodium();
             });
-            
             m1Input.addEventListener('change', () => {
                 team.m1 = parseInt(m1Input.value) || 0;
                 persistData();
+                updatePodium(); // karena total tidak berubah, tapi jika ada perubahan M saja tidak perlu update podium sebenarnya, tetap aman
             });
             m2Input.addEventListener('change', () => {
                 team.m2 = parseInt(m2Input.value) || 0;
@@ -520,7 +607,6 @@
                 team.m3 = parseInt(m3Input.value) || 0;
                 persistData();
             });
-            
             killInput.addEventListener('change', () => {
                 team.kill = parseInt(killInput.value) || 0;
                 updateModelAndUI();
@@ -529,8 +615,6 @@
                 team.place = parseInt(placeInput.value) || 0;
                 updateModelAndUI();
             });
-            
-            // preview realtime ketika mengetik kill / place
             killInput.addEventListener('input', () => {
                 let k = parseInt(killInput.value) || 0;
                 let p = parseInt(placeInput.value) || 0;
@@ -541,36 +625,22 @@
                 let p = parseInt(placeInput.value) || 0;
                 totalSpan.innerText = k + p;
             });
-            
-            // hapus tim
-            delBtn.addEventListener('click', () => {
-                const index = teams.findIndex(t => t.id === team.id);
-                if (index !== -1) {
-                    teams.splice(index, 1);
-                    renderTable();
-                    persistData();
-                    updateGlobalStats();
-                }
-            });
         });
         updateGlobalStats();
+        updatePodium();
     }
     
-    // tambah tim baru
     function addNewTeam() {
         const newTeam = {
             id: genId(),
             name: "Espoir New",
-            m1: 0,
-            m2: 0,
-            m3: 0,
-            kill: 0,
-            place: 0
+            m1: 0, m2: 0, m3: 0, kill: 0, place: 0
         };
         teams.push(newTeam);
         renderTable();
         persistData();
         updateGlobalStats();
+        updatePodium();
     }
     
     function resetToDefault() {
@@ -583,10 +653,80 @@
             renderTable();
             persistData();
             updateGlobalStats();
+            updatePodium();
         }
     }
+
+    // --- FITUR DOWNLOAD POSTER (PNG) ---
+    async function downloadPoster() {
+        const element = document.getElementById('posterArea');
+        if (!element) return;
+        const btn = document.getElementById('downloadPosterBtn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Memproses...';
+        btn.disabled = true;
+        try {
+            const canvas = await html2canvas(element, {
+                scale: 2,
+                backgroundColor: '#03050b',
+                logging: false,
+                useCORS: true
+            });
+            const link = document.createElement('a');
+            const timestamp = new Date().toISOString().slice(0,19).replace(/:/g, '-');
+            link.download = `FT_RAMOT_${timestamp}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        } catch (err) {
+            console.error(err);
+            alert('Terjadi kesalahan saat membuat poster.');
+        } finally {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+    }
+
+    // --- EKSPORT CSV (dengan tambahan data juara) ---
+    function exportToCSV() {
+        if (teams.length === 0) {
+            alert('Tidak ada data untuk diekspor.');
+            return;
+        }
+        let csvRows = [];
+        csvRows.push(['#', 'TEAM', 'M1', 'M2', 'M3', 'KILL', 'PLACE', 'TOTAL'].join(','));
+        teams.forEach((team, idx) => {
+            const row = [
+                idx + 1,
+                `"${team.name.replace(/"/g, '""')}"`,
+                team.m1, team.m2, team.m3, team.kill, team.place,
+                (team.kill + team.place)
+            ];
+            csvRows.push(row.join(','));
+        });
+        let totalKill = 0, totalPoints = 0;
+        teams.forEach(t => { totalKill += t.kill; totalPoints += (t.kill + t.place); });
+        csvRows.push(['', 'TOTAL KILL', '', '', '', totalKill, '', '']);
+        csvRows.push(['', 'TOTAL POIN', '', '', '', '', '', totalPoints]);
+        
+        // Sertakan podium
+        const sorted = getSortedByTotal();
+        csvRows.push(['', '=== PODIUM JUARA ===', '', '', '', '', '', '']);
+        if (sorted[0]) csvRows.push(['🥇 JUARA 1', sorted[0].name, '', '', '', '', '', sorted[0].kill + sorted[0].place]);
+        if (sorted[1]) csvRows.push(['🥈 JUARA 2', sorted[1].name, '', '', '', '', '', sorted[1].kill + sorted[1].place]);
+        if (sorted[2]) csvRows.push(['🥉 JUARA 3', sorted[2].name, '', '', '', '', '', sorted[2].kill + sorted[2].place]);
+        
+        const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        const timestamp = new Date().toISOString().slice(0,19).replace(/:/g, '-');
+        link.setAttribute('href', url);
+        link.setAttribute('download', `FT_RAMOT_data_${timestamp}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+    }
     
-    // initial load
     function init() {
         const stored = loadFromStorage();
         if (!stored || teams.length === 0) {
@@ -594,6 +734,7 @@
         } else {
             renderTable();
             updateGlobalStats();
+            updatePodium();
         }
     }
     
@@ -602,6 +743,8 @@
         document.getElementById('addTeamBtn').addEventListener('click', addNewTeam);
         document.getElementById('resetDefaultBtn').addEventListener('click', resetToDefault);
         document.getElementById('clearAllBtn').addEventListener('click', clearAll);
+        document.getElementById('downloadPosterBtn').addEventListener('click', downloadPoster);
+        document.getElementById('exportCsvBtn').addEventListener('click', exportToCSV);
     });
 </script>
 </body>
