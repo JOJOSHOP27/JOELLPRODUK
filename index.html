@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>FT RAMOT · SESI 19.00</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -15,201 +12,163 @@
         }
         body {
             background: radial-gradient(ellipse at 20% 30%, #0a0f2a, #03050b);
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            padding: 1rem;
-            min-height: 100vh;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            padding: 20px;
             color: #edf2ff;
         }
-        .premium-container {
+        .container {
             max-width: 1100px;
             margin: 0 auto;
         }
-        .hero-section {
-            background: rgba(15, 25, 45, 0.55);
-            backdrop-filter: blur(8px);
-            border-radius: 1rem;
-            padding: 0.5rem 1rem;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(0,255,255,0.2);
+        .card {
+            background: rgba(15, 25, 45, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid rgba(0,255,255,0.3);
         }
-        .title-area h1 {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: white;
-            text-shadow: 0 0 4px #7EE7FF;
+        h1 {
+            font-size: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            color: white;
+            text-shadow: 0 0 4px cyan;
         }
         .sub {
-            font-size: 0.65rem;
+            font-size: 0.75rem;
             color: #a0b3d9;
-            margin-top: 2px;
+            margin-top: 4px;
         }
-        .action-bar {
+        .toolbar {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            margin: 0.6rem 0;
-            gap: 6px;
+            gap: 10px;
+            margin-bottom: 1.2rem;
         }
-        .btn-premium {
-            background: rgba(20,30,55,0.7);
-            border: 1px solid rgba(80,160,255,0.4);
-            padding: 4px 10px;
-            border-radius: 30px;
-            font-size: 0.65rem;
-            font-weight: 600;
-            color: #eef2ff;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .btn-primary { background: linear-gradient(95deg,#0f2b3d,#1b4b6e); border-color: #2dd4bf; }
-        .btn-danger { border-color: #f87171; color: #ffe0e0; }
-        .btn-success { border-color: #10b981; color: #a7f3d0; }
-        
-        .table-wrapper {
-            background: rgba(8,14,26,0.65);
-            backdrop-filter: blur(8px);
-            border-radius: 1rem;
-            border: 1px solid rgba(45,212,191,0.3);
-            overflow-x: auto;
-            margin-bottom: 1rem;
-        }
-        .luxury-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.7rem;
-            table-layout: auto;
-            min-width: 580px;
-        }
-        .luxury-table th {
-            padding: 0.4rem 0.25rem;
-            background: rgba(0,0,0,0.4);
-            font-weight: 700;
-            font-size: 0.65rem;
-            color: #cbd5ff;
-            border-bottom: 1px solid #2dd4bf40;
-            white-space: nowrap;
-        }
-        .luxury-table td {
-            padding: 0.35rem 0.2rem;
-            text-align: center;
-            border-bottom: 1px solid rgba(45,212,191,0.15);
-            vertical-align: middle;
-            white-space: nowrap;
-        }
-        /* Kolom TEAM lebih kecil tapi tetap cukup */
-        .luxury-table td:nth-child(2),
-        .luxury-table th:nth-child(2) {
-            min-width: 100px;
-            max-width: 150px;
-            white-space: normal;
-            word-break: break-word;
-        }
-        .luxury-input {
-            background: rgba(12,20,35,0.9);
-            border: 1px solid #2d3a5e;
-            border-radius: 12px;
-            padding: 3px 4px;
-            width: 100%;
-            min-width: 50px;
-            max-width: 65px;
-            text-align: center;
-            font-size: 0.65rem;
-            color: #f0f3ff;
-        }
-        .team-input {
-            min-width: 90px;
-            max-width: 140px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 0.7rem;
-        }
-        .total-gold {
-            font-weight: 800;
-            color: #FFD966;
+        button {
+            background: rgba(20,30,55,0.85);
+            border: 1px solid #2dd4bf;
+            padding: 6px 14px;
+            border-radius: 2rem;
             font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
         }
+        button:hover { background: #1e2a4a; transform: translateY(-1px); }
+        button.danger { border-color: #f87171; }
+        button.warning { border-color: #f97316; }
         
-        .podium-table-wrapper {
-            background: rgba(8,14,26,0.65);
-            border-radius: 1rem;
-            border: 1px solid rgba(255,215,0,0.4);
-            margin-bottom: 1rem;
-            overflow-x: auto;
-            width: 100%;
-        }
-        .podium-table {
+        /* Tabel dengan fixed layout - semua kolom rapat tapi proporsional */
+        table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.7rem;
+            font-size: 0.85rem;
+            background: rgba(0,0,0,0.35);
+            border-radius: 1rem;
+            overflow: hidden;
             table-layout: fixed;
         }
-        .podium-table th, .podium-table td {
-            padding: 0.45rem 0.3rem;
+        th, td {
+            border: 1px solid rgba(45,212,191,0.3);
+            padding: 8px 4px;
             text-align: center;
-            border-bottom: 1px solid rgba(255,215,0,0.2);
+            vertical-align: middle;
         }
-        .podium-table th {
-            background: rgba(0,0,0,0.5);
-            color: #FFD966;
-            font-size: 0.7rem;
-            font-weight: 800;
-            border-bottom: 2px solid #FFD700;
+        th {
+            background: #0a0f1f;
+            color: #cbd5ff;
+            font-weight: 600;
         }
-        .podium-table tr:first-child td { font-weight: 800; color: #FFD700; }
-        .podium-table tr:nth-child(2) td { color: #C0C0C0; }
-        .podium-table tr:nth-child(3) td { color: #CD7F32; }
-        .podium-table th:nth-child(1), .podium-table td:nth-child(1) { width: 25%; }
-        .podium-table th:nth-child(2), .podium-table td:nth-child(2) { width: 50%; }
-        .podium-table th:nth-child(3), .podium-table td:nth-child(3) { width: 25%; }
+        /* Lebar kolom tetap dalam persen */
+        th:nth-child(1), td:nth-child(1) { width: 5%; }   /* # */
+        th:nth-child(2), td:nth-child(2) { width: 30%; }  /* TEAM */
+        th:nth-child(3), td:nth-child(3) { width: 8%; }   /* M1 */
+        th:nth-child(4), td:nth-child(4) { width: 8%; }   /* M2 */
+        th:nth-child(5), td:nth-child(5) { width: 8%; }   /* M3 */
+        th:nth-child(6), td:nth-child(6) { width: 10%; }  /* KILL */
+        th:nth-child(7), td:nth-child(7) { width: 10%; }  /* PLACE */
+        th:nth-child(8), td:nth-child(8) { width: 12%; }  /* TOTAL */
         
-        .footer-note {
-            margin-top: 1rem;
+        input {
+            width: 100%;
+            background: #0f172acc;
+            border: 1px solid #334155;
+            border-radius: 20px;
+            padding: 6px 4px;
             text-align: center;
-            font-size: 0.6rem;
-            color: #6a7c9e;
+            color: white;
+            font-size: 0.8rem;
+        }
+        .team-input {
+            text-align: left;
+            padding-left: 8px;
+        }
+        .total-cell {
+            font-weight: bold;
+            color: #facc15;
+            font-size: 0.9rem;
+        }
+        .podium {
+            margin-top: 1.2rem;
+            border: 1px solid #facc1540;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        .podium th, .podium td {
+            width: auto;
+        }
+        .podium th:nth-child(1), .podium td:nth-child(1) { width: 25%; }
+        .podium th:nth-child(2), .podium td:nth-child(2) { width: 50%; }
+        .podium th:nth-child(3), .podium td:nth-child(3) { width: 25%; }
+        .podium th { background: #1e1b2a; color: #facc15; }
+        .podium tr:first-child td { color: #FFD700; font-weight: bold; }
+        .podium tr:nth-child(2) td { color: #C0C0C0; }
+        .podium tr:nth-child(3) td { color: #CD7F32; }
+        .footer {
+            font-size: 0.65rem;
+            text-align: center;
+            margin-top: 1rem;
+            padding-top: 0.7rem;
             border-top: 1px solid #2dd4bf30;
-            padding-top: 0.6rem;
+            color: #6a7c9e;
             display: flex;
             justify-content: space-between;
         }
-        @media (max-width: 750px) {
-            body { padding: 0.6rem; }
-            .luxury-table { font-size: 0.65rem; min-width: 520px; }
-            .luxury-input { min-width: 45px; max-width: 60px; font-size: 0.6rem; }
-            .team-input { min-width: 80px; font-size: 0.65rem; }
-            .podium-table { font-size: 0.65rem; }
+        @media (max-width: 700px) {
+            body { padding: 12px; }
+            th, td { padding: 5px 2px; font-size: 0.75rem; }
+            input { font-size: 0.7rem; padding: 4px 2px; }
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
-<div class="premium-container" id="posterArea">
-    <div class="hero-section">
-        <div class="title-area">
-            <h1><i class="fas fa-crown"></i> FT RAMOT · SESI 19.00</h1>
-            <div class="sub">Edit langsung (Nama, M1, M2, M3, KILL, PLACE) | TOTAL = KILL + PLACE</div>
+<div class="container" id="posterArea">
+    <div class="card">
+        <h1>🏆 FT RAMOT · SESI 19.00</h1>
+        <div class="sub">Edit langsung (Nama, M1, M2, M3, KILL, PLACE) | TOTAL = KILL + PLACE</div>
+    </div>
+
+    <div class="toolbar" id="toolbar">
+        <div>
+            <button id="addBtn">+ Tambah Tim</button>
+            <button id="resetBtn" class="warning">↺ Reset</button>
+            <button id="clearBtn" class="danger">🗑 Hapus Semua</button>
+        </div>
+        <div>
+            <button id="posterBtn">📸 Download Poster (PNG)</button>
+            <button id="csvBtn">📄 Export CSV</button>
+            <span style="font-size:0.7rem;">💾 Auto-save</span>
         </div>
     </div>
 
-    <div class="action-bar" id="actionBar">
-        <div>
-            <button class="btn-premium btn-primary" id="addTeamBtn"><i class="fas fa-plus"></i> Tambah</button>
-            <button class="btn-premium btn-danger" id="clearAllBtn"><i class="fas fa-trash"></i> Hapus Semua</button>
-            <button class="btn-premium" id="resetDefaultBtn" style="border-color:#f97316;"><i class="fas fa-undo"></i> Reset</button>
-        </div>
-        <div>
-            <button class="btn-premium btn-success" id="downloadPosterBtn"><i class="fas fa-camera"></i> Poster</button>
-            <button class="btn-premium btn-success" id="exportCsvBtn"><i class="fas fa-file-csv"></i> CSV</button>
-            <span style="font-size:0.6rem;"><i class="fas fa-save"></i> Auto-save</span>
-        </div>
-    </div>
-
-    <div class="table-wrapper" id="tableWrapper">
-        <table class="luxury-table" id="rankTable">
+    <div style="overflow-x: auto; border-radius: 1rem;">
+        <table id="mainTable">
             <thead>
                 <tr><th>#</th><th>TEAM</th><th>M1</th><th>M2</th><th>M3</th><th>KILL</th><th>PLACE</th><th>TOTAL</th></tr>
             </thead>
@@ -217,138 +176,182 @@
         </table>
     </div>
 
-    <div class="podium-table-wrapper">
-        <table class="podium-table">
+    <div class="podium">
+        <table style="width:100%">
             <thead><tr><th>JUARA</th><th>NICKNAME</th><th>POINT</th></tr></thead>
-            <tbody id="podiumBody">
-                <tr><td>Juara 1</td><td>-</td><td>0</td></tr>
-                <tr><td>Juara 2</td><td>-</td><td>0</td></tr>
-                <tr><td>Juara 3</td><td>-</td><td>0</td></tr>
-            </tbody>
+            <tbody id="podiumBody"><tr><td>Juara 1</td><td>-</td><td>0</td></tr><tr><td>Juara 2</td><td>-</td><td>0</td></tr><tr><td>Juara 3</td><td>-</td><td>0</td></tr></tbody>
         </table>
     </div>
 
-    <div class="footer-note">
-        <span><i class="fas fa-chart-simple"></i> Total = Kill + Place</span>
-        <span><i class="fas fa-database"></i> Data tersimpan otomatis</span>
+    <div class="footer">
+        <span>📊 Total = KILL + PLACE | M1-M3 statistik per match</span>
+        <span>💾 Data tersimpan otomatis di browser</span>
     </div>
 </div>
 
 <script>
-    const DEFAULT_DATA = Array(12).fill().map(() => ({ name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 }));
     let teams = [];
+    const DEFAULT_TEAMS = Array(12).fill().map(() => ({ name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 }));
 
-    function genId() { return Date.now() + '-' + Math.random().toString(36).substr(2, 6); }
-    function persist() { localStorage.setItem('ff_rapat_fix_v5', JSON.stringify(teams.map(t => ({ id: t.id, name: t.name, m1: t.m1, m2: t.m2, m3: t.m3, kill: t.kill, place: t.place })))); }
+    function save() { localStorage.setItem('ft_ramot_dempet', JSON.stringify(teams)); }
     function load() {
-        let raw = localStorage.getItem('ff_rapat_fix_v5');
-        if (raw) {
-            try {
-                let p = JSON.parse(raw);
-                if (Array.isArray(p)) { teams = p.map(t => ({ id: t.id || genId(), name: t.name, m1: t.m1 ?? 0, m2: t.m2 ?? 0, m3: t.m3 ?? 0, kill: t.kill ?? 0, place: t.place ?? 0 })); return true; }
-            } catch(e) { console.warn(e); }
+        let data = localStorage.getItem('ft_ramot_dempet');
+        if (data) {
+            try { teams = JSON.parse(data); if (Array.isArray(teams) && teams.length) return true; } catch(e) {}
         }
         return false;
     }
-    function setDefault() {
-        teams = DEFAULT_DATA.map((d, i) => ({ id: genId()+'-'+i, name: d.name, m1: d.m1, m2: d.m2, m3: d.m3, kill: d.kill, place: d.place }));
-        persist(); renderTable(); updatePodium();
-    }
-    function getSortedByTotal() { return [...teams].sort((a,b) => (b.kill+b.place) - (a.kill+a.place)); }
+
     function updatePodium() {
-        let sorted = getSortedByTotal();
-        let podiumBody = document.getElementById('podiumBody');
+        const sorted = [...teams].sort((a,b) => (b.kill+b.place) - (a.kill+a.place));
+        const podiumBody = document.getElementById('podiumBody');
         podiumBody.innerHTML = '';
         for (let i = 0; i < 3; i++) {
             let row = podiumBody.insertRow();
             row.insertCell(0).innerText = `Juara ${i+1}`;
-            if (sorted[i]) { row.insertCell(1).innerText = sorted[i].name; row.insertCell(2).innerText = sorted[i].kill + sorted[i].place; }
-            else { row.insertCell(1).innerText = '-'; row.insertCell(2).innerText = '0'; }
+            if (sorted[i]) {
+                row.insertCell(1).innerText = sorted[i].name;
+                row.insertCell(2).innerText = sorted[i].kill + sorted[i].place;
+            } else {
+                row.insertCell(1).innerText = '-';
+                row.insertCell(2).innerText = '0';
+            }
         }
     }
-    function renderTable() {
-        let tbody = document.getElementById('tableBody');
+
+    function render() {
+        const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
-        if (teams.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:0.8rem;">Belum ada data</td></tr>'; updatePodium(); return; }
+        if (teams.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:1rem;">Belum ada data</td></tr>';
+            updatePodium();
+            return;
+        }
         teams.forEach((team, idx) => {
-            let row = tbody.insertRow();
+            const row = tbody.insertRow();
             row.insertCell(0).innerText = idx+1;
-            let nameCell = row.insertCell(1);
-            let nameInp = document.createElement('input'); nameInp.type='text'; nameInp.value=team.name; nameInp.className='luxury-input team-input';
-            nameCell.appendChild(nameInp);
-            let m1Cell = row.insertCell(2), m1Inp = document.createElement('input'); m1Inp.type='number'; m1Inp.value=team.m1; m1Inp.className='luxury-input'; m1Cell.appendChild(m1Inp);
-            let m2Cell = row.insertCell(3), m2Inp = document.createElement('input'); m2Inp.type='number'; m2Inp.value=team.m2; m2Inp.className='luxury-input'; m2Cell.appendChild(m2Inp);
-            let m3Cell = row.insertCell(4), m3Inp = document.createElement('input'); m3Inp.type='number'; m3Inp.value=team.m3; m3Inp.className='luxury-input'; m3Cell.appendChild(m3Inp);
-            let killCell = row.insertCell(5), killInp = document.createElement('input'); killInp.type='number'; killInp.value=team.kill; killInp.className='luxury-input'; killCell.appendChild(killInp);
-            let placeCell = row.insertCell(6), placeInp = document.createElement('input'); placeInp.type='number'; placeInp.value=team.place; placeInp.className='luxury-input'; placeCell.appendChild(placeInp);
-            let totalCell = row.insertCell(7), totalSpan = document.createElement('span'); totalSpan.className='total-gold'; totalSpan.innerText=team.kill+team.place; totalCell.appendChild(totalSpan);
-            function update() { let k = parseInt(killInp.value)||0, p = parseInt(placeInp.value)||0; totalSpan.innerText=k+p; persist(); updatePodium(); }
-            nameInp.onchange = () => { team.name = nameInp.value.trim()||'Nameless'; persist(); updatePodium(); };
-            m1Inp.onchange = () => { team.m1 = parseInt(m1Inp.value)||0; persist(); };
-            m2Inp.onchange = () => { team.m2 = parseInt(m2Inp.value)||0; persist(); };
-            m3Inp.onchange = () => { team.m3 = parseInt(m3Inp.value)||0; persist(); };
-            killInp.onchange = () => { team.kill = parseInt(killInp.value)||0; update(); };
-            placeInp.onchange = () => { team.place = parseInt(placeInp.value)||0; update(); };
-            killInp.oninput = () => { let k = parseInt(killInp.value)||0, p = parseInt(placeInp.value)||0; totalSpan.innerText = k+p; };
-            placeInp.oninput = () => { let k = parseInt(killInp.value)||0, p = parseInt(placeInp.value)||0; totalSpan.innerText = k+p; };
+            // TEAM
+            const nameCell = row.insertCell(1);
+            const nameInput = document.createElement('input');
+            nameInput.type = 'text';
+            nameInput.value = team.name;
+            nameInput.classList.add('team-input');
+            nameCell.appendChild(nameInput);
+            // M1
+            const m1Cell = row.insertCell(2);
+            const m1Input = document.createElement('input');
+            m1Input.type = 'number'; m1Input.value = team.m1;
+            m1Cell.appendChild(m1Input);
+            // M2
+            const m2Cell = row.insertCell(3);
+            const m2Input = document.createElement('input');
+            m2Input.type = 'number'; m2Input.value = team.m2;
+            m2Cell.appendChild(m2Input);
+            // M3
+            const m3Cell = row.insertCell(4);
+            const m3Input = document.createElement('input');
+            m3Input.type = 'number'; m3Input.value = team.m3;
+            m3Cell.appendChild(m3Input);
+            // KILL
+            const killCell = row.insertCell(5);
+            const killInput = document.createElement('input');
+            killInput.type = 'number'; killInput.value = team.kill;
+            killCell.appendChild(killInput);
+            // PLACE
+            const placeCell = row.insertCell(6);
+            const placeInput = document.createElement('input');
+            placeInput.type = 'number'; placeInput.value = team.place;
+            placeCell.appendChild(placeInput);
+            // TOTAL
+            const totalCell = row.insertCell(7);
+            const totalSpan = document.createElement('span');
+            totalSpan.className = 'total-cell';
+            totalSpan.innerText = team.kill + team.place;
+            totalCell.appendChild(totalSpan);
+
+            // event handlers
+            const updateTotal = () => {
+                let k = parseInt(killInput.value) || 0;
+                let p = parseInt(placeInput.value) || 0;
+                totalSpan.innerText = k + p;
+                save();
+                updatePodium();
+            };
+            nameInput.onchange = () => { team.name = nameInput.value.trim() || 'Nameless'; save(); updatePodium(); };
+            m1Input.onchange = () => { team.m1 = parseInt(m1Input.value) || 0; save(); };
+            m2Input.onchange = () => { team.m2 = parseInt(m2Input.value) || 0; save(); };
+            m3Input.onchange = () => { team.m3 = parseInt(m3Input.value) || 0; save(); };
+            killInput.onchange = () => { team.kill = parseInt(killInput.value) || 0; updateTotal(); };
+            placeInput.onchange = () => { team.place = parseInt(placeInput.value) || 0; updateTotal(); };
+            killInput.oninput = () => { let k = parseInt(killInput.value)||0, p = parseInt(placeInput.value)||0; totalSpan.innerText = k+p; };
+            placeInput.oninput = () => { let k = parseInt(killInput.value)||0, p = parseInt(placeInput.value)||0; totalSpan.innerText = k+p; };
         });
         updatePodium();
     }
-    function addTeam() { teams.push({ id: genId(), name: "NEW TIM", m1:0, m2:0, m3:0, kill:0, place:0 }); renderTable(); persist(); }
-    function clearAll() { if(confirm('Hapus semua data?')) { teams = []; renderTable(); persist(); } }
-    function resetDefault() { if(confirm('Reset ke data awal (12 NEW TIM dengan 0)?')) setDefault(); }
+
+    function addTeam() { teams.push({ name: "NEW TIM", m1:0, m2:0, m3:0, kill:0, place:0 }); render(); save(); }
+    function resetDefault() { teams = DEFAULT_TEAMS.map(t => ({ ...t })); render(); save(); }
+    function clearAll() { if(confirm('Hapus semua tim?')) { teams = []; render(); save(); } }
+
     async function downloadPoster() {
-        let actionBar = document.getElementById('actionBar');
-        let wrapper = document.getElementById('tableWrapper');
-        let origBar = actionBar.style.display;
-        let origOver = wrapper.style.overflowX;
-        let origWidth = wrapper.style.width;
-        actionBar.style.display = 'none';
-        wrapper.style.overflowX = 'visible';
-        wrapper.style.width = 'max-content';
-        let btn = document.getElementById('downloadPosterBtn');
-        let oldHtml = btn.innerHTML;
-        btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>';
-        btn.disabled = true;
+        // Simpan semua input menjadi span sementara
+        const inputs = document.querySelectorAll('#mainTable input');
+        const replacements = [];
+        inputs.forEach(inp => {
+            const span = document.createElement('span');
+            span.innerText = inp.value;
+            span.style.display = 'inline-block';
+            span.style.width = '100%';
+            span.style.textAlign = inp.classList.contains('team-input') ? 'left' : 'center';
+            span.style.padding = '6px 4px';
+            span.style.color = '#f0f3ff';
+            span.style.fontSize = '0.8rem';
+            if (inp.classList.contains('team-input')) span.style.fontWeight = '600';
+            replacements.push({ parent: inp.parentNode, input: inp, span });
+            inp.parentNode.replaceChild(span, inp);
+        });
+        const toolbar = document.getElementById('toolbar');
+        const origToolbar = toolbar.style.display;
+        toolbar.style.display = 'none';
         try {
-            let canvas = await html2canvas(document.getElementById('posterArea'), { scale: 2.5, backgroundColor: '#03050b', logging: false, useCORS: true, windowWidth: document.getElementById('posterArea').scrollWidth, windowHeight: document.getElementById('posterArea').scrollHeight });
-            let link = document.createElement('a');
+            const el = document.getElementById('posterArea');
+            const canvas = await html2canvas(el, { scale: 2.5, backgroundColor: '#03050b', logging: false, useCORS: true, windowWidth: el.scrollWidth, windowHeight: el.scrollHeight });
+            const link = document.createElement('a');
             link.download = `FT_RAMOT_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
         } catch(e) { alert('Gagal membuat poster'); }
         finally {
-            actionBar.style.display = origBar;
-            wrapper.style.overflowX = origOver;
-            wrapper.style.width = origWidth;
-            btn.innerHTML = oldHtml;
-            btn.disabled = false;
+            replacements.forEach(r => r.parent.replaceChild(r.input, r.span));
+            toolbar.style.display = origToolbar;
         }
     }
+
     function exportCSV() {
         if (!teams.length) { alert('Tidak ada data'); return; }
         let rows = [['#','TEAM','M1','M2','M3','KILL','PLACE','TOTAL'].join(',')];
-        teams.forEach((t,i) => rows.push([i+1,`"${t.name.replace(/"/g,'""')}"`,t.m1,t.m2,t.m3,t.kill,t.place,t.kill+t.place].join(',')));
-        let sorted = getSortedByTotal();
+        teams.forEach((t,i) => rows.push([i+1, `"${t.name.replace(/"/g,'""')}"`, t.m1, t.m2, t.m3, t.kill, t.place, t.kill+t.place].join(',')));
+        let sorted = [...teams].sort((a,b) => (b.kill+b.place) - (a.kill+a.place));
         rows.push(['', '=== PODIUM ===', '', '', '', '', '', '']);
         if(sorted[0]) rows.push(['Juara 1', sorted[0].name, '', '', '', '', '', sorted[0].kill+sorted[0].place]);
         if(sorted[1]) rows.push(['Juara 2', sorted[1].name, '', '', '', '', '', sorted[1].kill+sorted[1].place]);
         if(sorted[2]) rows.push(['Juara 3', sorted[2].name, '', '', '', '', '', sorted[2].kill+sorted[2].place]);
-        let blob = new Blob([rows.join('\n')], {type:'text/csv;charset=utf-8;'});
-        let a = document.createElement('a');
+        const blob = new Blob([rows.join('\n')], {type: 'text/csv;charset=utf-8'});
+        const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = `FT_RAMOT_data_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.csv`;
-        a.click(); URL.revokeObjectURL(a.href);
+        a.download = `FT_RAMOT_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.csv`;
+        a.click();
+        URL.revokeObjectURL(a.href);
     }
-    function init() { if(!load() || teams.length===0) setDefault(); else { renderTable(); updatePodium(); } }
-    document.addEventListener('DOMContentLoaded', () => {
-        init();
-        document.getElementById('addTeamBtn').onclick = addTeam;
-        document.getElementById('clearAllBtn').onclick = clearAll;
-        document.getElementById('resetDefaultBtn').onclick = resetDefault;
-        document.getElementById('downloadPosterBtn').onclick = downloadPoster;
-        document.getElementById('exportCsvBtn').onclick = exportCSV;
-    });
+
+    if (!load() || teams.length === 0) resetDefault();
+    else render();
+
+    document.getElementById('addBtn').onclick = addTeam;
+    document.getElementById('resetBtn').onclick = resetDefault;
+    document.getElementById('clearBtn').onclick = clearAll;
+    document.getElementById('posterBtn').onclick = downloadPoster;
+    document.getElementById('csvBtn').onclick = exportCSV;
 </script>
 </body>
 </html>
