@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>FT RAMOT SESSION — Premium Turnamen Manager</title>
+    <!-- Google Fonts + Font Awesome -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -15,14 +16,18 @@
         }
         body {
             background: radial-gradient(ellipse at 20% 30%, #0a0f2a, #03050b);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
             padding: 2rem 1.5rem;
             min-height: 100vh;
             color: #edf2ff;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
+        /* Container utama untuk screenshot - tanpa batasan tinggi/overflow */
         .premium-container {
             max-width: 1400px;
             margin: 0 auto;
+            overflow: visible; /* Pastikan tidak terpotong saat screenshot */
         }
         .hero-section {
             display: flex;
@@ -36,7 +41,7 @@
             backdrop-filter: blur(12px);
             border-radius: 2rem;
             border: 1px solid rgba(0, 255, 255, 0.25);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 0 1px rgba(0, 255, 255, 0.1) inset;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
         .title-area h1 {
             font-size: 2rem;
@@ -49,6 +54,7 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
+            font-family: inherit;
         }
         .title-area h1 i {
             background: none;
@@ -61,36 +67,7 @@
             margin-top: 8px;
             display: flex;
             gap: 20px;
-        }
-        .stats-glass {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            padding: 0.6rem 1.6rem;
-            border-radius: 60px;
-            border: 1px solid rgba(110, 231, 255, 0.4);
-            display: flex;
-            gap: 2rem;
-        }
-        .stat-item {
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-        }
-        .stat-label {
-            font-size: 0.7rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #9bb5e0;
-        }
-        .stat-number {
-            font-size: 1.7rem;
-            font-weight: 800;
-            background: linear-gradient(145deg, #FDE047, #FFB347);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            text-shadow: 0 0 8px rgba(255,180,50,0.3);
+            font-family: inherit;
         }
         .action-bar {
             display: flex;
@@ -119,6 +96,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            font-family: inherit;
         }
         .btn-premium i { font-size: 0.9rem; }
         .btn-primary {
@@ -155,6 +133,7 @@
             border-collapse: collapse;
             font-size: 0.85rem;
             min-width: 1000px;
+            font-family: inherit;
         }
         .luxury-table th {
             text-align: center;
@@ -165,12 +144,14 @@
             letter-spacing: 1px;
             color: #cbd5ff;
             border-bottom: 1px solid #2dd4bf40;
+            font-family: inherit;
         }
         .luxury-table td {
             padding: 0.9rem 0.5rem;
             text-align: center;
             border-bottom: 1px solid rgba(45, 212, 191, 0.15);
             vertical-align: middle;
+            font-family: inherit;
         }
         .luxury-table tr:hover td { background: rgba(45, 212, 191, 0.08); }
         .luxury-input {
@@ -185,7 +166,7 @@
             color: #f0f3ff;
             font-size: 0.85rem;
             transition: all 0.2s;
-            font-family: 'Inter', monospace;
+            font-family: inherit;
         }
         .luxury-input:focus {
             outline: none;
@@ -205,41 +186,47 @@
             -webkit-background-clip: text;
             color: transparent;
             font-size: 1.1rem;
+            font-family: inherit;
         }
         .rank-badge { font-weight: 700; color: #7e8ef0; }
-        .podium-section {
-            margin: 1.5rem 0 2rem 0;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-        .podium-card {
-            background: rgba(10, 20, 35, 0.7);
-            backdrop-filter: blur(12px);
+        
+        /* Tabel podium */
+        .podium-table-wrapper {
+            background: rgba(8, 14, 26, 0.65);
+            backdrop-filter: blur(16px);
             border-radius: 2rem;
-            padding: 1.5rem 2rem;
-            text-align: center;
-            min-width: 200px;
-            border: 1px solid rgba(255,215,0,0.3);
-            transition: transform 0.2s;
-            box-shadow: 0 10px 25px -8px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            overflow-x: auto;
+            margin-bottom: 2rem;
         }
-        .podium-card:hover { transform: translateY(-5px); }
-        .podium-card.first { border-color: #FFD700; background: linear-gradient(145deg, #2a2418, #1a1a2a); }
-        .podium-card.second { border-color: #C0C0C0; }
-        .podium-card.third { border-color: #CD7F32; }
-        .podium-icon { font-size: 3.5rem; margin-bottom: 0.5rem; }
-        .podium-name { font-size: 1.2rem; font-weight: 700; margin: 0.5rem 0; color: #f0f3ff; }
-        .podium-points {
-            font-size: 1.8rem;
+        .podium-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+            min-width: 300px;
+            font-family: inherit;
+        }
+        .podium-table th {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            color: #FFD966;
             font-weight: 800;
-            background: linear-gradient(135deg, #FFE68F, #FFB347);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #FFD700;
+            font-family: inherit;
         }
-        .podium-label { font-size: 0.7rem; letter-spacing: 2px; color: #b9c7dd; margin-top: 0.3rem; }
+        .podium-table td {
+            padding: 0.9rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+            font-weight: 500;
+            font-family: inherit;
+        }
+        .podium-table tr:first-child td { font-weight: 800; color: #FFD700; }
+        .podium-table tr:nth-child(2) td { color: #C0C0C0; }
+        .podium-table tr:nth-child(3) td { color: #CD7F32; }
+        
         .footer-note {
             margin-top: 2rem;
             text-align: center;
@@ -250,15 +237,13 @@
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
+            font-family: inherit;
         }
         @media (max-width: 780px) {
             body { padding: 1rem; }
             .luxury-input { max-width: 70px; font-size: 0.75rem; padding: 6px 4px; }
             .team-input { max-width: 120px; }
-            .stat-number { font-size: 1.2rem; }
-            .podium-card { padding: 1rem; min-width: 150px; }
-            .podium-icon { font-size: 2.5rem; }
-            .podium-points { font-size: 1.3rem; }
+            .podium-table { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -271,10 +256,6 @@
                 <span><i class="fas fa-edit"></i> Edit langsung (Nama, M1, M2, M3, KILL, PLACE)</span>
                 <span><i class="fas fa-chart-line"></i> TOTAL = KILL + PLACE</span>
             </div>
-        </div>
-        <div class="stats-glass">
-            <div class="stat-item"><span class="stat-label"><i class="fas fa-skull"></i> TOTAL KILL</span><span class="stat-number" id="globalKill">0</span></div>
-            <div class="stat-item"><span class="stat-label"><i class="fas fa-trophy"></i> TOTAL POIN</span><span class="stat-number" id="globalPoints">0</span></div>
         </div>
     </div>
 
@@ -297,7 +278,20 @@
         </table>
     </div>
 
-    <div class="podium-section" id="podiumContainer"></div>
+    <!-- PODIUM JUARA DALAM BENTUK TABEL -->
+    <div class="podium-table-wrapper">
+        <table class="podium-table" id="podiumTable">
+            <thead>
+                <tr><th>JUARA</th><th>NICKNAME</th><th>POINT</th></tr>
+            </thead>
+            <tbody id="podiumBody">
+                <tr><td>Juara 1</td><td>-</td><td>0</td></tr>
+                <tr><td>Juara 2</td><td>-</td><td>0</td></tr>
+                <tr><td>Juara 3</td><td>-</td><td>0</td></tr>
+            </tbody>
+        </table>
+    </div>
+
     <div class="footer-note">
         <span><i class="fas fa-chart-simple"></i> Sistem poin: Total = Kill + Place | M1, M2, M3 statistik per match</span>
         <span><i class="fas fa-database"></i> Data tersimpan otomatis</span>
@@ -336,34 +330,36 @@
     }
     function setDefault() {
         teams = DEFAULT_DATA.map((d, i) => ({ id: genId()+'-'+i, name: d.name, m1: d.m1, m2: d.m2, m3: d.m3, kill: d.kill, place: d.place }));
-        persist(); renderTable(); updatePodium();
+        persist(); renderTable(); updatePodiumTable();
     }
-    function updateGlobalStats() {
-        let totalKill = 0, totalPoints = 0;
-        teams.forEach(t => { totalKill += t.kill; totalPoints += (t.kill + t.place); });
-        document.getElementById('globalKill').innerText = totalKill;
-        document.getElementById('globalPoints').innerText = totalPoints;
-    }
+    
     function getSortedByTotal() { return [...teams].sort((a,b) => (b.kill+b.place) - (a.kill+a.place)); }
-    function updatePodium() {
-        const podiumDiv = document.getElementById('podiumContainer');
+    
+    function updatePodiumTable() {
         const sorted = getSortedByTotal();
-        const winners = sorted.slice(0,3);
-        const medals = [{ label:'JUARA 1', icon:'🥇', class:'first' }, { label:'JUARA 2', icon:'🥈', class:'second' }, { label:'JUARA 3', icon:'🥉', class:'third' }];
-        podiumDiv.innerHTML = '';
-        winners.forEach((w, idx) => {
-            if (!w) return;
-            let card = document.createElement('div');
-            card.className = `podium-card ${medals[idx].class}`;
-            card.innerHTML = `<div class="podium-icon">${medals[idx].icon}</div><div class="podium-name">${w.name}</div><div class="podium-points">${w.kill + w.place} pts</div><div class="podium-label">${medals[idx].label}</div>`;
-            podiumDiv.appendChild(card);
-        });
-        if (winners.length === 0) podiumDiv.innerHTML = '<div style="text-align:center; padding:1rem; background:rgba(0,0,0,0.4); border-radius:2rem;">Belum ada data</div>';
+        const podiumBody = document.getElementById('podiumBody');
+        podiumBody.innerHTML = '';
+        const titles = ['Juara 1', 'Juara 2', 'Juara 3'];
+        for (let i = 0; i < 3; i++) {
+            const row = podiumBody.insertRow();
+            const cellJuara = row.insertCell(0);
+            const cellNick = row.insertCell(1);
+            const cellPoint = row.insertCell(2);
+            cellJuara.innerText = titles[i];
+            if (sorted[i]) {
+                cellNick.innerText = sorted[i].name;
+                cellPoint.innerText = sorted[i].kill + sorted[i].place;
+            } else {
+                cellNick.innerText = '-';
+                cellPoint.innerText = '0';
+            }
+        }
     }
+    
     function renderTable() {
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
-        if (teams.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:3rem;">Belum ada data</td></tr>'; updateGlobalStats(); updatePodium(); return; }
+        if (teams.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:3rem;">Belum ada数据</td></tr>'; updatePodiumTable(); return; }
         teams.forEach((team, idx) => {
             let row = tbody.insertRow();
             row.insertCell(0).innerText = idx+1;
@@ -376,8 +372,8 @@
             let killCell = row.insertCell(5), killInp = document.createElement('input'); killInp.type='number'; killInp.value=team.kill; killInp.className='luxury-input'; killCell.appendChild(killInp);
             let placeCell = row.insertCell(6), placeInp = document.createElement('input'); placeInp.type='number'; placeInp.value=team.place; placeInp.className='luxury-input'; placeCell.appendChild(placeInp);
             let totalCell = row.insertCell(7), totalSpan = document.createElement('span'); totalSpan.className='total-gold'; totalSpan.innerText=team.kill+team.place; totalCell.appendChild(totalSpan);
-            const update = () => { let k=parseInt(killInp.value)||0, p=parseInt(placeInp.value)||0; totalSpan.innerText=k+p; updateGlobalStats(); persist(); updatePodium(); };
-            nameInp.onchange = () => { team.name = nameInp.value.trim()||'Nameless'; persist(); updateGlobalStats(); updatePodium(); };
+            const update = () => { let k=parseInt(killInp.value)||0, p=parseInt(placeInp.value)||0; totalSpan.innerText=k+p; persist(); updatePodiumTable(); };
+            nameInp.onchange = () => { team.name = nameInp.value.trim()||'Nameless'; persist(); updatePodiumTable(); };
             m1Inp.onchange = () => { team.m1 = parseInt(m1Inp.value)||0; persist(); };
             m2Inp.onchange = () => { team.m2 = parseInt(m2Inp.value)||0; persist(); };
             m3Inp.onchange = () => { team.m3 = parseInt(m3Inp.value)||0; persist(); };
@@ -386,10 +382,12 @@
             killInp.oninput = () => { let k=parseInt(killInp.value)||0, p=parseInt(placeInp.value)||0; totalSpan.innerText=k+p; };
             placeInp.oninput = () => { let k=parseInt(killInp.value)||0, p=parseInt(placeInp.value)||0; totalSpan.innerText=k+p; };
         });
-        updateGlobalStats(); updatePodium();
+        updatePodiumTable();
     }
     function addTeam() { teams.push({ id: genId(), name: "Tim Baru", m1:0,m2:0,m3:0,kill:0,place:0 }); renderTable(); persist(); }
     function clearAll() { if(confirm('Hapus semua data?')) { teams = []; renderTable(); persist(); } }
+    
+    // Download poster dengan penangkapan penuh (tidak terpotong)
     async function downloadPoster() {
         const actionBar = document.getElementById('actionBar');
         const originalDisplay = actionBar.style.display;
@@ -400,36 +398,51 @@
         btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Memproses...';
         btn.disabled = true;
         try {
-            const canvas = await html2canvas(element, { scale: 2, backgroundColor: '#03050b', logging: false });
+            // Pastikan element terlihat penuh
+            const canvas = await html2canvas(element, { 
+                scale: 2,
+                backgroundColor: '#03050b',
+                logging: false,
+                useCORS: true,
+                windowWidth: element.scrollWidth,
+                windowHeight: element.scrollHeight,
+                onclone: (clonedDoc, element) => {
+                    // Pastikan semua elemen yang di-clone memiliki font yang sama
+                    clonedDoc.body.style.fontFamily = "'Inter', 'Segoe UI', Arial, sans-serif";
+                }
+            });
             const link = document.createElement('a');
-            link.download = `FT_RAMOT_${new Date().toISOString().slice(0,19).replace(/:/g, '-')}.png`;
+            const timestamp = new Date().toISOString().slice(0,19).replace(/:/g, '-');
+            link.download = `FT_RAMOT_${timestamp}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
-        } catch(err) { alert('Gagal membuat poster'); } finally {
+        } catch(err) { 
+            console.error(err);
+            alert('Gagal membuat poster: ' + err.message); 
+        } finally {
             actionBar.style.display = originalDisplay;
             btn.innerHTML = originalText;
             btn.disabled = false;
         }
     }
+    
     function exportCSV() {
         if (!teams.length) { alert('Tidak ada data'); return; }
         let rows = [['#','TEAM','M1','M2','M3','KILL','PLACE','TOTAL'].join(',')];
         teams.forEach((t,i) => rows.push([i+1,`"${t.name.replace(/"/g,'""')}"`,t.m1,t.m2,t.m3,t.kill,t.place,t.kill+t.place].join(',')));
-        let totalKill=0, totalPoints=0; teams.forEach(t=>{ totalKill+=t.kill; totalPoints+=t.kill+t.place; });
-        rows.push(['', 'TOTAL KILL', '', '', '', totalKill, '', '']);
-        rows.push(['', 'TOTAL POIN', '', '', '', '', '', totalPoints]);
         let sorted = getSortedByTotal();
         rows.push(['', '=== PODIUM JUARA ===', '', '', '', '', '', '']);
-        if(sorted[0]) rows.push(['🥇 JUARA 1', sorted[0].name, '', '', '', '', '', sorted[0].kill+sorted[0].place]);
-        if(sorted[1]) rows.push(['🥈 JUARA 2', sorted[1].name, '', '', '', '', '', sorted[1].kill+sorted[1].place]);
-        if(sorted[2]) rows.push(['🥉 JUARA 3', sorted[2].name, '', '', '', '', '', sorted[2].kill+sorted[2].place]);
+        if(sorted[0]) rows.push(['Juara 1', sorted[0].name, '', '', '', '', '', sorted[0].kill+sorted[0].place]);
+        if(sorted[1]) rows.push(['Juara 2', sorted[1].name, '', '', '', '', '', sorted[1].kill+sorted[1].place]);
+        if(sorted[2]) rows.push(['Juara 3', sorted[2].name, '', '', '', '', '', sorted[2].kill+sorted[2].place]);
         let blob = new Blob([rows.join('\n')], {type:'text/csv;charset=utf-8;'});
         let a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
         a.download = `FT_RAMOT_data_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.csv`;
         a.click(); URL.revokeObjectURL(a.href);
     }
-    function init() { if(!load() || teams.length===0) setDefault(); else { renderTable(); updateGlobalStats(); updatePodium(); } }
+    
+    function init() { if(!load() || teams.length===0) setDefault(); else { renderTable(); updatePodiumTable(); } }
     document.addEventListener('DOMContentLoaded', () => {
         init();
         document.getElementById('addTeamBtn').onclick = addTeam;
