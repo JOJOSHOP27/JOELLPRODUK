@@ -2,283 +2,606 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FT RAMOT SESI 19.00 - Manager Turnamen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>FT RAMOT SESSION 19.00 — Premium Manager</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            background: #e9ecef;
-            font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
-            padding: 30px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: radial-gradient(ellipse at 20% 30%, #0a0f2a, #03050b);
+            font-family: 'Inter', sans-serif;
+            padding: 2rem 1.5rem;
             min-height: 100vh;
+            color: #edf2ff;
         }
-        .container {
-            max-width: 1300px;
-            width: 100%;
-            background: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            overflow-x: auto;
-            padding: 20px 20px 25px 20px;
+
+        /* container mewah */
+        .premium-container {
+            max-width: 1400px;
+            margin: 0 auto;
         }
-        .title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 18px;
-            color: #1e2a3a;
-            border-left: 5px solid #0d6efd;
-            padding-left: 15px;
+
+        /* header dengan glassmorphism + glow */
+        .hero-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1rem 1.5rem;
+            background: rgba(15, 25, 45, 0.55);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            border: 1px solid rgba(0, 255, 255, 0.25);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 0 1px rgba(0, 255, 255, 0.1) inset;
         }
-        .toolbar {
+
+        .title-area h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFFFFF, #7EE7FF, #A855F7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .title-area h1 i {
+            background: none;
+            color: #7EE7FF;
+            font-size: 1.8rem;
+        }
+
+        .sub {
+            font-size: 0.8rem;
+            color: #a0b3d9;
+            margin-top: 8px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .stats-glass {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            padding: 0.6rem 1.6rem;
+            border-radius: 60px;
+            border: 1px solid rgba(110, 231, 255, 0.4);
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #9bb5e0;
+        }
+
+        .stat-number {
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #FDE047, #FFB347);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 8px rgba(255,180,50,0.3);
+        }
+
+        /* toolbar premium */
+        .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.8rem 0 1.5rem 0;
+            gap: 15px;
+        }
+
+        .btn-group {
             display: flex;
             gap: 12px;
-            margin-bottom: 20px;
             flex-wrap: wrap;
-            align-items: center;
         }
-        button {
-            background: #f8f9fa;
-            border: 1px solid #ced4da;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 13px;
+
+        .btn-premium {
+            background: rgba(20, 30, 55, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(80, 160, 255, 0.5);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #eef2ff;
             cursor: pointer;
-            font-weight: 500;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-        button:hover {
-            background: #e9ecef;
+
+        .btn-premium i {
+            font-size: 0.9rem;
         }
+
         .btn-primary {
-            background: #0d6efd;
-            border-color: #0d6efd;
-            color: white;
+            background: linear-gradient(95deg, #0f2b3d, #1b4b6e);
+            border-color: #2dd4bf;
+            box-shadow: 0 2px 8px rgba(45,212,191,0.2);
         }
+
         .btn-primary:hover {
-            background: #0b5ed7;
+            transform: translateY(-2px);
+            background: linear-gradient(95deg, #1a4a6e, #2c6e96);
+            border-color: #5eead4;
+            box-shadow: 0 8px 20px rgba(45,212,191,0.3);
         }
+
+        .btn-warning {
+            border-color: #f97316;
+            color: #fed7aa;
+        }
+
+        .btn-warning:hover {
+            background: #7c2d12b3;
+            border-color: #fb923c;
+        }
+
         .btn-danger {
-            color: #dc3545;
-            border-color: #dc3545;
+            border-color: #f87171;
+            color: #ffe0e0;
         }
+
         .btn-danger:hover {
-            background: #dc3545;
-            color: white;
+            background: #991b1b80;
         }
-        .tourney-table {
+
+        /* tabel mewah */
+        .table-wrapper {
+            border-radius: 2rem;
+            background: rgba(8, 14, 26, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(45, 212, 191, 0.3);
+            overflow-x: auto;
+            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s;
+        }
+
+        .luxury-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 14px;
-            background: white;
+            font-size: 0.85rem;
+            min-width: 1100px;
         }
-        .tourney-table th, .tourney-table td {
-            border: 1px solid #dee2e6;
-            padding: 10px 8px;
+
+        .luxury-table th {
             text-align: center;
+            padding: 1.2rem 0.8rem;
+            background: rgba(0, 0, 0, 0.4);
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            color: #cbd5ff;
+            border-bottom: 1px solid #2dd4bf40;
+            text-transform: uppercase;
+        }
+
+        .luxury-table td {
+            padding: 0.9rem 0.5rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(45, 212, 191, 0.15);
             vertical-align: middle;
+            transition: background 0.2s;
         }
-        .tourney-table th {
-            background-color: #f1f3f5;
-            font-weight: 700;
-            color: #1e2a3a;
+
+        .luxury-table tr:hover td {
+            background: rgba(45, 212, 191, 0.08);
         }
-        .tourney-table td:first-child {
-            font-weight: 500;
-            width: 45px;
-        }
-        .tourney-table td:nth-child(2) {
-            text-align: left;
-            font-weight: 500;
-        }
-        .editable-input {
+
+        /* input style mewah */
+        .luxury-input {
+            background: rgba(12, 20, 35, 0.9);
+            border: 1px solid #2d3a5e;
+            border-radius: 28px;
+            padding: 8px 12px;
             width: 100%;
-            border: none;
-            background: transparent;
+            max-width: 130px;
             text-align: center;
-            font-size: 14px;
-            padding: 6px 4px;
-            font-family: inherit;
+            font-weight: 500;
+            color: #f0f3ff;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            font-family: 'Inter', monospace;
+        }
+
+        .luxury-input:focus {
             outline: none;
-            border-radius: 4px;
+            border-color: #2dd4bf;
+            box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.3);
+            background: #0a1428;
         }
-        .editable-input:hover {
-            background: #f8f9fa;
-        }
-        .editable-input:focus {
-            background: #fff;
-            box-shadow: 0 0 0 2px #0d6efd40;
-            border: 1px solid #86b7fe;
-        }
+
         .team-input {
+            max-width: 180px;
             text-align: left;
+            font-weight: 600;
+            letter-spacing: -0.2px;
         }
-        .total-cell {
-            font-weight: 700;
-            background-color: #fef9e6;
+
+        .total-gold {
+            font-weight: 800;
+            background: linear-gradient(145deg, #FFE68F, #FFB347);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            font-size: 1.1rem;
+            text-shadow: 0 0 5px rgba(255,180,0,0.4);
         }
-        .delete-btn {
+
+        .delete-icon {
             background: none;
             border: none;
-            font-size: 18px;
+            color: #ff8a8a;
+            font-size: 1.3rem;
             cursor: pointer;
-            color: #dc3545;
-            font-weight: bold;
-            padding: 0 8px;
+            transition: 0.2s;
+            width: 32px;
+            border-radius: 30px;
         }
-        .delete-btn:hover {
-            color: #a71d2a;
+
+        .delete-icon:hover {
+            color: #ff3a3a;
+            transform: scale(1.1);
+            background: #ff000020;
         }
+
+        .rank-badge {
+            font-weight: 700;
+            color: #7e8ef0;
+        }
+
         .footer-note {
-            margin-top: 20px;
-            font-size: 12px;
-            text-align: right;
-            color: #6c757d;
-            border-top: 1px solid #dee2e6;
-            padding-top: 12px;
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #6a7c9e;
+            border-top: 1px solid #2dd4bf30;
+            padding-top: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
         }
-        @media (max-width: 800px) {
-            .container { padding: 12px; }
-            .tourney-table th, .tourney-table td { padding: 6px 4px; }
+
+        @media (max-width: 780px) {
+            body { padding: 1rem; }
+            .luxury-input { max-width: 70px; font-size: 0.75rem; padding: 6px 4px; }
+            .team-input { max-width: 120px; }
+            .stat-number { font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="title">🏆 FT RAMOT SESI 19.00</div>
-    <div class="toolbar">
-        <button id="addRowBtn" class="btn-primary">+ Tambah Tim</button>
-        <button id="resetDefaultBtn">↺ Reset ke Data Awal (Gambar)</button>
-        <button id="clearAllBtn" class="btn-danger">🗑 Hapus Semua</button>
-        <span style="font-size:12px; margin-left: auto;">💡 Klik pada sel untuk mengedit | TOTAL otomatis = KILL+PLACE</span>
+<div class="premium-container">
+    <div class="hero-section">
+        <div class="title-area">
+            <h1><i class="fas fa-crown"></i> FT RAMOT · SESI 19.00</h1>
+            <div class="sub">
+                <span><i class="fas fa-edit"></i> Edit langsung (Nama, M1, M2, M3, KILL, PLACE)</span>
+                <span><i class="fas fa-chart-line"></i> TOTAL = KILL + PLACE</span>
+            </div>
+        </div>
+        <div class="stats-glass" id="globalStatsArea">
+            <div class="stat-item"><span class="stat-label"><i class="fas fa-skull"></i> TOTAL KILL</span><span class="stat-number" id="globalKill">0</span></div>
+            <div class="stat-item"><span class="stat-label"><i class="fas fa-trophy"></i> TOTAL POIN</span><span class="stat-number" id="globalPoints">0</span></div>
+        </div>
     </div>
-    <div style="overflow-x: auto;">
-        <table class="tourney-table" id="scoreTable">
+
+    <div class="action-bar">
+        <div class="btn-group">
+            <button class="btn-premium btn-primary" id="addTeamBtn"><i class="fas fa-plus-circle"></i> Tambah Tim</button>
+            <button class="btn-premium" id="resetDefaultBtn"><i class="fas fa-undo-alt"></i> Reset Data (Gambar)</button>
+            <button class="btn-premium btn-warning" id="clearAllBtn"><i class="fas fa-trash-alt"></i> Hapus Semua</button>
+        </div>
+        <div class="btn-group">
+            <span style="font-size:0.7rem; background: #0e1a2a80; padding: 4px 12px; border-radius: 30px;"><i class="fas fa-memory"></i> Auto-save · localStorage</span>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="luxury-table" id="rankTable">
             <thead>
-                <tr><th>#</th><th>TEAM</th><th>M1</th><th>M2</th><th>M3</th><th>KILL</th><th>PLACE</th><th>TOTAL</th><th style="width:45px"></th></tr>
+                <tr>
+                    <th>#</th><th>TEAM</th><th>M1</th><th>M2</th><th>M3</th><th>KILL</th><th>PLACE</th><th>TOTAL</th><th><i class="fas fa-trash-alt"></i></th>
+                </tr>
             </thead>
-            <tbody id="tableBody"></tbody>
-         </table>
+            <tbody id="tableBody">
+                <!-- dynamic rows -->
+            </tbody>
+        </table>
     </div>
     <div class="footer-note">
-        gridplay.mxrk.tech &nbsp;|&nbsp; Powered by &nbsp;|&nbsp; Data tersimpan otomatis
+        <span><i class="fas fa-chart-simple"></i> Sistem poin: Total = Kill + Place | M1, M2, M3 hanya statistik per match</span>
+        <span><i class="fas fa-database"></i> Data tersimpan otomatis</span>
     </div>
 </div>
 
 <script>
-    // Data PERSIS seperti gambar (urutan juara 1,2,3 sudah tepat)
-    const DEFAULT_TEAMS = [
-        { name: "🏀 bapa daeng", m1: 24, m2: 18, m3: 29, kill: 48, place: 23 },
-        { name: "🔥 LUPI JUSTICE", m1: 10, m2: 15, m3: 34, kill: 43, place: 16 },
-        { name: "👾 nyocot bet", m1: 10, m2: 21, m3: 20, kill: 42, place: 9 },
-        { name: "anak mami", m1: 30, m2: 12, m3: 4, kill: 22, place: 24 },
+    // ---------- DATA AWAL PERSIS SEPERTI FOTO ----------
+    const DEFAULT_DATA = [
+        { name: "🏀 bapa daeng",    m1: 24, m2: 18, m3: 29, kill: 48, place: 23 },
+        { name: "🔥 LUPI JUSTICE",  m1: 10, m2: 15, m3: 34, kill: 43, place: 16 },
+        { name: "👾 nyocot bet",    m1: 10, m2: 21, m3: 20, kill: 42, place: 9 },
+        { name: "anak mami",        m1: 30, m2: 12, m3: 4,  kill: 22, place: 24 },
         { name: "RTS THUNDER VEIL", m1: 15, m2: 10, m3: 20, kill: 38, place: 7 },
-        { name: "SDW ESPORT", m1: 11, m2: 23, m3: 10, kill: 35, place: 9 },
-        { name: "NEXARION", m1: 16, m2: 7, m3: 20, kill: 27, place: 16 },
-        { name: "mw tium", m1: 11, m2: 10, m3: 20, kill: 35, place: 6 },
-        { name: "KomodoPrime", m1: 10, m2: 10, m3: 20, kill: 40, place: 0 },
-        { name: "RUMA DZAKWAN", m1: 10, m2: 10, m3: 20, kill: 40, place: 0 },
-        { name: "SATTING", m1: 6, m2: 22, m3: 11, kill: 14, place: 25 },
-        { name: "oemji star8", m1: 8, m2: 10, m3: 20, kill: 35, place: 3 }
+        { name: "SDW ESPORT",       m1: 11, m2: 23, m3: 10, kill: 35, place: 9 },
+        { name: "NEXARION",         m1: 16, m2: 7,  m3: 20, kill: 27, place: 16 },
+        { name: "mw tium",          m1: 11, m2: 10, m3: 20, kill: 35, place: 6 },
+        { name: "KomodoPrime",      m1: 10, m2: 10, m3: 20, kill: 40, place: 0 },
+        { name: "RUMA DZAKWAN",     m1: 10, m2: 10, m3: 20, kill: 40, place: 0 },
+        { name: "SATTING",          m1: 6,  m2: 22, m3: 11, kill: 14, place: 25 },
+        { name: "oemji star8",      m1: 8,  m2: 10, m3: 20, kill: 35, place: 3 }
     ];
 
-    let teams = [];
+    let teams = [];  // { id, name, m1, m2, m3, kill, place }
 
+    // Helper: generate ID
     function genId() { return Date.now() + '-' + Math.random().toString(36).substr(2, 6); }
-    function saveToLocal() { localStorage.setItem('ft_ramot_final', JSON.stringify(teams.map(t => ({ ...t, id: t.id })))); }
-    function loadFromLocal() {
-        const raw = localStorage.getItem('ft_ramot_final');
-        if (raw) {
-            try {
-                let parsed = JSON.parse(raw);
-                if (Array.isArray(parsed) && parsed.length >= 0) {
-                    teams = parsed.map(p => ({ id: p.id || genId(), name: p.name, m1: p.m1 ?? 0, m2: p.m2 ?? 0, m3: p.m3 ?? 0, kill: p.kill ?? 0, place: p.place ?? 0 }));
-                    return true;
-                }
-            } catch(e) {}
-        }
+
+    // Simpan ke localStorage
+    function persistData() {
+        const store = teams.map(t => ({
+            id: t.id, name: t.name, m1: t.m1, m2: t.m2, m3: t.m3, kill: t.kill, place: t.place
+        }));
+        localStorage.setItem('ff_luxury_manager', JSON.stringify(store));
+    }
+
+    // Load dari localStorage
+    function loadFromStorage() {
+        const raw = localStorage.getItem('ff_luxury_manager');
+        if (!raw) return false;
+        try {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed) && parsed.length >= 0) {
+                teams = parsed.map(p => ({
+                    id: p.id || genId(),
+                    name: p.name || "Tim",
+                    m1: typeof p.m1 === 'number' ? p.m1 : 0,
+                    m2: typeof p.m2 === 'number' ? p.m2 : 0,
+                    m3: typeof p.m3 === 'number' ? p.m3 : 0,
+                    kill: typeof p.kill === 'number' ? p.kill : 0,
+                    place: typeof p.place === 'number' ? p.place : 0
+                }));
+                return true;
+            }
+        } catch(e) {}
         return false;
     }
-    function setDefault() {
-        teams = DEFAULT_TEAMS.map((item, idx) => ({ id: genId() + '-' + idx, ...item }));
-        saveToLocal();
+
+    // Inisialisasi default (data gambar)
+    function setDefaultData() {
+        teams = DEFAULT_DATA.map((item, idx) => ({
+            id: genId() + '-def' + idx,
+            name: item.name,
+            m1: item.m1,
+            m2: item.m2,
+            m3: item.m3,
+            kill: item.kill,
+            place: item.place
+        }));
+        persistData();
         renderTable();
     }
 
+    // Update total kill & total poin global (untuk statistik atas)
+    function updateGlobalStats() {
+        let totalKill = 0, totalPoints = 0;
+        for (let t of teams) {
+            let k = Number(t.kill) || 0;
+            let p = Number(t.place) || 0;
+            totalKill += k;
+            totalPoints += (k + p);
+        }
+        document.getElementById('globalKill').innerText = totalKill;
+        document.getElementById('globalPoints').innerText = totalPoints;
+    }
+
+    // Render tabel lengkap dengan input modern
     function renderTable() {
         const tbody = document.getElementById('tableBody');
         if (!tbody) return;
         tbody.innerHTML = '';
         if (teams.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding:40px;">Belum ada data. Klik "+ Tambah Tim" atau "Reset ke Data Awal"</td></tr>';
+            const emptyRow = document.createElement('tr');
+            emptyRow.innerHTML = `<td colspan="9" style="text-align:center; padding: 3rem; color:#9aaec9;"><i class="fas fa-folder-open"></i> Belum ada data, klik "+ Tambah Tim" atau reset data</td>`;
+            tbody.appendChild(emptyRow);
+            updateGlobalStats();
             return;
         }
+
         teams.forEach((team, idx) => {
             const row = tbody.insertRow();
-            row.insertCell(0).innerText = idx + 1;
-            // NAMA
+            
+            // No urut
+            const noCell = row.insertCell(0);
+            noCell.innerText = idx + 1;
+            noCell.className = 'rank-badge';
+            
+            // Nama tim (editable)
             const nameCell = row.insertCell(1);
             const nameInput = document.createElement('input');
-            nameInput.type = 'text'; nameInput.value = team.name; nameInput.className = 'editable-input team-input';
+            nameInput.type = 'text';
+            nameInput.value = team.name;
+            nameInput.className = 'luxury-input team-input';
+            nameInput.placeholder = 'Nama tim';
             nameCell.appendChild(nameInput);
-            // M1
+            
+            // M1, M2, M3, Kill, Place
             const m1Cell = row.insertCell(2);
-            const m1Input = document.createElement('input'); m1Input.type = 'number'; m1Input.value = team.m1; m1Input.className = 'editable-input';
+            const m1Input = document.createElement('input');
+            m1Input.type = 'number'; m1Input.value = team.m1; m1Input.className = 'luxury-input'; m1Input.step = 1;
             m1Cell.appendChild(m1Input);
-            // M2
+            
             const m2Cell = row.insertCell(3);
-            const m2Input = document.createElement('input'); m2Input.type = 'number'; m2Input.value = team.m2; m2Input.className = 'editable-input';
+            const m2Input = document.createElement('input');
+            m2Input.type = 'number'; m2Input.value = team.m2; m2Input.className = 'luxury-input';
             m2Cell.appendChild(m2Input);
-            // M3
+            
             const m3Cell = row.insertCell(4);
-            const m3Input = document.createElement('input'); m3Input.type = 'number'; m3Input.value = team.m3; m3Input.className = 'editable-input';
+            const m3Input = document.createElement('input');
+            m3Input.type = 'number'; m3Input.value = team.m3; m3Input.className = 'luxury-input';
             m3Cell.appendChild(m3Input);
-            // KILL
+            
             const killCell = row.insertCell(5);
-            const killInput = document.createElement('input'); killInput.type = 'number'; killInput.value = team.kill; killInput.className = 'editable-input';
+            const killInput = document.createElement('input');
+            killInput.type = 'number'; killInput.value = team.kill; killInput.className = 'luxury-input'; killInput.style.borderColor = '#facc1560';
             killCell.appendChild(killInput);
-            // PLACE
+            
             const placeCell = row.insertCell(6);
-            const placeInput = document.createElement('input'); placeInput.type = 'number'; placeInput.value = team.place; placeInput.className = 'editable-input';
+            const placeInput = document.createElement('input');
+            placeInput.type = 'number'; placeInput.value = team.place; placeInput.className = 'luxury-input';
             placeCell.appendChild(placeInput);
-            // TOTAL
+            
+            // TOTAL (auto dari kill+place)
             const totalCell = row.insertCell(7);
-            const totalSpan = document.createElement('span'); totalSpan.className = 'total-cell'; totalSpan.style.fontWeight = 'bold';
-            totalSpan.innerText = (team.kill + team.place);
+            const totalSpan = document.createElement('span');
+            totalSpan.className = 'total-gold';
+            const totalVal = (team.kill + team.place);
+            totalSpan.innerText = totalVal;
             totalCell.appendChild(totalSpan);
-            // Delete
+            
+            // Delete button
             const delCell = row.insertCell(8);
-            const delBtn = document.createElement('button'); delBtn.innerText = '✖'; delBtn.className = 'delete-btn';
+            const delBtn = document.createElement('button');
+            delBtn.innerHTML = '<i class="fas fa-times-circle"></i>';
+            delBtn.className = 'delete-icon';
             delCell.appendChild(delBtn);
-
-            // Events
-            nameInput.addEventListener('change', () => { team.name = nameInput.value.trim() || 'No Name'; saveToLocal(); });
-            m1Input.addEventListener('change', () => { team.m1 = parseInt(m1Input.value) || 0; saveToLocal(); });
-            m2Input.addEventListener('change', () => { team.m2 = parseInt(m2Input.value) || 0; saveToLocal(); });
-            m3Input.addEventListener('change', () => { team.m3 = parseInt(m3Input.value) || 0; saveToLocal(); });
-            killInput.addEventListener('change', () => { team.kill = parseInt(killInput.value) || 0; totalSpan.innerText = team.kill + team.place; saveToLocal(); });
-            placeInput.addEventListener('change', () => { team.place = parseInt(placeInput.value) || 0; totalSpan.innerText = team.kill + team.place; saveToLocal(); });
-            killInput.addEventListener('input', () => { let k = parseInt(killInput.value) || 0; totalSpan.innerText = k + (parseInt(placeInput.value) || 0); });
-            placeInput.addEventListener('input', () => { let p = parseInt(placeInput.value) || 0; totalSpan.innerText = (parseInt(killInput.value) || 0) + p; });
-            delBtn.addEventListener('click', () => { teams = teams.filter(t => t.id !== team.id); renderTable(); saveToLocal(); });
+            
+            // ----- Event listeners untuk update data & sinkronisasi -----
+            const updateModelAndUI = () => {
+                const newKill = parseInt(killInput.value) || 0;
+                const newPlace = parseInt(placeInput.value) || 0;
+                totalSpan.innerText = newKill + newPlace;
+                updateGlobalStats();
+                persistData();
+            };
+            
+            nameInput.addEventListener('change', () => {
+                team.name = nameInput.value.trim() === '' ? 'Nameless' : nameInput.value.trim();
+                persistData();
+                updateGlobalStats();
+            });
+            
+            m1Input.addEventListener('change', () => {
+                team.m1 = parseInt(m1Input.value) || 0;
+                persistData();
+            });
+            m2Input.addEventListener('change', () => {
+                team.m2 = parseInt(m2Input.value) || 0;
+                persistData();
+            });
+            m3Input.addEventListener('change', () => {
+                team.m3 = parseInt(m3Input.value) || 0;
+                persistData();
+            });
+            
+            killInput.addEventListener('change', () => {
+                team.kill = parseInt(killInput.value) || 0;
+                updateModelAndUI();
+            });
+            placeInput.addEventListener('change', () => {
+                team.place = parseInt(placeInput.value) || 0;
+                updateModelAndUI();
+            });
+            
+            // preview realtime ketika mengetik kill / place
+            killInput.addEventListener('input', () => {
+                let k = parseInt(killInput.value) || 0;
+                let p = parseInt(placeInput.value) || 0;
+                totalSpan.innerText = k + p;
+            });
+            placeInput.addEventListener('input', () => {
+                let k = parseInt(killInput.value) || 0;
+                let p = parseInt(placeInput.value) || 0;
+                totalSpan.innerText = k + p;
+            });
+            
+            // hapus tim
+            delBtn.addEventListener('click', () => {
+                const index = teams.findIndex(t => t.id === team.id);
+                if (index !== -1) {
+                    teams.splice(index, 1);
+                    renderTable();
+                    persistData();
+                    updateGlobalStats();
+                }
+            });
         });
+        updateGlobalStats();
     }
-
-    function addTeam() { teams.push({ id: genId(), name: "Tim Baru", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 }); renderTable(); saveToLocal(); }
-    function resetDefault() { setDefault(); }
-    function clearAll() { if(confirm('Hapus semua data?')){ teams = []; renderTable(); saveToLocal(); } }
-
+    
+    // tambah tim baru
+    function addNewTeam() {
+        const newTeam = {
+            id: genId(),
+            name: "Espoir New",
+            m1: 0,
+            m2: 0,
+            m3: 0,
+            kill: 0,
+            place: 0
+        };
+        teams.push(newTeam);
+        renderTable();
+        persistData();
+        updateGlobalStats();
+    }
+    
+    function resetToDefault() {
+        setDefaultData();
+    }
+    
+    function clearAll() {
+        if (confirm('⚠️ Hapus semua data tim? Semua poin akan hilang permanen.')) {
+            teams = [];
+            renderTable();
+            persistData();
+            updateGlobalStats();
+        }
+    }
+    
+    // initial load
+    function init() {
+        const stored = loadFromStorage();
+        if (!stored || teams.length === 0) {
+            setDefaultData();
+        } else {
+            renderTable();
+            updateGlobalStats();
+        }
+    }
+    
     document.addEventListener('DOMContentLoaded', () => {
-        if (!loadFromLocal() || teams.length === 0) setDefault();
-        else renderTable();
-        document.getElementById('addRowBtn').onclick = addTeam;
-        document.getElementById('resetDefaultBtn').onclick = resetDefault;
-        document.getElementById('clearAllBtn').onclick = clearAll;
+        init();
+        document.getElementById('addTeamBtn').addEventListener('click', addNewTeam);
+        document.getElementById('resetDefaultBtn').addEventListener('click', resetToDefault);
+        document.getElementById('clearAllBtn').addEventListener('click', clearAll);
     });
 </script>
 </body>
