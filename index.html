@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>FT JOELL - SESI 19:00</title>
-    <!-- Google Font: Playfair Display untuk judul elegan -->
+    <!-- Google Font: Playfair Display (elegan, bold) + Inter untuk body -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <!-- Font Awesome 6 (free) untuk ikon medali -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -24,7 +24,7 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        /* Header dengan judul di tengah - perbaiki agar jelas di PNG */
+        /* Header dengan judul di tengah */
         .hero-section {
             background: rgba(15, 25, 45, 0.6);
             backdrop-filter: blur(10px);
@@ -34,12 +34,13 @@
             border: 1px solid rgba(0,255,255,0.3);
             text-align: center;
         }
+        /* JUDUL: BOLD, ELEGAN, WARNA MEWAH (EMAS SOLID + BAYANGAN) */
         .title {
-            font-family: 'Playfair Display', 'Segoe UI', serif;
+            font-family: 'Playfair Display', 'Times New Roman', serif;
             font-size: 2.2rem;
             font-weight: 900;
-            color: #FFFFFF;  /* putih solid, pasti terlihat */
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: #FFD966;  /* emas solid, pasti terlihat di PNG */
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.6), 0 0 8px rgba(255,220,100,0.8);
             letter-spacing: -0.5px;
             margin-bottom: 6px;
         }
@@ -97,7 +98,7 @@
             font-weight: 700;
             font-size: 0.9rem;
         }
-        /* Lebar kolom persen agar rapat */
+        /* Lebar kolom persen agar rapat dan tidak melebar */
         th:nth-child(1), td:nth-child(1) { width: 5%; }
         th:nth-child(2), td:nth-child(2) { width: 28%; }
         th:nth-child(3), td:nth-child(3) { width: 8%; }
@@ -175,6 +176,7 @@
 <div class="container" id="posterArea">
     <div class="hero-section">
         <div class="title">FT JOELL - SESI 19:00</div>
+        <div class="sub">Edit langsung (Nama, M1, M2, M3, KILL, PLACE) | TOTAL = KILL + PLACE</div>
     </div>
 
     <div class="toolbar" id="toolbar">
@@ -208,6 +210,11 @@
                 <tr><td><i class="fas fa-medal"></i> Juara 3</td><td>-</td><td>0</td></tr>
             </tbody>
         </table>
+    </div>
+
+    <div class="footer">
+        <span>📊 Total = KILL + PLACE | M1-M3 statistik per match</span>
+        <span>💾 Data tersimpan otomatis di browser</span>
     </div>
 </div>
 
@@ -253,7 +260,7 @@
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
         if (teams.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:1rem;">Belum ada数据</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:1rem;">Belum ada data</td></tr>';
             updatePodium();
             return;
         }
@@ -345,7 +352,7 @@
             const el = document.getElementById('posterArea');
             const canvas = await html2canvas(el, { scale: 2.5, backgroundColor: '#03050b', logging: false, useCORS: true, windowWidth: el.scrollWidth, windowHeight: el.scrollHeight });
             const link = document.createElement('a');
-            link.download = `TOTAL_POINT_FTJOELL_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.png`;
+            link.download = `FT_JOELL_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
         } catch(e) { alert('Gagal membuat poster: ' + e.message); }
