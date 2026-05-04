@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>FT RAMOT SESI 19.00 — Turnamen Free Fire</title>
+    <title>FT RAMOT · SESI 19.00</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -13,209 +13,132 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             background: radial-gradient(ellipse at 20% 30%, #0a0f2a, #03050b);
             font-family: 'Inter', 'Segoe UI', sans-serif;
-            padding: 1.2rem;
+            padding: 1rem;
             min-height: 100vh;
             color: #edf2ff;
         }
-
-        /* container utama - lebih sempit agar tabel terlihat rapat */
         .premium-container {
             max-width: 1000px;
             margin: 0 auto;
-            overflow: visible;
         }
-
-        /* header minimalis */
         .hero-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
-            padding: 0.6rem 1rem;
             background: rgba(15, 25, 45, 0.55);
             backdrop-filter: blur(8px);
             border-radius: 1.2rem;
-            border: 1px solid rgba(0, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(0,255,255,0.2);
         }
-
         .title-area h1 {
             font-size: 1.3rem;
             font-weight: 800;
-            color: #fff;
+            color: white;
             text-shadow: 0 0 4px #7EE7FF;
             display: flex;
             align-items: center;
             gap: 6px;
         }
-
-        .title-area h1 i {
-            font-size: 1.2rem;
-            color: #7EE7FF;
-        }
-
         .sub {
             font-size: 0.6rem;
             color: #a0b3d9;
             margin-top: 2px;
-            display: flex;
-            gap: 12px;
         }
-
-        /* toolbar kompak */
         .action-bar {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            align-items: center;
-            margin: 0.8rem 0 0.8rem;
-            gap: 8px;
-        }
-
-        .btn-group {
-            display: flex;
+            margin: 0.8rem 0;
             gap: 6px;
-            flex-wrap: wrap;
         }
-
         .btn-premium {
-            background: rgba(20, 30, 55, 0.7);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(80, 160, 255, 0.4);
+            background: rgba(20,30,55,0.7);
+            border: 1px solid rgba(80,160,255,0.4);
             padding: 4px 10px;
             border-radius: 30px;
-            font-weight: 600;
             font-size: 0.65rem;
+            font-weight: 600;
             color: #eef2ff;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 4px;
         }
-
-        .btn-premium i {
-            font-size: 0.7rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(95deg, #0f2b3d, #1b4b6e);
-            border-color: #2dd4bf;
-        }
-
-        .btn-danger {
-            border-color: #f87171;
-            color: #ffe0e0;
-        }
-
-        .btn-success {
-            border-color: #10b981;
-            color: #a7f3d0;
-        }
-
-        /* wrapper tabel dengan overflow auto untuk scroll jika perlu, tapi tetap rapat */
+        .btn-primary { background: linear-gradient(95deg,#0f2b3d,#1b4b6e); border-color: #2dd4bf; }
+        .btn-danger { border-color: #f87171; color: #ffe0e0; }
+        .btn-success { border-color: #10b981; color: #a7f3d0; }
         .table-wrapper {
-            border-radius: 1rem;
-            background: rgba(8, 14, 26, 0.65);
+            background: rgba(8,14,26,0.65);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(45, 212, 191, 0.3);
+            border-radius: 1rem;
+            border: 1px solid rgba(45,212,191,0.3);
             overflow-x: auto;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
         }
-
-        /* tabel super rapat - semua padding & font minimal */
         .luxury-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.65rem;
-            min-width: 550px; /* cukup minimal */
+            min-width: 550px;
         }
-
         .luxury-table th {
-            text-align: center;
             padding: 0.35rem 0.2rem;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0,0,0,0.4);
             font-weight: 700;
             font-size: 0.6rem;
-            letter-spacing: 0px;
             color: #cbd5ff;
             border-bottom: 1px solid #2dd4bf40;
         }
-
         .luxury-table td {
             padding: 0.3rem 0.15rem;
             text-align: center;
-            border-bottom: 1px solid rgba(45, 212, 191, 0.15);
-            vertical-align: middle;
+            border-bottom: 1px solid rgba(45,212,191,0.15);
         }
-
-        /* input sangat rapat */
         .luxury-input {
-            background: rgba(12, 20, 35, 0.9);
+            background: rgba(12,20,35,0.9);
             border: 1px solid #2d3a5e;
             border-radius: 12px;
             padding: 2px 4px;
             width: 100%;
             max-width: 60px;
             text-align: center;
-            font-weight: 500;
-            color: #f0f3ff;
             font-size: 0.6rem;
+            color: #f0f3ff;
         }
-
         .team-input {
             max-width: 100px;
             text-align: left;
             font-weight: 600;
-            font-size: 0.65rem;
         }
-
         .total-gold {
             font-weight: 800;
             color: #FFD966;
             font-size: 0.7rem;
         }
-
-        .rank-badge {
-            font-weight: 700;
-            color: #7e8ef0;
-        }
-
-        /* podium juga rapat */
         .podium-table-wrapper {
-            background: rgba(8, 14, 26, 0.65);
-            backdrop-filter: blur(8px);
+            background: rgba(8,14,26,0.65);
             border-radius: 1rem;
-            border: 1px solid rgba(255, 215, 0, 0.4);
-            overflow-x: auto;
+            border: 1px solid rgba(255,215,0,0.4);
             margin-bottom: 1rem;
+            overflow-x: auto;
         }
-
         .podium-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.7rem;
-            min-width: 200px;
         }
-
         .podium-table th {
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0,0,0,0.5);
             padding: 0.4rem;
             color: #FFD966;
-            font-weight: 800;
             font-size: 0.65rem;
         }
-
         .podium-table td {
             padding: 0.3rem;
             text-align: center;
-            font-size: 0.65rem;
         }
-
         .footer-note {
             margin-top: 1rem;
             text-align: center;
@@ -225,16 +148,10 @@
             padding-top: 0.6rem;
             display: flex;
             justify-content: space-between;
-            flex-wrap: wrap;
         }
-
         @media (max-width: 700px) {
-            body { padding: 0.8rem; }
-            .luxury-input { max-width: 50px; font-size: 0.55rem; }
+            .luxury-input { max-width: 50px; }
             .team-input { max-width: 85px; }
-            .luxury-table { font-size: 0.6rem; min-width: 500px; }
-            .btn-premium { padding: 3px 8px; font-size: 0.6rem; }
-            .title-area h1 { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -243,30 +160,25 @@
     <div class="hero-section">
         <div class="title-area">
             <h1><i class="fas fa-crown"></i> FT RAMOT · SESI 19.00</h1>
-            <div class="sub">
-                <span><i class="fas fa-edit"></i> Edit langsung</span>
-                <span><i class="fas fa-chart-line"></i> TOTAL = KILL + PLACE</span>
-            </div>
+            <div class="sub">Edit langsung (Nama, M1, M2, M3, KILL, PLACE) | TOTAL = KILL + PLACE</div>
         </div>
     </div>
 
     <div class="action-bar" id="actionBar">
-        <div class="btn-group">
-            <button class="btn-premium btn-primary" id="addTeamBtn"><i class="fas fa-plus-circle"></i> Tambah</button>
-            <button class="btn-premium btn-danger" id="clearAllBtn"><i class="fas fa-trash-alt"></i> Hapus Semua</button>
+        <div>
+            <button class="btn-premium btn-primary" id="addTeamBtn"><i class="fas fa-plus"></i> Tambah</button>
+            <button class="btn-premium btn-danger" id="clearAllBtn"><i class="fas fa-trash"></i> Hapus Semua</button>
         </div>
-        <div class="btn-group">
+        <div>
             <button class="btn-premium btn-success" id="downloadPosterBtn"><i class="fas fa-camera"></i> Poster</button>
             <button class="btn-premium btn-success" id="exportCsvBtn"><i class="fas fa-file-csv"></i> CSV</button>
-            <span style="font-size:0.6rem;"><i class="fas fa-memory"></i> Auto-save</span>
+            <span style="font-size:0.6rem;"><i class="fas fa-save"></i> Auto-save</span>
         </div>
     </div>
 
     <div class="table-wrapper" id="tableWrapper">
         <table class="luxury-table" id="rankTable">
-            <thead>
-                <tr><th>#</th><th>TEAM</th><th>M1</th><th>M2</th><th>M3</th><th>KILL</th><th>PLACE</th><th>TOTAL</th></tr>
-            </thead>
+            <thead><tr><th>#</th><th>TEAM</th><th>M1</th><th>M2</th><th>M3</th><th>KILL</th><th>PLACE</th><th>TOTAL</th></tr></thead>
             <tbody id="tableBody"></tbody>
         </table>
     </div>
@@ -274,34 +186,30 @@
     <div class="podium-table-wrapper">
         <table class="podium-table">
             <thead><tr><th>JUARA</th><th>NICKNAME</th><th>POINT</th></tr></thead>
-            <tbody id="podiumBody">
-                <tr><td>Juara 1</td><td>-</td><td>0</td></tr>
-                <tr><td>Juara 2</td><td>-</td><td>0</td></tr>
-                <tr><td>Juara 3</td><td>-</td><td>0</td></tr>
-            </tbody>
+            <tbody id="podiumBody"><tr><td>Juara 1</td><td>-</td><td>0</td></tr><tr><td>Juara 2</td><td>-</td><td>0</td></tr><tr><td>Juara 3</td><td>-</td><td>0</td></tr></tbody>
         </table>
     </div>
 
     <div class="footer-note">
-        <span><i class="fas fa-chart-simple"></i> Total = Kill + Place | M1-M3 statistik</span>
-        <span><i class="fas fa-database"></i> Auto-save</span>
+        <span><i class="fas fa-chart-simple"></i> Total = Kill + Place</span>
+        <span><i class="fas fa-database"></i> Data tersimpan otomatis</span>
     </div>
 </div>
 
 <script>
-    // 12 tim default "NEW TIM" semua 0
+    // 12 tim bersih semua "NEW TIM" dan 0
     const DEFAULT_DATA = Array(12).fill().map(() => ({ name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 }));
     let teams = [];
 
     function genId() { return Date.now() + '-' + Math.random().toString(36).substr(2, 6); }
-    function persist() { localStorage.setItem('ff_rapat_manager', JSON.stringify(teams.map(t => ({ id: t.id, name: t.name, m1: t.m1, m2: t.m2, m3: t.m3, kill: t.kill, place: t.place })))); }
+    function persist() { localStorage.setItem('ff_rapat_fix', JSON.stringify(teams.map(t => ({ id: t.id, name: t.name, m1: t.m1, m2: t.m2, m3: t.m3, kill: t.kill, place: t.place })))); }
     function load() {
-        let raw = localStorage.getItem('ff_rapat_manager');
+        let raw = localStorage.getItem('ff_rapat_fix');
         if (raw) {
             try {
                 let p = JSON.parse(raw);
                 if (Array.isArray(p)) { teams = p.map(t => ({ id: t.id || genId(), name: t.name, m1: t.m1 ?? 0, m2: t.m2 ?? 0, m3: t.m3 ?? 0, kill: t.kill ?? 0, place: t.place ?? 0 })); return true; }
-            } catch(e) {}
+            } catch(e) { console.warn(e); }
         }
         return false;
     }
@@ -311,8 +219,8 @@
     }
     function getSortedByTotal() { return [...teams].sort((a,b) => (b.kill+b.place) - (a.kill+a.place)); }
     function updatePodium() {
-        const sorted = getSortedByTotal();
-        const podiumBody = document.getElementById('podiumBody');
+        let sorted = getSortedByTotal();
+        let podiumBody = document.getElementById('podiumBody');
         podiumBody.innerHTML = '';
         for (let i = 0; i < 3; i++) {
             let row = podiumBody.insertRow();
@@ -322,7 +230,7 @@
         }
     }
     function renderTable() {
-        const tbody = document.getElementById('tableBody');
+        let tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
         if (teams.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:1rem;">Belum ada data</td></tr>'; updatePodium(); return; }
         teams.forEach((team, idx) => {
@@ -337,44 +245,45 @@
             let killCell = row.insertCell(5), killInp = document.createElement('input'); killInp.type='number'; killInp.value=team.kill; killInp.className='luxury-input'; killCell.appendChild(killInp);
             let placeCell = row.insertCell(6), placeInp = document.createElement('input'); placeInp.type='number'; placeInp.value=team.place; placeInp.className='luxury-input'; placeCell.appendChild(placeInp);
             let totalCell = row.insertCell(7), totalSpan = document.createElement('span'); totalSpan.className='total-gold'; totalSpan.innerText=team.kill+team.place; totalCell.appendChild(totalSpan);
-            const update = () => { let k=parseInt(killInp.value)||0, p=parseInt(placeInp.value)||0; totalSpan.innerText=k+p; persist(); updatePodium(); };
+            function update() { let k = parseInt(killInp.value)||0, p = parseInt(placeInp.value)||0; totalSpan.innerText=k+p; persist(); updatePodium(); }
             nameInp.onchange = () => { team.name = nameInp.value.trim()||'Nameless'; persist(); updatePodium(); };
             m1Inp.onchange = () => { team.m1 = parseInt(m1Inp.value)||0; persist(); };
             m2Inp.onchange = () => { team.m2 = parseInt(m2Inp.value)||0; persist(); };
             m3Inp.onchange = () => { team.m3 = parseInt(m3Inp.value)||0; persist(); };
             killInp.onchange = () => { team.kill = parseInt(killInp.value)||0; update(); };
             placeInp.onchange = () => { team.place = parseInt(placeInp.value)||0; update(); };
-            killInp.oninput = () => { let k=parseInt(killInp.value)||0, p=parseInt(placeInp.value)||0; totalSpan.innerText=k+p; };
-            placeInp.oninput = () => { let k=parseInt(killInp.value)||0, p=parseInt(placeInp.value)||0; totalSpan.innerText=k+p; };
+            killInp.oninput = () => { let k = parseInt(killInp.value)||0, p = parseInt(placeInp.value)||0; totalSpan.innerText = k+p; };
+            placeInp.oninput = () => { let k = parseInt(killInp.value)||0, p = parseInt(placeInp.value)||0; totalSpan.innerText = k+p; };
         });
         updatePodium();
     }
-    function addTeam() { teams.push({ id: genId(), name: "NEW TIM", m1:0,m2:0,m3:0,kill:0,place:0 }); renderTable(); persist(); }
+    function addTeam() { teams.push({ id: genId(), name: "NEW TIM", m1:0, m2:0, m3:0, kill:0, place:0 }); renderTable(); persist(); }
     function clearAll() { if(confirm('Hapus semua data?')) { teams = []; renderTable(); persist(); } }
     async function downloadPoster() {
-        const actionBar = document.getElementById('actionBar');
-        const tableWrapper = document.getElementById('tableWrapper');
-        const originalDisplay = actionBar.style.display;
+        let actionBar = document.getElementById('actionBar');
+        let wrapper = document.getElementById('tableWrapper');
+        let origBar = actionBar.style.display;
+        let origOver = wrapper.style.overflowX;
+        let origWidth = wrapper.style.width;
         actionBar.style.display = 'none';
-        const originalOverflow = tableWrapper.style.overflowX;
-        const originalWidth = tableWrapper.style.width;
-        tableWrapper.style.overflowX = 'visible';
-        tableWrapper.style.width = 'max-content';
-        const btn = document.getElementById('downloadPosterBtn');
-        const originalText = btn.innerHTML;
+        wrapper.style.overflowX = 'visible';
+        wrapper.style.width = 'max-content';
+        let btn = document.getElementById('downloadPosterBtn');
+        let oldHtml = btn.innerHTML;
         btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>';
         btn.disabled = true;
         try {
-            const canvas = await html2canvas(document.getElementById('posterArea'), { scale: 2.5, backgroundColor: '#03050b', logging: false, useCORS: true, windowWidth: document.getElementById('posterArea').scrollWidth, windowHeight: document.getElementById('posterArea').scrollHeight });
-            const link = document.createElement('a');
-            link.download = `FT_RAMOT_${new Date().toISOString().slice(0,19).replace(/:/g, '-')}.png`;
+            let canvas = await html2canvas(document.getElementById('posterArea'), { scale: 2.5, backgroundColor: '#03050b', logging: false, useCORS: true, windowWidth: document.getElementById('posterArea').scrollWidth, windowHeight: document.getElementById('posterArea').scrollHeight });
+            let link = document.createElement('a');
+            link.download = `FT_RAMOT_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
-        } catch(err) { alert('Gagal membuat poster'); } finally {
-            tableWrapper.style.overflowX = originalOverflow;
-            tableWrapper.style.width = originalWidth;
-            actionBar.style.display = originalDisplay;
-            btn.innerHTML = originalText;
+        } catch(e) { alert('Gagal membuat poster'); }
+        finally {
+            actionBar.style.display = origBar;
+            wrapper.style.overflowX = origOver;
+            wrapper.style.width = origWidth;
+            btn.innerHTML = oldHtml;
             btn.disabled = false;
         }
     }
