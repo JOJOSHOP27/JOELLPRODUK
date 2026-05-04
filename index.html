@@ -116,19 +116,19 @@
             background: rgba(8, 14, 26, 0.65);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(45, 212, 191, 0.3);
-            overflow-x: auto;
+            overflow-x: auto; /* untuk scroll di browser, tapi saat screenshot diubah sementara */
             box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.6);
             margin-bottom: 2rem;
         }
         .luxury-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9rem; /* sedikit lebih besar */
+            font-size: 0.9rem;
             min-width: 1000px;
         }
         .luxury-table th {
             text-align: center;
-            padding: 1rem 0.8rem; /* padding ditambah */
+            padding: 1rem 0.8rem;
             background: rgba(0, 0, 0, 0.4);
             font-weight: 700;
             font-size: 0.85rem;
@@ -137,7 +137,7 @@
             border-bottom: 1px solid #2dd4bf40;
         }
         .luxury-table td {
-            padding: 0.9rem 0.6rem; /* lebih renggang */
+            padding: 0.9rem 0.6rem;
             text-align: center;
             border-bottom: 1px solid rgba(45, 212, 191, 0.15);
             vertical-align: middle;
@@ -233,6 +233,9 @@
     <div class="hero-section">
         <div class="title-area">
             <h1><i class="fas fa-crown"></i> FT RAMOT · SESI 19.00</h1>
+            <div class="sub">
+                <span><i class="fas fa-edit"></i> Edit langsung (Nama, M1, M2, M3, KILL, PLACE)</span>
+                <span><i class="fas fa-chart-line"></i> TOTAL = KILL + PLACE</span>
             </div>
         </div>
     </div>
@@ -249,7 +252,7 @@
         </div>
     </div>
 
-    <div class="table-wrapper">
+    <div class="table-wrapper" id="tableWrapper">
         <table class="luxury-table" id="rankTable">
             <thead>
                 <tr><th>#</th><th>TEAM</th><th>M1</th><th>M2</th><th>M3</th><th>KILL</th><th>PLACE</th><th>TOTAL</th></tr>
@@ -326,7 +329,7 @@
     function renderTable() {
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
-        if (teams.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:3rem;">Belum ada data</td></tr>'; updatePodiumTable(); return; }
+        if (teams.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:3rem;">Belum ada data</td><table>'; updatePodiumTable(); return; }
         teams.forEach((team, idx) => {
             let row = tbody.insertRow();
             row.insertCell(0).innerText = idx+1;
@@ -353,28 +356,52 @@
     }
     function addTeam() { teams.push({ id: genId(), name: "Tim Baru", m1:0,m2:0,m3:0,kill:0,place:0 }); renderTable(); persist(); }
     function clearAll() { if(confirm('Hapus semua data?')) { teams = []; renderTable(); persist(); } }
+    
     async function downloadPoster() {
         const actionBar = document.getElementById('actionBar');
+        const tableWrapper = document.getElementById('tableWrapper');
+        // Sembunyikan toolbar
         const originalDisplay = actionBar.style.display;
         actionBar.style.display = 'none';
+        // Simpan style asli wrapper
+        const originalOverflowX = tableWrapper.style.overflowX;
+        const originalWidth = tableWrapper.style.width;
+        // Ubah agar tabel tidak terpotong saat screenshot
+        tableWrapper.style.overflowX = 'visible';
+        tableWrapper.style.width = 'max-content';
+        tableWrapper.style.minWidth = '100%';
+        
         const element = document.getElementById('posterArea');
         const btn = document.getElementById('downloadPosterBtn');
         const originalText = btn.innerHTML;
         btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Memproses...';
         btn.disabled = true;
         try {
-            const originalOverflow = element.style.overflow;
-            element.style.overflow = 'visible';
-            const canvas = await html2canvas(element, { scale: 2.5, backgroundColor: '#03050b', logging: false, useCORS: true, windowWidth: element.scrollWidth, windowHeight: element.scrollHeight });
-            element.style.overflow = originalOverflow;
+            const canvas = await html2canvas(element, { 
+                scale: 2.5,
+                backgroundColor: '#03050b',
+                logging: false,
+                useCORS: true,
+                windowWidth: element.scrollWidth,
+                windowHeight: element.scrollHeight
+            });
             const link = document.createElement('a');
             const timestamp = new Date().toISOString().slice(0,19).replace(/:/g, '-');
             link.download = `FT_RAMOT_${timestamp}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
-        } catch(err) { alert('Gagal membuat poster: ' + err.message); } 
-        finally { actionBar.style.display = originalDisplay; btn.innerHTML = originalText; btn.disabled = false; }
+        } catch(err) { 
+            alert('Gagal membuat poster: ' + err.message); 
+        } finally {
+            // Kembalikan style wrapper
+            tableWrapper.style.overflowX = originalOverflowX;
+            tableWrapper.style.width = originalWidth;
+            actionBar.style.display = originalDisplay;
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
     }
+    
     function exportCSV() {
         if (!teams.length) { alert('Tidak ada data'); return; }
         let rows = [['#','TEAM','M1','M2','M3','KILL','PLACE','TOTAL'].join(',')];
@@ -390,6 +417,7 @@
         a.download = `FT_RAMOT_data_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.csv`;
         a.click(); URL.revokeObjectURL(a.href);
     }
+    
     function init() { if(!load() || teams.length===0) setDefault(); else { renderTable(); updatePodiumTable(); } }
     document.addEventListener('DOMContentLoaded', () => {
         init();
