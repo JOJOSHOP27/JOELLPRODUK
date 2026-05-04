@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>FT RAMOT SESSION — Turnamen Free fire</title>
-    <!-- Google Fonts + Font Awesome -->
+    <title>FT RAMOT SESI 19.00 — Turnamen Free Fire</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -21,9 +20,7 @@
             min-height: 100vh;
             color: #edf2ff;
             -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
         }
-        /* Container utama - pastikan tidak overflow tersembunyi */
         .premium-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -46,13 +43,12 @@
         .title-area h1 {
             font-size: 2rem;
             font-weight: 800;
-            color: #FFFFFF; /* warna solid agar pasti terlihat di screenshot */
+            color: #FFFFFF;
             text-shadow: 0 0 8px #7EE7FF, 0 0 2px #A855F7;
             letter-spacing: -0.3px;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            font-family: inherit;
         }
         .title-area h1 i {
             color: #7EE7FF;
@@ -65,7 +61,6 @@
             margin-top: 8px;
             display: flex;
             gap: 20px;
-            font-family: inherit;
         }
         .action-bar {
             display: flex;
@@ -94,7 +89,6 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-family: inherit;
         }
         .btn-premium i { font-size: 0.9rem; }
         .btn-primary {
@@ -117,23 +111,20 @@
             color: #a7f3d0;
         }
         .btn-success:hover { background: #065f46b3; }
-        
-        /* Tabel - diatur agar semua kolom terlihat tanpa scroll horizontal di screenshot */
         .table-wrapper {
             border-radius: 2rem;
             background: rgba(8, 14, 26, 0.65);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(45, 212, 191, 0.3);
-            overflow-x: auto; /* untuk scroll di browser, tapi screenshot akan capture full width */
+            overflow-x: auto;
             box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.6);
             margin-bottom: 2rem;
         }
         .luxury-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.8rem; /* sedikit diperkecil agar muat */
-            min-width: 900px; /* cukup untuk 8 kolom */
-            font-family: inherit;
+            font-size: 0.8rem;
+            min-width: 900px;
         }
         .luxury-table th {
             text-align: center;
@@ -144,14 +135,12 @@
             letter-spacing: 0.5px;
             color: #cbd5ff;
             border-bottom: 1px solid #2dd4bf40;
-            font-family: inherit;
         }
         .luxury-table td {
             padding: 0.7rem 0.3rem;
             text-align: center;
             border-bottom: 1px solid rgba(45, 212, 191, 0.15);
             vertical-align: middle;
-            font-family: inherit;
         }
         .luxury-table tr:hover td { background: rgba(45, 212, 191, 0.08); }
         .luxury-input {
@@ -166,7 +155,6 @@
             color: #f0f3ff;
             font-size: 0.75rem;
             transition: all 0.2s;
-            font-family: inherit;
         }
         .luxury-input:focus {
             outline: none;
@@ -184,14 +172,9 @@
             font-weight: 800;
             color: #FFD966;
             font-size: 0.9rem;
-            background: none;
-            -webkit-background-clip: unset;
-            background-clip: unset;
             text-shadow: 0 0 2px rgba(0,0,0,0.5);
         }
         .rank-badge { font-weight: 700; color: #7e8ef0; }
-        
-        /* Tabel podium */
         .podium-table-wrapper {
             background: rgba(8, 14, 26, 0.65);
             backdrop-filter: blur(16px);
@@ -205,7 +188,6 @@
             border-collapse: collapse;
             font-size: 0.95rem;
             min-width: 300px;
-            font-family: inherit;
         }
         .podium-table th {
             background: rgba(0, 0, 0, 0.5);
@@ -215,19 +197,16 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             border-bottom: 2px solid #FFD700;
-            font-family: inherit;
         }
         .podium-table td {
             padding: 0.7rem;
             text-align: center;
             border-bottom: 1px solid rgba(255, 215, 0, 0.2);
             font-weight: 500;
-            font-family: inherit;
         }
         .podium-table tr:first-child td { font-weight: 800; color: #FFD700; }
         .podium-table tr:nth-child(2) td { color: #C0C0C0; }
         .podium-table tr:nth-child(3) td { color: #CD7F32; }
-        
         .footer-note {
             margin-top: 2rem;
             text-align: center;
@@ -238,7 +217,6 @@
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            font-family: inherit;
         }
         @media (max-width: 780px) {
             body { padding: 1rem; }
@@ -255,6 +233,9 @@
         <div class="title-area">
             <h1><i class="fas fa-crown"></i> FT RAMOT · SESI 19.00</h1>
             <div class="sub">
+                <span><i class="fas fa-edit"></i> Edit langsung (Nama, M1, M2, M3, KILL, PLACE)</span>
+                <span><i class="fas fa-chart-line"></i> TOTAL = KILL + PLACE</span>
+            </div>
         </div>
     </div>
 
@@ -272,14 +253,11 @@
 
     <div class="table-wrapper">
         <table class="luxury-table" id="rankTable">
-            <thead>
-                <tr><th>#</th><th>TEAM</th><th>M1</th><th>M2</th><th>M3</th><th>KILL</th><th>PLACE</th><th>TOTAL</th></tr>
-            </thead>
+            <thead><tr><th>#</th><th>TEAM</th><th>M1</th><th>M2</th><th>M3</th><th>KILL</th><th>PLACE</th><th>TOTAL</th></tr></thead>
             <tbody id="tableBody"></tbody>
         </table>
     </div>
 
-    <!-- PODIUM JUARA -->
     <div class="podium-table-wrapper">
         <table class="podium-table" id="podiumTable">
             <thead><tr><th>JUARA</th><th>NICKNAME</th><th>POINT</th></tr></thead>
@@ -294,21 +272,20 @@
 </div>
 
 <script>
-    // ================= DATA PERSIS SEPERTI FOTO =================
+    // DEFAULT DATA: semua tim bernama "NEW TIM" dengan poin 0
     const DEFAULT_DATA = [
-        { name: "NEW TIM",    m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
-        { name: "NEW TIM",  m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
-        { name: "NEW TIM",    m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
-        { name: "NEW TIM",        m1: 3
-        0, m2: 0, m3: 0,  kill: 0, place: 0 },
         { name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
-        { name: "NEW TIM",       m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
-        { name: "NEW TIM",         m1: 0, m2: 0,  m3: 0, kill: 0, place: 0 },
-        { name: "NEW TIM",          m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
-        { name: "NEW TIM",      m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },, 
-        { name: "NEW TIM",     m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
-        { name: "NEW TIM",          m1: 0,  m2: 0, m3: 0, kill: 0, place: 0 },
-        { name: "NEW TIM",      m1: 0,  m2: 0, m3: 0, kill: 0, place: 0 }
+        { name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 }
     ];
 
     let teams = [];
@@ -328,9 +305,7 @@
         teams = DEFAULT_DATA.map((d, i) => ({ id: genId()+'-'+i, name: d.name, m1: d.m1, m2: d.m2, m3: d.m3, kill: d.kill, place: d.place }));
         persist(); renderTable(); updatePodiumTable();
     }
-    
     function getSortedByTotal() { return [...teams].sort((a,b) => (b.kill+b.place) - (a.kill+a.place)); }
-    
     function updatePodiumTable() {
         const sorted = getSortedByTotal();
         const podiumBody = document.getElementById('podiumBody');
@@ -338,24 +313,20 @@
         const titles = ['Juara 1', 'Juara 2', 'Juara 3'];
         for (let i = 0; i < 3; i++) {
             const row = podiumBody.insertRow();
-            const cellJuara = row.insertCell(0);
-            const cellNick = row.insertCell(1);
-            const cellPoint = row.insertCell(2);
-            cellJuara.innerText = titles[i];
+            row.insertCell(0).innerText = titles[i];
             if (sorted[i]) {
-                cellNick.innerText = sorted[i].name;
-                cellPoint.innerText = sorted[i].kill + sorted[i].place;
+                row.insertCell(1).innerText = sorted[i].name;
+                row.insertCell(2).innerText = sorted[i].kill + sorted[i].place;
             } else {
-                cellNick.innerText = '-';
-                cellPoint.innerText = '0';
+                row.insertCell(1).innerText = '-';
+                row.insertCell(2).innerText = '0';
             }
         }
     }
-    
     function renderTable() {
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
-        if (teams.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:3rem;">Belum ada data</td></tr>'; updatePodiumTable(); return; }
+        if (teams.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:3rem;">Belum ada数据</td></tr>'; updatePodiumTable(); return; }
         teams.forEach((team, idx) => {
             let row = tbody.insertRow();
             row.insertCell(0).innerText = idx+1;
@@ -382,8 +353,6 @@
     }
     function addTeam() { teams.push({ id: genId(), name: "Tim Baru", m1:0,m2:0,m3:0,kill:0,place:0 }); renderTable(); persist(); }
     function clearAll() { if(confirm('Hapus semua data?')) { teams = []; renderTable(); persist(); } }
-    
-    // Download poster dengan penangkapan penuh dan tampilan rapi
     async function downloadPoster() {
         const actionBar = document.getElementById('actionBar');
         const originalDisplay = actionBar.style.display;
@@ -394,36 +363,18 @@
         btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Memproses...';
         btn.disabled = true;
         try {
-            // Sementara set lebar container agar tidak overflow terpotong
             const originalOverflow = element.style.overflow;
             element.style.overflow = 'visible';
-            const canvas = await html2canvas(element, { 
-                scale: 2.5,
-                backgroundColor: '#03050b',
-                logging: false,
-                useCORS: true,
-                windowWidth: element.scrollWidth,
-                windowHeight: element.scrollHeight,
-                onclone: (clonedDoc, element) => {
-                    clonedDoc.body.style.fontFamily = "'Inter', 'Segoe UI', Arial, sans-serif";
-                }
-            });
+            const canvas = await html2canvas(element, { scale: 2.5, backgroundColor: '#03050b', logging: false, useCORS: true, windowWidth: element.scrollWidth, windowHeight: element.scrollHeight });
             element.style.overflow = originalOverflow;
             const link = document.createElement('a');
             const timestamp = new Date().toISOString().slice(0,19).replace(/:/g, '-');
             link.download = `FT_RAMOT_${timestamp}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
-        } catch(err) { 
-            console.error(err);
-            alert('Gagal membuat poster: ' + err.message); 
-        } finally {
-            actionBar.style.display = originalDisplay;
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        }
+        } catch(err) { alert('Gagal membuat poster: ' + err.message); } 
+        finally { actionBar.style.display = originalDisplay; btn.innerHTML = originalText; btn.disabled = false; }
     }
-    
     function exportCSV() {
         if (!teams.length) { alert('Tidak ada data'); return; }
         let rows = [['#','TEAM','M1','M2','M3','KILL','PLACE','TOTAL'].join(',')];
@@ -439,7 +390,6 @@
         a.download = `FT_RAMOT_data_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.csv`;
         a.click(); URL.revokeObjectURL(a.href);
     }
-    
     function init() { if(!load() || teams.length===0) setDefault(); else { renderTable(); updatePodiumTable(); } }
     document.addEventListener('DOMContentLoaded', () => {
         init();
