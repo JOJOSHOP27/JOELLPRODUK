@@ -16,61 +16,60 @@
         body {
             background: radial-gradient(ellipse at 20% 30%, #0a0f2a, #03050b);
             font-family: 'Inter', 'Segoe UI', sans-serif;
-            padding: 1.2rem;
+            padding: 1rem;
             min-height: 100vh;
             color: #edf2ff;
         }
         .premium-container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
         }
         .hero-section {
             background: rgba(15, 25, 45, 0.55);
             backdrop-filter: blur(8px);
-            border-radius: 1.2rem;
-            padding: 0.6rem 1rem;
+            border-radius: 1rem;
+            padding: 0.5rem 1rem;
             margin-bottom: 1rem;
             border: 1px solid rgba(0,255,255,0.2);
         }
         .title-area h1 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 800;
             color: white;
             text-shadow: 0 0 4px #7EE7FF;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
         .sub {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #a0b3d9;
-            margin-top: 4px;
+            margin-top: 2px;
         }
         .action-bar {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            margin: 0.8rem 0;
-            gap: 8px;
+            margin: 0.6rem 0;
+            gap: 6px;
         }
         .btn-premium {
             background: rgba(20,30,55,0.7);
             border: 1px solid rgba(80,160,255,0.4);
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 30px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 600;
             color: #eef2ff;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
         }
         .btn-primary { background: linear-gradient(95deg,#0f2b3d,#1b4b6e); border-color: #2dd4bf; }
         .btn-danger { border-color: #f87171; color: #ffe0e0; }
         .btn-success { border-color: #10b981; color: #a7f3d0; }
         
-        /* Tabel utama */
         .table-wrapper {
             background: rgba(8,14,26,0.65);
             backdrop-filter: blur(8px);
@@ -82,62 +81,61 @@
         .luxury-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             table-layout: auto;
-            min-width: 680px;
+            min-width: 580px;
         }
         .luxury-table th {
-            padding: 0.6rem 0.5rem;
+            padding: 0.4rem 0.25rem;
             background: rgba(0,0,0,0.4);
             font-weight: 700;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             color: #cbd5ff;
             border-bottom: 1px solid #2dd4bf40;
             white-space: nowrap;
         }
         .luxury-table td {
-            padding: 0.5rem 0.4rem;
+            padding: 0.35rem 0.2rem;
             text-align: center;
             border-bottom: 1px solid rgba(45,212,191,0.15);
             vertical-align: middle;
             white-space: nowrap;
         }
+        /* Kolom TEAM lebih kecil tapi tetap cukup */
         .luxury-table td:nth-child(2),
         .luxury-table th:nth-child(2) {
-            min-width: 130px;
-            max-width: 200px;
+            min-width: 100px;
+            max-width: 150px;
             white-space: normal;
             word-break: break-word;
         }
         .luxury-input {
             background: rgba(12,20,35,0.9);
             border: 1px solid #2d3a5e;
-            border-radius: 14px;
-            padding: 5px 6px;
+            border-radius: 12px;
+            padding: 3px 4px;
             width: 100%;
-            min-width: 65px;
-            max-width: 85px;
+            min-width: 50px;
+            max-width: 65px;
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             color: #f0f3ff;
         }
         .team-input {
-            min-width: 110px;
-            max-width: 180px;
+            min-width: 90px;
+            max-width: 140px;
             text-align: left;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
         }
         .total-gold {
             font-weight: 800;
             color: #FFD966;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
         }
         
-        /* Tabel podium - lebarnya disamakan dengan tabel utama */
         .podium-table-wrapper {
             background: rgba(8,14,26,0.65);
-            backdrop-filter: blur(8px);
             border-radius: 1rem;
             border: 1px solid rgba(255,215,0,0.4);
             margin-bottom: 1rem;
@@ -147,55 +145,44 @@
         .podium-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.8rem;
-            table-layout: fixed; /* agar kolom proporsional */
+            font-size: 0.7rem;
+            table-layout: fixed;
         }
-        .podium-table th,
-        .podium-table td {
-            padding: 0.6rem 0.5rem;
+        .podium-table th, .podium-table td {
+            padding: 0.45rem 0.3rem;
             text-align: center;
             border-bottom: 1px solid rgba(255,215,0,0.2);
         }
         .podium-table th {
             background: rgba(0,0,0,0.5);
             color: #FFD966;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 800;
-            letter-spacing: 1px;
             border-bottom: 2px solid #FFD700;
-        }
-        .podium-table td {
-            font-weight: 500;
         }
         .podium-table tr:first-child td { font-weight: 800; color: #FFD700; }
         .podium-table tr:nth-child(2) td { color: #C0C0C0; }
         .podium-table tr:nth-child(3) td { color: #CD7F32; }
-        
-        /* Atur lebar kolom podium agar seimbang */
-        .podium-table th:nth-child(1),
-        .podium-table td:nth-child(1) { width: 25%; }
-        .podium-table th:nth-child(2),
-        .podium-table td:nth-child(2) { width: 50%; }
-        .podium-table th:nth-child(3),
-        .podium-table td:nth-child(3) { width: 25%; }
+        .podium-table th:nth-child(1), .podium-table td:nth-child(1) { width: 25%; }
+        .podium-table th:nth-child(2), .podium-table td:nth-child(2) { width: 50%; }
+        .podium-table th:nth-child(3), .podium-table td:nth-child(3) { width: 25%; }
         
         .footer-note {
             margin-top: 1rem;
             text-align: center;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: #6a7c9e;
             border-top: 1px solid #2dd4bf30;
-            padding-top: 0.7rem;
+            padding-top: 0.6rem;
             display: flex;
             justify-content: space-between;
         }
         @media (max-width: 750px) {
-            body { padding: 0.8rem; }
-            .luxury-table { font-size: 0.7rem; min-width: 600px; }
-            .luxury-input { min-width: 55px; max-width: 70px; font-size: 0.7rem; }
-            .team-input { min-width: 100px; font-size: 0.75rem; }
-            .luxury-table td, .luxury-table th { padding: 0.4rem 0.3rem; }
-            .podium-table th, .podium-table td { padding: 0.4rem 0.3rem; }
+            body { padding: 0.6rem; }
+            .luxury-table { font-size: 0.65rem; min-width: 520px; }
+            .luxury-input { min-width: 45px; max-width: 60px; font-size: 0.6rem; }
+            .team-input { min-width: 80px; font-size: 0.65rem; }
+            .podium-table { font-size: 0.65rem; }
         }
     </style>
 </head>
@@ -217,7 +204,7 @@
         <div>
             <button class="btn-premium btn-success" id="downloadPosterBtn"><i class="fas fa-camera"></i> Poster</button>
             <button class="btn-premium btn-success" id="exportCsvBtn"><i class="fas fa-file-csv"></i> CSV</button>
-            <span style="font-size:0.65rem;"><i class="fas fa-save"></i> Auto-save</span>
+            <span style="font-size:0.6rem;"><i class="fas fa-save"></i> Auto-save</span>
         </div>
     </div>
 
@@ -252,9 +239,9 @@
     let teams = [];
 
     function genId() { return Date.now() + '-' + Math.random().toString(36).substr(2, 6); }
-    function persist() { localStorage.setItem('ff_rapat_fix_v4', JSON.stringify(teams.map(t => ({ id: t.id, name: t.name, m1: t.m1, m2: t.m2, m3: t.m3, kill: t.kill, place: t.place })))); }
+    function persist() { localStorage.setItem('ff_rapat_fix_v5', JSON.stringify(teams.map(t => ({ id: t.id, name: t.name, m1: t.m1, m2: t.m2, m3: t.m3, kill: t.kill, place: t.place })))); }
     function load() {
-        let raw = localStorage.getItem('ff_rapat_fix_v4');
+        let raw = localStorage.getItem('ff_rapat_fix_v5');
         if (raw) {
             try {
                 let p = JSON.parse(raw);
@@ -282,7 +269,7 @@
     function renderTable() {
         let tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
-        if (teams.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:1rem;">Belum ada data</td></tr>'; updatePodium(); return; }
+        if (teams.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:0.8rem;">Belum ada data</td></tr>'; updatePodium(); return; }
         teams.forEach((team, idx) => {
             let row = tbody.insertRow();
             row.insertCell(0).innerText = idx+1;
