@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>FT RAMOT SESSION — Premium Turnamen Manager</title>
+    <title>FT RAMOT SESSION — Turnamen Free fire</title>
     <!-- Google Fonts + Font Awesome -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -23,11 +23,11 @@
             -webkit-font-smoothing: antialiased;
             text-rendering: optimizeLegibility;
         }
-        /* Container utama untuk screenshot - tanpa batasan tinggi/overflow */
+        /* Container utama - pastikan tidak overflow tersembunyi */
         .premium-container {
             max-width: 1400px;
             margin: 0 auto;
-            overflow: visible; /* Pastikan tidak terpotong saat screenshot */
+            overflow: visible;
         }
         .hero-section {
             display: flex;
@@ -46,10 +46,8 @@
         .title-area h1 {
             font-size: 2rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #FFFFFF, #7EE7FF, #A855F7);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
+            color: #FFFFFF; /* warna solid agar pasti terlihat di screenshot */
+            text-shadow: 0 0 8px #7EE7FF, 0 0 2px #A855F7;
             letter-spacing: -0.3px;
             display: inline-flex;
             align-items: center;
@@ -57,9 +55,9 @@
             font-family: inherit;
         }
         .title-area h1 i {
-            background: none;
             color: #7EE7FF;
             font-size: 1.8rem;
+            text-shadow: none;
         }
         .sub {
             font-size: 0.8rem;
@@ -119,35 +117,37 @@
             color: #a7f3d0;
         }
         .btn-success:hover { background: #065f46b3; }
+        
+        /* Tabel - diatur agar semua kolom terlihat tanpa scroll horizontal di screenshot */
         .table-wrapper {
             border-radius: 2rem;
             background: rgba(8, 14, 26, 0.65);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(45, 212, 191, 0.3);
-            overflow-x: auto;
+            overflow-x: auto; /* untuk scroll di browser, tapi screenshot akan capture full width */
             box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.6);
             margin-bottom: 2rem;
         }
         .luxury-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.85rem;
-            min-width: 1000px;
+            font-size: 0.8rem; /* sedikit diperkecil agar muat */
+            min-width: 900px; /* cukup untuk 8 kolom */
             font-family: inherit;
         }
         .luxury-table th {
             text-align: center;
-            padding: 1.2rem 0.8rem;
+            padding: 0.8rem 0.4rem;
             background: rgba(0, 0, 0, 0.4);
             font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
             color: #cbd5ff;
             border-bottom: 1px solid #2dd4bf40;
             font-family: inherit;
         }
         .luxury-table td {
-            padding: 0.9rem 0.5rem;
+            padding: 0.7rem 0.3rem;
             text-align: center;
             border-bottom: 1px solid rgba(45, 212, 191, 0.15);
             vertical-align: middle;
@@ -157,36 +157,37 @@
         .luxury-input {
             background: rgba(12, 20, 35, 0.9);
             border: 1px solid #2d3a5e;
-            border-radius: 28px;
-            padding: 8px 12px;
+            border-radius: 20px;
+            padding: 6px 8px;
             width: 100%;
-            max-width: 130px;
+            max-width: 100px;
             text-align: center;
             font-weight: 500;
             color: #f0f3ff;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             transition: all 0.2s;
             font-family: inherit;
         }
         .luxury-input:focus {
             outline: none;
             border-color: #2dd4bf;
-            box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.3);
+            box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.3);
             background: #0a1428;
         }
         .team-input {
-            max-width: 180px;
+            max-width: 150px;
             text-align: left;
             font-weight: 600;
+            font-size: 0.8rem;
         }
         .total-gold {
             font-weight: 800;
-            background: linear-gradient(145deg, #FFE68F, #FFB347);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            font-size: 1.1rem;
-            font-family: inherit;
+            color: #FFD966;
+            font-size: 0.9rem;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+            text-shadow: 0 0 2px rgba(0,0,0,0.5);
         }
         .rank-badge { font-weight: 700; color: #7e8ef0; }
         
@@ -202,13 +203,13 @@
         .podium-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 1rem;
+            font-size: 0.95rem;
             min-width: 300px;
             font-family: inherit;
         }
         .podium-table th {
             background: rgba(0, 0, 0, 0.5);
-            padding: 1rem;
+            padding: 0.8rem;
             color: #FFD966;
             font-weight: 800;
             text-transform: uppercase;
@@ -217,7 +218,7 @@
             font-family: inherit;
         }
         .podium-table td {
-            padding: 0.9rem;
+            padding: 0.7rem;
             text-align: center;
             border-bottom: 1px solid rgba(255, 215, 0, 0.2);
             font-weight: 500;
@@ -241,9 +242,10 @@
         }
         @media (max-width: 780px) {
             body { padding: 1rem; }
-            .luxury-input { max-width: 70px; font-size: 0.75rem; padding: 6px 4px; }
-            .team-input { max-width: 120px; }
+            .luxury-input { max-width: 70px; font-size: 0.7rem; padding: 4px 4px; }
+            .team-input { max-width: 100px; }
             .podium-table { font-size: 0.8rem; }
+            .luxury-table { font-size: 0.7rem; min-width: 800px; }
         }
     </style>
 </head>
@@ -253,9 +255,6 @@
         <div class="title-area">
             <h1><i class="fas fa-crown"></i> FT RAMOT · SESI 19.00</h1>
             <div class="sub">
-                <span><i class="fas fa-edit"></i> Edit langsung (Nama, M1, M2, M3, KILL, PLACE)</span>
-                <span><i class="fas fa-chart-line"></i> TOTAL = KILL + PLACE</span>
-            </div>
         </div>
     </div>
 
@@ -273,22 +272,18 @@
 
     <div class="table-wrapper">
         <table class="luxury-table" id="rankTable">
-            <thead><tr><th>#</th><th>TEAM</th><th>M1</th><th>M2</th><th>M3</th><th>KILL</th><th>PLACE</th><th>TOTAL</th></tr></thead>
+            <thead>
+                <tr><th>#</th><th>TEAM</th><th>M1</th><th>M2</th><th>M3</th><th>KILL</th><th>PLACE</th><th>TOTAL</th></tr>
+            </thead>
             <tbody id="tableBody"></tbody>
         </table>
     </div>
 
-    <!-- PODIUM JUARA DALAM BENTUK TABEL -->
+    <!-- PODIUM JUARA -->
     <div class="podium-table-wrapper">
         <table class="podium-table" id="podiumTable">
-            <thead>
-                <tr><th>JUARA</th><th>NICKNAME</th><th>POINT</th></tr>
-            </thead>
-            <tbody id="podiumBody">
-                <tr><td>Juara 1</td><td>-</td><td>0</td></tr>
-                <tr><td>Juara 2</td><td>-</td><td>0</td></tr>
-                <tr><td>Juara 3</td><td>-</td><td>0</td></tr>
-            </tbody>
+            <thead><tr><th>JUARA</th><th>NICKNAME</th><th>POINT</th></tr></thead>
+            <tbody id="podiumBody"><tr><td>Juara 1</td><td>-</td><td>0</td></tr><tr><td>Juara 2</td><td>-</td><td>0</td></tr><tr><td>Juara 3</td><td>-</td><td>0</td></tr></tbody>
         </table>
     </div>
 
@@ -301,18 +296,19 @@
 <script>
     // ================= DATA PERSIS SEPERTI FOTO =================
     const DEFAULT_DATA = [
-        { name: "🏀 bapa daeng",    m1: 24, m2: 18, m3: 29, kill: 48, place: 23 },
-        { name: "🔥 LUPI JUSTICE",  m1: 10, m2: 15, m3: 34, kill: 43, place: 16 },
-        { name: "👾 nyocot bet",    m1: 10, m2: 21, m3: 20, kill: 42, place: 9 },
-        { name: "anak mami",        m1: 30, m2: 12, m3: 4,  kill: 22, place: 24 },
-        { name: "RTS THUNDER VEIL", m1: 15, m2: 10, m3: 20, kill: 38, place: 7 },
-        { name: "SDW ESPORT",       m1: 11, m2: 23, m3: 10, kill: 35, place: 9 },
-        { name: "NEXARION",         m1: 16, m2: 7,  m3: 20, kill: 27, place: 16 },
-        { name: "mw tium",          m1: 11, m2: 10, m3: 20, kill: 35, place: 6 },
-        { name: "KomodoPrime",      m1: 10, m2: 10, m3: 20, kill: 40, place: 0 },
-        { name: "RUMA DZAKWAN",     m1: 10, m2: 10, m3: 20, kill: 40, place: 0 },
-        { name: "SATTING",          m1: 6,  m2: 22, m3: 11, kill: 14, place: 25 },
-        { name: "oemji star8",      m1: 8,  m2: 10, m3: 20, kill: 35, place: 3 }
+        { name: "NEW TIM",    m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",  m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",    m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",        m1: 3
+        0, m2: 0, m3: 0,  kill: 0, place: 0 },
+        { name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",       m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",         m1: 0, m2: 0,  m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",          m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",      m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },, 
+        { name: "NEW TIM",     m1: 0, m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",          m1: 0,  m2: 0, m3: 0, kill: 0, place: 0 },
+        { name: "NEW TIM",      m1: 0,  m2: 0, m3: 0, kill: 0, place: 0 }
     ];
 
     let teams = [];
@@ -359,7 +355,7 @@
     function renderTable() {
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
-        if (teams.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:3rem;">Belum ada数据</td></tr>'; updatePodiumTable(); return; }
+        if (teams.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:3rem;">Belum ada data</td></tr>'; updatePodiumTable(); return; }
         teams.forEach((team, idx) => {
             let row = tbody.insertRow();
             row.insertCell(0).innerText = idx+1;
@@ -387,7 +383,7 @@
     function addTeam() { teams.push({ id: genId(), name: "Tim Baru", m1:0,m2:0,m3:0,kill:0,place:0 }); renderTable(); persist(); }
     function clearAll() { if(confirm('Hapus semua data?')) { teams = []; renderTable(); persist(); } }
     
-    // Download poster dengan penangkapan penuh (tidak terpotong)
+    // Download poster dengan penangkapan penuh dan tampilan rapi
     async function downloadPoster() {
         const actionBar = document.getElementById('actionBar');
         const originalDisplay = actionBar.style.display;
@@ -398,19 +394,21 @@
         btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Memproses...';
         btn.disabled = true;
         try {
-            // Pastikan element terlihat penuh
+            // Sementara set lebar container agar tidak overflow terpotong
+            const originalOverflow = element.style.overflow;
+            element.style.overflow = 'visible';
             const canvas = await html2canvas(element, { 
-                scale: 2,
+                scale: 2.5,
                 backgroundColor: '#03050b',
                 logging: false,
                 useCORS: true,
                 windowWidth: element.scrollWidth,
                 windowHeight: element.scrollHeight,
                 onclone: (clonedDoc, element) => {
-                    // Pastikan semua elemen yang di-clone memiliki font yang sama
                     clonedDoc.body.style.fontFamily = "'Inter', 'Segoe UI', Arial, sans-serif";
                 }
             });
+            element.style.overflow = originalOverflow;
             const link = document.createElement('a');
             const timestamp = new Date().toISOString().slice(0,19).replace(/:/g, '-');
             link.download = `FT_RAMOT_${timestamp}.png`;
