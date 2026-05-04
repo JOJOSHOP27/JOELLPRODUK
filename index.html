@@ -69,6 +69,8 @@
         .btn-primary { background: linear-gradient(95deg,#0f2b3d,#1b4b6e); border-color: #2dd4bf; }
         .btn-danger { border-color: #f87171; color: #ffe0e0; }
         .btn-success { border-color: #10b981; color: #a7f3d0; }
+        
+        /* Tabel utama */
         .table-wrapper {
             background: rgba(8,14,26,0.65);
             backdrop-filter: blur(8px);
@@ -100,7 +102,6 @@
             vertical-align: middle;
             white-space: nowrap;
         }
-        /* kolom TEAM lebih lebar agar teks tidak terpotong */
         .luxury-table td:nth-child(2),
         .luxury-table th:nth-child(2) {
             min-width: 130px;
@@ -132,28 +133,52 @@
             color: #FFD966;
             font-size: 0.85rem;
         }
+        
+        /* Tabel podium - lebarnya disamakan dengan tabel utama */
         .podium-table-wrapper {
             background: rgba(8,14,26,0.65);
+            backdrop-filter: blur(8px);
             border-radius: 1rem;
             border: 1px solid rgba(255,215,0,0.4);
             margin-bottom: 1rem;
             overflow-x: auto;
+            width: 100%;
         }
         .podium-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.8rem;
+            table-layout: fixed; /* agar kolom proporsional */
+        }
+        .podium-table th,
+        .podium-table td {
+            padding: 0.6rem 0.5rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,215,0,0.2);
         }
         .podium-table th {
             background: rgba(0,0,0,0.5);
-            padding: 0.6rem;
             color: #FFD966;
             font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #FFD700;
         }
         .podium-table td {
-            padding: 0.5rem;
-            text-align: center;
+            font-weight: 500;
         }
+        .podium-table tr:first-child td { font-weight: 800; color: #FFD700; }
+        .podium-table tr:nth-child(2) td { color: #C0C0C0; }
+        .podium-table tr:nth-child(3) td { color: #CD7F32; }
+        
+        /* Atur lebar kolom podium agar seimbang */
+        .podium-table th:nth-child(1),
+        .podium-table td:nth-child(1) { width: 25%; }
+        .podium-table th:nth-child(2),
+        .podium-table td:nth-child(2) { width: 50%; }
+        .podium-table th:nth-child(3),
+        .podium-table td:nth-child(3) { width: 25%; }
+        
         .footer-note {
             margin-top: 1rem;
             text-align: center;
@@ -170,6 +195,7 @@
             .luxury-input { min-width: 55px; max-width: 70px; font-size: 0.7rem; }
             .team-input { min-width: 100px; font-size: 0.75rem; }
             .luxury-table td, .luxury-table th { padding: 0.4rem 0.3rem; }
+            .podium-table th, .podium-table td { padding: 0.4rem 0.3rem; }
         }
     </style>
 </head>
@@ -256,7 +282,7 @@
     function renderTable() {
         let tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
-        if (teams.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:1rem;">Belum ada数据</td></tr>'; updatePodium(); return; }
+        if (teams.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:1rem;">Belum ada data</td></tr>'; updatePodium(); return; }
         teams.forEach((team, idx) => {
             let row = tbody.insertRow();
             row.insertCell(0).innerText = idx+1;
