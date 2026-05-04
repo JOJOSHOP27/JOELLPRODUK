@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>FT JOELL - SESI 19:00</title>
-    <!-- Google Font: Playfair Display (elegan, bold) + Inter untuk body -->
+    <title>FT JOELL - Turnamen Manager</title>
+    <!-- Google Font: Playfair Display untuk judul elegan -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 (free) untuk ikon medali -->
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -24,37 +24,66 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        /* Header dengan judul di tengah */
+        /* Header dengan judul yang bisa diubah */
         .hero-section {
             background: rgba(15, 25, 45, 0.6);
             backdrop-filter: blur(10px);
             border-radius: 1.5rem;
             padding: 1rem 1.5rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             border: 1px solid rgba(0,255,255,0.3);
             text-align: center;
         }
-        /* JUDUL: BOLD, ELEGAN, WARNA MEWAH (EMAS SOLID + BAYANGAN) */
-        .title {
+        /* Area judul yang bisa diedit */
+        .editable-title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        .title-line {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .title-main-input, .title-sub-input {
             font-family: 'Playfair Display', 'Times New Roman', serif;
-            font-size: 2.2rem;
             font-weight: 900;
-            color: #FFD966;  /* emas solid, pasti terlihat di PNG */
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: #FFD966;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.6), 0 0 8px rgba(255,220,100,0.8);
-            letter-spacing: -0.5px;
-            margin-bottom: 6px;
+            outline: none;
+            width: auto;
+            min-width: 150px;
+            padding: 0 5px;
+        }
+        .title-main-input {
+            font-size: 2.2rem;
+        }
+        .title-sub-input {
+            font-size: 1.6rem;
+        }
+        /* Efek hover pada input judul */
+        .title-main-input:hover, .title-sub-input:hover {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            cursor: text;
         }
         .sub {
             font-size: 0.8rem;
             color: #a0b3d9;
-            margin-top: 5px;
+            margin-top: 10px;
         }
         .toolbar {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             gap: 10px;
-            margin-bottom: 1.5rem;
+            margin: 1rem 0 1.2rem;
         }
         button {
             background: rgba(20,30,55,0.85);
@@ -71,7 +100,7 @@
         button.danger { border-color: #f87171; }
         button.warning { border-color: #f97316; }
         
-        /* Tabel dengan fixed layout - rapat (perdempet) */
+        /* Tabel rapat (perdempet) */
         .table-wrapper {
             overflow-x: auto;
             border-radius: 1rem;
@@ -98,7 +127,7 @@
             font-weight: 700;
             font-size: 0.9rem;
         }
-        /* Lebar kolom persen agar rapat dan tidak melebar */
+        /* Lebar kolom persentase agar rapat */
         th:nth-child(1), td:nth-child(1) { width: 5%; }
         th:nth-child(2), td:nth-child(2) { width: 28%; }
         th:nth-child(3), td:nth-child(3) { width: 8%; }
@@ -163,7 +192,8 @@
         }
         @media (max-width: 800px) {
             body { padding: 12px; }
-            .title { font-size: 1.8rem; }
+            .title-main-input { font-size: 1.8rem; }
+            .title-sub-input { font-size: 1.3rem; }
             table, .podium table { font-size: 0.85rem; }
             th, td { padding: 6px 3px; }
             input { font-size: 0.8rem; padding: 5px 3px; }
@@ -175,7 +205,14 @@
 <body>
 <div class="container" id="posterArea">
     <div class="hero-section">
-        <div class="title">FT JOELL - SESI 19:00</div>
+        <div class="editable-title">
+            <div class="title-line">
+                <input type="text" id="titleMain" class="title-main-input" value="FT JOELL" maxlength="30">
+            </div>
+            <div class="title-line">
+                <input type="text" id="titleSub" class="title-sub-input" value="SESI 11:00" maxlength="30">
+            </div>
+        </div>
         <div class="sub">Edit langsung (Nama, M1, M2, M3, KILL, PLACE) | TOTAL = KILL + PLACE</div>
     </div>
 
@@ -219,18 +256,45 @@
 </div>
 
 <script>
+    // Data tim default (12 tim "NEW TIM" dengan 0)
     let teams = [];
     const DEFAULT_TEAMS = Array(12).fill().map(() => ({ name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 }));
 
-    function save() { localStorage.setItem('ft_joell_dempet_besar', JSON.stringify(teams)); }
-    function load() {
-        let data = localStorage.getItem('ft_joell_dempet_besar');
+    // Simpan data tim ke localStorage
+    function saveTeams() {
+        localStorage.setItem('ft_joell_teams', JSON.stringify(teams));
+    }
+    function loadTeams() {
+        let data = localStorage.getItem('ft_joell_teams');
         if (data) {
-            try { teams = JSON.parse(data); if (Array.isArray(teams) && teams.length) return true; } catch(e) {}
+            try {
+                let parsed = JSON.parse(data);
+                if (Array.isArray(parsed) && parsed.length) {
+                    teams = parsed;
+                    return true;
+                }
+            } catch(e) {}
         }
         return false;
     }
+    // Simpan judul yang bisa diubah ke localStorage
+    function saveTitles() {
+        const main = document.getElementById('titleMain').value;
+        const sub = document.getElementById('titleSub').value;
+        localStorage.setItem('ft_joell_titles', JSON.stringify({ main, sub }));
+    }
+    function loadTitles() {
+        let data = localStorage.getItem('ft_joell_titles');
+        if (data) {
+            try {
+                let { main, sub } = JSON.parse(data);
+                document.getElementById('titleMain').value = main;
+                document.getElementById('titleSub').value = sub;
+            } catch(e) {}
+        }
+    }
 
+    // Update podium berdasarkan total tertinggi
     function updatePodium() {
         const sorted = [...teams].sort((a,b) => (b.kill+b.place) - (a.kill+a.place));
         const podiumBody = document.getElementById('podiumBody');
@@ -256,7 +320,8 @@
         if (rows[2]) rows[2].cells[0].querySelector('i').style.color = '#CD7F32';
     }
 
-    function render() {
+    // Render tabel utama
+    function renderTable() {
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
         if (teams.length === 0) {
@@ -310,13 +375,15 @@
                 let k = parseInt(killInput.value) || 0;
                 let p = parseInt(placeInput.value) || 0;
                 totalSpan.innerText = k + p;
-                save();
+                team.kill = k;
+                team.place = p;
+                saveTeams();
                 updatePodium();
             };
-            nameInput.onchange = () => { team.name = nameInput.value.trim() || 'Nameless'; save(); updatePodium(); };
-            m1Input.onchange = () => { team.m1 = parseInt(m1Input.value) || 0; save(); };
-            m2Input.onchange = () => { team.m2 = parseInt(m2Input.value) || 0; save(); };
-            m3Input.onchange = () => { team.m3 = parseInt(m3Input.value) || 0; save(); };
+            nameInput.onchange = () => { team.name = nameInput.value.trim() || 'Nameless'; saveTeams(); updatePodium(); };
+            m1Input.onchange = () => { team.m1 = parseInt(m1Input.value) || 0; saveTeams(); };
+            m2Input.onchange = () => { team.m2 = parseInt(m2Input.value) || 0; saveTeams(); };
+            m3Input.onchange = () => { team.m3 = parseInt(m3Input.value) || 0; saveTeams(); };
             killInput.onchange = () => { team.kill = parseInt(killInput.value) || 0; updateTotal(); };
             placeInput.onchange = () => { team.place = parseInt(placeInput.value) || 0; updateTotal(); };
             killInput.oninput = () => { let k = parseInt(killInput.value)||0, p = parseInt(placeInput.value)||0; totalSpan.innerText = k+p; };
@@ -325,10 +392,25 @@
         updatePodium();
     }
 
-    function addTeam() { teams.push({ name: "NEW TIM", m1:0, m2:0, m3:0, kill:0, place:0 }); render(); save(); }
-    function resetDefault() { teams = DEFAULT_TEAMS.map(t => ({ ...t })); render(); save(); }
-    function clearAll() { if(confirm('Hapus semua tim?')) { teams = []; render(); save(); } }
+    function addTeam() {
+        teams.push({ name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 });
+        renderTable();
+        saveTeams();
+    }
+    function resetDefault() {
+        teams = DEFAULT_TEAMS.map(t => ({ ...t }));
+        renderTable();
+        saveTeams();
+    }
+    function clearAll() {
+        if (confirm('Hapus semua data tim?')) {
+            teams = [];
+            renderTable();
+            saveTeams();
+        }
+    }
 
+    // Download poster (sembunyikan toolbar, ubah input jadi span)
     async function downloadPoster() {
         const inputs = document.querySelectorAll('#mainTable input');
         const replacements = [];
@@ -352,7 +434,8 @@
             const el = document.getElementById('posterArea');
             const canvas = await html2canvas(el, { scale: 2.5, backgroundColor: '#03050b', logging: false, useCORS: true, windowWidth: el.scrollWidth, windowHeight: el.scrollHeight });
             const link = document.createElement('a');
-            link.download = `FT_JOELL_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.png`;
+            const timestamp = new Date().toISOString().slice(0,19).replace(/:/g, '-');
+            link.download = `FT_JOELL_${timestamp}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
         } catch(e) { alert('Gagal membuat poster: ' + e.message); }
@@ -374,13 +457,28 @@
         const blob = new Blob([rows.join('\n')], {type: 'text/csv;charset=utf-8'});
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = `FT_JOELL_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.csv`;
+        a.download = `FT_JOELL_data_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.csv`;
         a.click();
         URL.revokeObjectURL(a.href);
     }
 
-    if (!load() || teams.length === 0) resetDefault();
-    else render();
+    // Inisialisasi
+    function init() {
+        loadTitles();
+        if (!loadTeams() || teams.length === 0) {
+            resetDefault();
+        } else {
+            renderTable();
+        }
+        // Simpan judul saat diubah
+        const titleMain = document.getElementById('titleMain');
+        const titleSub = document.getElementById('titleSub');
+        titleMain.addEventListener('change', saveTitles);
+        titleSub.addEventListener('change', saveTitles);
+        titleMain.addEventListener('input', saveTitles);
+        titleSub.addEventListener('input', saveTitles);
+    }
+    init();
 
     document.getElementById('addBtn').onclick = addTeam;
     document.getElementById('resetBtn').onclick = resetDefault;
