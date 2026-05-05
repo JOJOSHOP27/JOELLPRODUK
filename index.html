@@ -40,7 +40,7 @@
         }
         .logo-preview {
             max-width: 100%;
-            background: rgba(0,0,0,0.3);
+            background: transparent;   /* HILANGKAN BACKGROUND GELAP */
             border-radius: 1rem;
             padding: 10px;
             display: inline-block;
@@ -234,7 +234,7 @@
     <div class="table-wrapper">
         <table id="mainTable">
             <thead>
-                <tr><th>#</th><th>TEAM</th><th>M1</th><th>M2</th><th>M3</th><th>KILL</th><th>PLACE</th><th>TOTAL</th>｜｜DSML｜｜
+                <tr><th>#</th><th>TEAM</th><th>M1</th><th>M2</th><th>M3</th><th>KILL</th><th>PLACE</th><th>TOTAL</th></tr>
             </thead>
             <tbody id="tableBody"></tbody>
         </table>
@@ -339,7 +339,7 @@
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
         if (teams.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:1rem;">Belum ada data</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:1rem;">Belum ada data</td><tr>';
             updatePodium();
             return;
         }
