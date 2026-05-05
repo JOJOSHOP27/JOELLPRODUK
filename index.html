@@ -22,7 +22,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        /* Header dengan logo yang bisa di-upload */
         .hero-section {
             background: rgba(15, 25, 45, 0.6);
             backdrop-filter: blur(10px);
@@ -40,12 +39,11 @@
         }
         .logo-preview {
             max-width: 100%;
-            background: transparent;   /* HILANGKAN BACKGROUND GELAP */
+            background: transparent;
             border-radius: 1rem;
             padding: 10px;
             display: inline-block;
         }
-        /* Tinggi logo dibatasi seperti awal (120px), lebar fleksibel */
         .logo-preview img {
             max-height: 120px;
             width: auto;
@@ -100,7 +98,6 @@
         button.danger { border-color: #f87171; }
         button.warning { border-color: #f97316; }
         
-        /* Tabel rapat (perdempet) */
         .table-wrapper {
             overflow-x: auto;
             border-radius: 1rem;
@@ -127,7 +124,6 @@
             font-weight: 700;
             font-size: 0.9rem;
         }
-        /* Lebar kolom persentase agar rapat */
         th:nth-child(1), td:nth-child(1) { width: 5%; }
         th:nth-child(2), td:nth-child(2) { width: 28%; }
         th:nth-child(3), td:nth-child(3) { width: 8%; }
@@ -207,12 +203,13 @@
         <div class="logo-area">
             <div class="logo-preview" id="logoPreview">
                 <img id="logoImg" src="" alt="Logo Turnamen" style="display: none;">
-                <!-- Teks default jika belum upload logo -->
                 <div id="defaultTitle" style="font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: #FFD966; text-shadow: 2px 2px 4px black;">FT JOELL<br>SESI 19:00</div>
             </div>
             <label class="upload-btn">
                 <i class="fas fa-upload"></i> Upload Logo / Judul
                 <input type="file" id="logoUpload" accept="image/*" style="display: none;">
+            </label>
+            <div class="sub">Edit langsung (Nama, M1, M2, M3, KILL, PLACE) | TOTAL = KILL + PLACE</div>
         </div>
     </div>
 
@@ -248,10 +245,14 @@
             </tbody>
         </table>
     </div>
+
+    <div class="footer">
+        <span>📊 Total = KILL + PLACE | M1-M3 statistik per match</span>
+        <span>💾 Data tersimpan otomatis di browser</span>
+    </div>
 </div>
 
 <script>
-    // ======================== DATA TIM ========================
     let teams = [];
     const DEFAULT_TEAMS = Array(12).fill().map(() => ({ name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 }));
 
@@ -264,14 +265,11 @@
         return false;
     }
 
-    // ======================== LOGO / JUDUL UPLOAD ========================
     const logoInput = document.getElementById('logoUpload');
     const logoImg = document.getElementById('logoImg');
     const defaultTitleDiv = document.getElementById('defaultTitle');
     
-    function saveLogoToLocalStorage(dataUrl) {
-        localStorage.setItem('ft_joell_logo', dataUrl);
-    }
+    function saveLogoToLocalStorage(dataUrl) { localStorage.setItem('ft_joell_logo', dataUrl); }
     function loadLogoFromLocalStorage() {
         const savedLogo = localStorage.getItem('ft_joell_logo');
         if (savedLogo && savedLogo.startsWith('data:image')) {
@@ -297,11 +295,8 @@
             reader.readAsDataURL(file);
         }
     });
-    document.querySelector('.upload-btn').addEventListener('click', function() {
-        logoInput.click();
-    });
+    document.querySelector('.upload-btn').addEventListener('click', function() { logoInput.click(); });
 
-    // ======================== PEMBARUAN PODIUM ========================
     function updatePodium() {
         const sorted = [...teams].sort((a,b) => (b.kill+b.place) - (a.kill+a.place));
         const podiumBody = document.getElementById('podiumBody');
@@ -327,51 +322,43 @@
         if (rows[2]) rows[2].cells[0].querySelector('i').style.color = '#CD7F32';
     }
 
-    // ======================== RENDER TABEL UTAMA ========================
     function renderTable() {
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
         if (teams.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:1rem;">Belum ada data</td><tr>';
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:1rem;">Belum ada数据</td></tr>';
             updatePodium();
             return;
         }
         teams.forEach((team, idx) => {
             const row = tbody.insertRow();
             row.insertCell(0).innerText = idx+1;
-            // TEAM
             const nameCell = row.insertCell(1);
             const nameInput = document.createElement('input');
             nameInput.type = 'text';
             nameInput.value = team.name;
             nameInput.classList.add('team-input');
             nameCell.appendChild(nameInput);
-            // M1
             const m1Cell = row.insertCell(2);
             const m1Input = document.createElement('input');
             m1Input.type = 'number'; m1Input.value = team.m1;
             m1Cell.appendChild(m1Input);
-            // M2
             const m2Cell = row.insertCell(3);
             const m2Input = document.createElement('input');
             m2Input.type = 'number'; m2Input.value = team.m2;
             m2Cell.appendChild(m2Input);
-            // M3
             const m3Cell = row.insertCell(4);
             const m3Input = document.createElement('input');
             m3Input.type = 'number'; m3Input.value = team.m3;
             m3Cell.appendChild(m3Input);
-            // KILL
             const killCell = row.insertCell(5);
             const killInput = document.createElement('input');
             killInput.type = 'number'; killInput.value = team.kill;
             killCell.appendChild(killInput);
-            // PLACE
             const placeCell = row.insertCell(6);
             const placeInput = document.createElement('input');
             placeInput.type = 'number'; placeInput.value = team.place;
             placeCell.appendChild(placeInput);
-            // TOTAL
             const totalCell = row.insertCell(7);
             const totalSpan = document.createElement('span');
             totalSpan.className = 'total-cell';
@@ -399,27 +386,11 @@
         updatePodium();
     }
 
-    function addTeam() {
-        teams.push({ name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 });
-        renderTable();
-        saveTeams();
-    }
-    function resetDefault() {
-        teams = DEFAULT_TEAMS.map(t => ({ ...t }));
-        renderTable();
-        saveTeams();
-    }
-    function clearAll() {
-        if (confirm('Hapus semua data tim?')) {
-            teams = [];
-            renderTable();
-            saveTeams();
-        }
-    }
+    function addTeam() { teams.push({ name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 }); renderTable(); saveTeams(); }
+    function resetDefault() { teams = DEFAULT_TEAMS.map(t => ({ ...t })); renderTable(); saveTeams(); }
+    function clearAll() { if (confirm('Hapus semua data tim?')) { teams = []; renderTable(); saveTeams(); } }
 
-    // ======================== DOWNLOAD POSTER ========================
     async function downloadPoster() {
-        // Ubah semua input di tabel menjadi span
         const inputs = document.querySelectorAll('#mainTable input');
         const replacements = [];
         inputs.forEach(inp => {
@@ -435,69 +406,94 @@
             replacements.push({ parent: inp.parentNode, input: inp, span });
             inp.parentNode.replaceChild(span, inp);
         });
-
-        // Sembunyikan toolbar
         const toolbar = document.getElementById('toolbar');
         const origToolbarDisplay = toolbar.style.display;
         toolbar.style.display = 'none';
-
-        // Sembunyikan tombol upload logo
         const uploadBtn = document.querySelector('.upload-btn');
         const origUploadDisplay = uploadBtn.style.display;
         uploadBtn.style.display = 'none';
-
         try {
             const element = document.getElementById('posterArea');
-            const canvas = await html2canvas(element, {
-                scale: 2.5,
-                backgroundColor: '#03050b',
-                logging: false,
-                useCORS: true,
-                allowTaint: false,
-                windowWidth: element.scrollWidth,
-                windowHeight: element.scrollHeight
-            });
+            const canvas = await html2canvas(element, { scale: 2.5, backgroundColor: '#03050b', logging: false, useCORS: true, allowTaint: false, windowWidth: element.scrollWidth, windowHeight: element.scrollHeight });
             const link = document.createElement('a');
             const timestamp = new Date().toISOString().slice(0,19).replace(/:/g, '-');
             link.download = `FT_JOELL_${timestamp}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
-        } catch(e) {
-            alert('Gagal membuat poster: ' + e.message);
-        } finally {
-            // Kembalikan input
+        } catch(e) { alert('Gagal membuat poster: ' + e.message); }
+        finally {
             replacements.forEach(r => r.parent.replaceChild(r.input, r.span));
             toolbar.style.display = origToolbarDisplay;
             uploadBtn.style.display = origUploadDisplay;
         }
     }
 
-    // ======================== EXPORT CSV ========================
+    // ======================== EXPORT CSV (format baru seperti gambar) ========================
     function exportCSV() {
         if (!teams.length) { alert('Tidak ada data'); return; }
-        let rows = [['#','TEAM','M1','M2','M3','KILL','PLACE','TOTAL'].join(',')];
-        teams.forEach((t,i) => rows.push([i+1, `"${t.name.replace(/"/g,'""')}"`, t.m1, t.m2, t.m3, t.kill, t.place, t.kill+t.place].join(',')));
-        let sorted = [...teams].sort((a,b) => (b.kill+b.place) - (a.kill+a.place));
-        rows.push(['', '=== PODIUM ===', '', '', '', '', '', '']);
-        if(sorted[0]) rows.push(['Juara 1', sorted[0].name, '', '', '', '', '', sorted[0].kill+sorted[0].place]);
-        if(sorted[1]) rows.push(['Juara 2', sorted[1].name, '', '', '', '', '', sorted[1].kill+sorted[1].place]);
-        if(sorted[2]) rows.push(['Juara 3', sorted[2].name, '', '', '', '', '', sorted[2].kill+sorted[2].place]);
-        const blob = new Blob([rows.join('\n')], {type: 'text/csv;charset=utf-8'});
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = `FT_JOELL_data_${new Date().toISOString().slice(0,19).replace(/:/g,'-')}.csv`;
-        a.click();
-        URL.revokeObjectURL(a.href);
+        // Hitung ranking berdasarkan TOTAL (kill+place) tertinggi
+        const sorted = [...teams].sort((a,b) => (b.kill+b.place) - (a.kill+a.place));
+        const rankMap = new Map();
+        sorted.forEach((team, idx) => { rankMap.set(team, idx+1); });
+
+        // Header sesuai gambar: NICKNAME, MATCH 1 (PLACE, KILL, POINT), MATCH 2, MATCH 3, TOTAL KILL, TOTAL POINT, RANK
+        const headers = [
+            'NICKNAME',
+            'MATCH 1 PLACE', 'MATCH 1 KILL', 'MATCH 1 POINT',
+            'MATCH 2 PLACE', 'MATCH 2 KILL', 'MATCH 2 POINT',
+            'MATCH 3 PLACE', 'MATCH 3 KILL', 'MATCH 3 POINT',
+            'TOTAL KILL', 'TOTAL POINT', 'RANK'
+        ];
+        const rows = [headers];
+
+        teams.forEach(team => {
+            // Karena tidak ada data place/kill per match, kita isi dengan '-' (tidak tersedia)
+            // POINT per match diambil dari M1, M2, M3
+            const match1Place = '-';
+            const match1Kill = '-';
+            const match1Point = team.m1;
+            const match2Place = '-';
+            const match2Kill = '-';
+            const match2Point = team.m2;
+            const match3Place = '-';
+            const match3Kill = '-';
+            const match3Point = team.m3;
+            const totalKill = team.kill;
+            const totalPoint = team.kill + team.place;
+            const rank = rankMap.get(team);
+            rows.push([
+                team.name,
+                match1Place, match1Kill, match1Point,
+                match2Place, match2Kill, match2Point,
+                match3Place, match3Kill, match3Point,
+                totalKill, totalPoint, rank
+            ]);
+        });
+
+        // Tambahkan baris podium (opsional, seperti gambar ada tabel juara)
+        rows.push([]); // baris kosong
+        rows.push(['=== PODIUM JUARA ===', '', '', '', '', '', '', '', '', '', '', '', '']);
+        const podiumData = sorted.slice(0,3);
+        podiumData.forEach((team, idx) => {
+            rows.push([`Juara ${idx+1}`, team.name, '', '', '', '', '', '', '', '', '', team.kill+team.place, '']);
+        });
+
+        const csvContent = rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+        const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', `FT_JOELL_data_${new Date().toISOString().slice(0,19).replace(/:/g, '-')}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
     }
 
-    // ======================== INISIALISASI ========================
     function init() {
         loadLogoFromLocalStorage();
-        if (!loadTeams() || teams.length === 0) {
-            resetDefault();
-        } else {
-            renderTable();
-        }
+        if (!loadTeams() || teams.length === 0) { resetDefault(); }
+        else { renderTable(); }
     }
     init();
 
