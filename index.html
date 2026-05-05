@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>FT JOELL - Turnamen Manager</title>
-    <!-- Google Font: Playfair Display untuk judul elegan -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- Font Inter untuk body -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -24,59 +24,27 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        /* Header dengan judul yang bisa diubah */
+        /* Header dengan gambar */
         .hero-section {
             background: rgba(15, 25, 45, 0.6);
             backdrop-filter: blur(10px);
             border-radius: 1.5rem;
             padding: 1rem 1.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             border: 1px solid rgba(0,255,255,0.3);
             text-align: center;
         }
-        /* Area judul yang bisa diedit */
-        .editable-title {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-        }
-        .title-line {
-            display: flex;
-            align-items: baseline;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .title-main-input, .title-sub-input {
-            font-family: 'Playfair Display', 'Times New Roman', serif;
-            font-weight: 900;
-            text-align: center;
-            background: transparent;
-            border: none;
-            color: #FFD966;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.6), 0 0 8px rgba(255,220,100,0.8);
-            outline: none;
-            width: auto;
-            min-width: 150px;
-            padding: 0 5px;
-        }
-        .title-main-input {
-            font-size: 2.2rem;
-        }
-        .title-sub-input {
-            font-size: 1.6rem;
-        }
-        /* Efek hover pada input judul */
-        .title-main-input:hover, .title-sub-input:hover {
-            background: rgba(255,255,255,0.1);
+        .title-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
             border-radius: 12px;
-            cursor: text;
         }
         .sub {
             font-size: 0.8rem;
             color: #a0b3d9;
-            margin-top: 10px;
+            margin-top: 12px;
         }
         .toolbar {
             display: flex;
@@ -192,8 +160,6 @@
         }
         @media (max-width: 800px) {
             body { padding: 12px; }
-            .title-main-input { font-size: 1.8rem; }
-            .title-sub-input { font-size: 1.3rem; }
             table, .podium table { font-size: 0.85rem; }
             th, td { padding: 6px 3px; }
             input { font-size: 0.8rem; padding: 5px 3px; }
@@ -205,14 +171,9 @@
 <body>
 <div class="container" id="posterArea">
     <div class="hero-section">
-        <div class="editable-title">
-            <div class="title-line">
-                <input type="text" id="titleMain" class="title-main-input" value="FT JOELL" maxlength="30">
-            </div>
-            <div class="title-line">
-                <input type="text" id="titleSub" class="title-sub-input" value="SESI 11:00" maxlength="30">
-            </div>
-        </div>
+        <!-- Gambar judul dari file yang Anda berikan -->
+        <!-- Pastikan file "1000343521.png" berada di folder yang sama dengan file HTML -->
+        <img src="1000343521.png" alt="FT JOELL - SESI 19:00" class="title-image" style="max-width: 400px;">
         <div class="sub">Edit langsung (Nama, M1, M2, M3, KILL, PLACE) | TOTAL = KILL + PLACE</div>
     </div>
 
@@ -256,11 +217,9 @@
 </div>
 
 <script>
-    // Data tim default (12 tim "NEW TIM" dengan 0)
     let teams = [];
     const DEFAULT_TEAMS = Array(12).fill().map(() => ({ name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 }));
 
-    // Simpan data tim ke localStorage
     function saveTeams() {
         localStorage.setItem('ft_joell_teams', JSON.stringify(teams));
     }
@@ -277,24 +236,7 @@
         }
         return false;
     }
-    // Simpan judul yang bisa diubah ke localStorage
-    function saveTitles() {
-        const main = document.getElementById('titleMain').value;
-        const sub = document.getElementById('titleSub').value;
-        localStorage.setItem('ft_joell_titles', JSON.stringify({ main, sub }));
-    }
-    function loadTitles() {
-        let data = localStorage.getItem('ft_joell_titles');
-        if (data) {
-            try {
-                let { main, sub } = JSON.parse(data);
-                document.getElementById('titleMain').value = main;
-                document.getElementById('titleSub').value = sub;
-            } catch(e) {}
-        }
-    }
 
-    // Update podium berdasarkan total tertinggi
     function updatePodium() {
         const sorted = [...teams].sort((a,b) => (b.kill+b.place) - (a.kill+a.place));
         const podiumBody = document.getElementById('podiumBody');
@@ -320,7 +262,6 @@
         if (rows[2]) rows[2].cells[0].querySelector('i').style.color = '#CD7F32';
     }
 
-    // Render tabel utama
     function renderTable() {
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
@@ -332,39 +273,32 @@
         teams.forEach((team, idx) => {
             const row = tbody.insertRow();
             row.insertCell(0).innerText = idx+1;
-            // TEAM
             const nameCell = row.insertCell(1);
             const nameInput = document.createElement('input');
             nameInput.type = 'text';
             nameInput.value = team.name;
             nameInput.classList.add('team-input');
             nameCell.appendChild(nameInput);
-            // M1
             const m1Cell = row.insertCell(2);
             const m1Input = document.createElement('input');
             m1Input.type = 'number'; m1Input.value = team.m1;
             m1Cell.appendChild(m1Input);
-            // M2
             const m2Cell = row.insertCell(3);
             const m2Input = document.createElement('input');
             m2Input.type = 'number'; m2Input.value = team.m2;
             m2Cell.appendChild(m2Input);
-            // M3
             const m3Cell = row.insertCell(4);
             const m3Input = document.createElement('input');
             m3Input.type = 'number'; m3Input.value = team.m3;
             m3Cell.appendChild(m3Input);
-            // KILL
             const killCell = row.insertCell(5);
             const killInput = document.createElement('input');
             killInput.type = 'number'; killInput.value = team.kill;
             killCell.appendChild(killInput);
-            // PLACE
             const placeCell = row.insertCell(6);
             const placeInput = document.createElement('input');
             placeInput.type = 'number'; placeInput.value = team.place;
             placeCell.appendChild(placeInput);
-            // TOTAL
             const totalCell = row.insertCell(7);
             const totalSpan = document.createElement('span');
             totalSpan.className = 'total-cell';
@@ -410,7 +344,6 @@
         }
     }
 
-    // Download poster (sembunyikan toolbar, ubah input jadi span)
     async function downloadPoster() {
         const inputs = document.querySelectorAll('#mainTable input');
         const replacements = [];
@@ -462,23 +395,11 @@
         URL.revokeObjectURL(a.href);
     }
 
-    // Inisialisasi
-    function init() {
-        loadTitles();
-        if (!loadTeams() || teams.length === 0) {
-            resetDefault();
-        } else {
-            renderTable();
-        }
-        // Simpan judul saat diubah
-        const titleMain = document.getElementById('titleMain');
-        const titleSub = document.getElementById('titleSub');
-        titleMain.addEventListener('change', saveTitles);
-        titleSub.addEventListener('change', saveTitles);
-        titleMain.addEventListener('input', saveTitles);
-        titleSub.addEventListener('input', saveTitles);
+    if (!loadTeams() || teams.length === 0) {
+        resetDefault();
+    } else {
+        renderTable();
     }
-    init();
 
     document.getElementById('addBtn').onclick = addTeam;
     document.getElementById('resetBtn').onclick = resetDefault;
