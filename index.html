@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>FT JOELL - Turnamen Manager</title>
-    <!-- Font Inter untuk body -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -24,27 +22,57 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        /* Header dengan gambar */
+        /* Header dengan logo yang bisa di-upload */
         .hero-section {
             background: rgba(15, 25, 45, 0.6);
             backdrop-filter: blur(10px);
             border-radius: 1.5rem;
-            padding: 1rem 1.5rem;
+            padding: 1.2rem 1.5rem;
             margin-bottom: 1.5rem;
             border: 1px solid rgba(0,255,255,0.3);
             text-align: center;
         }
-        .title-image {
+        .logo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-preview {
             max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            border-radius: 12px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 1rem;
+            padding: 10px;
+            display: inline-block;
+        }
+        .logo-preview img {
+            max-width: 400px;
+            max-height: 120px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .upload-btn {
+            background: rgba(30, 40, 60, 0.9);
+            border: 1px solid #2dd4bf;
+            padding: 6px 14px;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+        .upload-btn:hover {
+            background: #1e2a4a;
+            transform: translateY(-1px);
         }
         .sub {
             font-size: 0.8rem;
             color: #a0b3d9;
-            margin-top: 12px;
+            margin-top: 8px;
         }
         .toolbar {
             display: flex;
@@ -160,6 +188,7 @@
         }
         @media (max-width: 800px) {
             body { padding: 12px; }
+            .logo-preview img { max-width: 250px; }
             table, .podium table { font-size: 0.85rem; }
             th, td { padding: 6px 3px; }
             input { font-size: 0.8rem; padding: 5px 3px; }
@@ -171,10 +200,18 @@
 <body>
 <div class="container" id="posterArea">
     <div class="hero-section">
-        <!-- Gambar judul dari file yang Anda berikan -->
-        <!-- Pastikan file "1000343521.png" berada di folder yang sama dengan file HTML -->
-        <img src="1000343521.png" alt="FT JOELL - SESI 19:00" class="title-image" style="max-width: 400px;">
-        <div class="sub">Edit langsung (Nama, M1, M2, M3, KILL, PLACE) | TOTAL = KILL + PLACE</div>
+        <div class="logo-area">
+            <div class="logo-preview" id="logoPreview">
+                <img id="logoImg" src="" alt="Logo Turnamen" style="display: none;">
+                <!-- Teks default jika belum upload logo -->
+                <div id="defaultTitle" style="font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: #FFD966; text-shadow: 2px 2px 4px black;">FT JOELL<br>SESI 19:00</div>
+            </div>
+            <label class="upload-btn">
+                <i class="fas fa-upload"></i> Upload Logo / Judul
+                <input type="file" id="logoUpload" accept="image/*" style="display: none;">
+            </label>
+            <div class="sub">Edit langsung (Nama, M1, M2, M3, KILL, PLACE) | TOTAL = KILL + PLACE</div>
+        </div>
     </div>
 
     <div class="toolbar" id="toolbar">
@@ -201,7 +238,7 @@
 
     <div class="podium">
         <table style="width:100%">
-            <thead><tr><th>JUARA</th><th>NICKNAME</th><th>POINT</th></tr></thead>
+            <thead><tr><th>JUARA</th><th>NICKNAME</th><th>POINT</th><table></thead>
             <tbody id="podiumBody">
                 <tr><td><i class="fas fa-medal"></i> Juara 1</td><td>-</td><td>0</td></tr>
                 <tr><td><i class="fas fa-medal"></i> Juara 2</td><td>-</td><td>0</td></tr>
@@ -217,26 +254,60 @@
 </div>
 
 <script>
+    // ======================== DATA TIM ========================
     let teams = [];
     const DEFAULT_TEAMS = Array(12).fill().map(() => ({ name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 }));
 
-    function saveTeams() {
-        localStorage.setItem('ft_joell_teams', JSON.stringify(teams));
-    }
+    function saveTeams() { localStorage.setItem('ft_joell_teams', JSON.stringify(teams)); }
     function loadTeams() {
         let data = localStorage.getItem('ft_joell_teams');
         if (data) {
-            try {
-                let parsed = JSON.parse(data);
-                if (Array.isArray(parsed) && parsed.length) {
-                    teams = parsed;
-                    return true;
-                }
-            } catch(e) {}
+            try { teams = JSON.parse(data); if (Array.isArray(teams) && teams.length) return true; } catch(e) {}
         }
         return false;
     }
 
+    // ======================== LOGO / JUDUL UPLOAD ========================
+    const logoInput = document.getElementById('logoUpload');
+    const logoImg = document.getElementById('logoImg');
+    const defaultTitleDiv = document.getElementById('defaultTitle');
+    
+    // Simpan logo ke localStorage (base64)
+    function saveLogoToLocalStorage(dataUrl) {
+        localStorage.setItem('ft_joell_logo', dataUrl);
+    }
+    function loadLogoFromLocalStorage() {
+        const savedLogo = localStorage.getItem('ft_joell_logo');
+        if (savedLogo && savedLogo.startsWith('data:image')) {
+            logoImg.src = savedLogo;
+            logoImg.style.display = 'block';
+            defaultTitleDiv.style.display = 'none';
+        } else {
+            // Tampilkan teks default
+            logoImg.style.display = 'none';
+            defaultTitleDiv.style.display = 'block';
+        }
+    }
+    logoInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                const imgData = ev.target.result;
+                logoImg.src = imgData;
+                logoImg.style.display = 'block';
+                defaultTitleDiv.style.display = 'none';
+                saveLogoToLocalStorage(imgData);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+    // Tombol upload manual (klik label)
+    document.querySelector('.upload-btn').addEventListener('click', function() {
+        logoInput.click();
+    });
+
+    // ======================== PEMBARUAN PODIUM ========================
     function updatePodium() {
         const sorted = [...teams].sort((a,b) => (b.kill+b.place) - (a.kill+a.place));
         const podiumBody = document.getElementById('podiumBody');
@@ -262,43 +333,51 @@
         if (rows[2]) rows[2].cells[0].querySelector('i').style.color = '#CD7F32';
     }
 
+    // ======================== RENDER TABEL UTAMA ========================
     function renderTable() {
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
         if (teams.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:1rem;">Belum ada data</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:1rem;">Belum ada数据</td></tr>';
             updatePodium();
             return;
         }
         teams.forEach((team, idx) => {
             const row = tbody.insertRow();
             row.insertCell(0).innerText = idx+1;
+            // TEAM
             const nameCell = row.insertCell(1);
             const nameInput = document.createElement('input');
             nameInput.type = 'text';
             nameInput.value = team.name;
             nameInput.classList.add('team-input');
             nameCell.appendChild(nameInput);
+            // M1
             const m1Cell = row.insertCell(2);
             const m1Input = document.createElement('input');
             m1Input.type = 'number'; m1Input.value = team.m1;
             m1Cell.appendChild(m1Input);
+            // M2
             const m2Cell = row.insertCell(3);
             const m2Input = document.createElement('input');
             m2Input.type = 'number'; m2Input.value = team.m2;
             m2Cell.appendChild(m2Input);
+            // M3
             const m3Cell = row.insertCell(4);
             const m3Input = document.createElement('input');
             m3Input.type = 'number'; m3Input.value = team.m3;
             m3Cell.appendChild(m3Input);
+            // KILL
             const killCell = row.insertCell(5);
             const killInput = document.createElement('input');
             killInput.type = 'number'; killInput.value = team.kill;
             killCell.appendChild(killInput);
+            // PLACE
             const placeCell = row.insertCell(6);
             const placeInput = document.createElement('input');
             placeInput.type = 'number'; placeInput.value = team.place;
             placeCell.appendChild(placeInput);
+            // TOTAL
             const totalCell = row.insertCell(7);
             const totalSpan = document.createElement('span');
             totalSpan.className = 'total-cell';
@@ -326,6 +405,7 @@
         updatePodium();
     }
 
+    // ======================== TAMBAH / RESET / HAPUS ========================
     function addTeam() {
         teams.push({ name: "NEW TIM", m1: 0, m2: 0, m3: 0, kill: 0, place: 0 });
         renderTable();
@@ -344,7 +424,9 @@
         }
     }
 
+    // ======================== DOWNLOAD POSTER (PNG) ========================
     async function downloadPoster() {
+        // Ubah semua input menjadi span sementara
         const inputs = document.querySelectorAll('#mainTable input');
         const replacements = [];
         inputs.forEach(inp => {
@@ -360,24 +442,36 @@
             replacements.push({ parent: inp.parentNode, input: inp, span });
             inp.parentNode.replaceChild(span, inp);
         });
+        // Sembunyikan toolbar
         const toolbar = document.getElementById('toolbar');
-        const origToolbar = toolbar.style.display;
+        const origToolbarDisplay = toolbar.style.display;
         toolbar.style.display = 'none';
         try {
-            const el = document.getElementById('posterArea');
-            const canvas = await html2canvas(el, { scale: 2.5, backgroundColor: '#03050b', logging: false, useCORS: true, windowWidth: el.scrollWidth, windowHeight: el.scrollHeight });
+            const element = document.getElementById('posterArea');
+            const canvas = await html2canvas(element, {
+                scale: 2.5,
+                backgroundColor: '#03050b',
+                logging: false,
+                useCORS: true,
+                allowTaint: false,
+                windowWidth: element.scrollWidth,
+                windowHeight: element.scrollHeight
+            });
             const link = document.createElement('a');
             const timestamp = new Date().toISOString().slice(0,19).replace(/:/g, '-');
             link.download = `FT_JOELL_${timestamp}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
-        } catch(e) { alert('Gagal membuat poster: ' + e.message); }
-        finally {
+        } catch(e) {
+            alert('Gagal membuat poster: ' + e.message);
+        } finally {
+            // Kembalikan input
             replacements.forEach(r => r.parent.replaceChild(r.input, r.span));
-            toolbar.style.display = origToolbar;
+            toolbar.style.display = origToolbarDisplay;
         }
     }
 
+    // ======================== EXPORT CSV ========================
     function exportCSV() {
         if (!teams.length) { alert('Tidak ada data'); return; }
         let rows = [['#','TEAM','M1','M2','M3','KILL','PLACE','TOTAL'].join(',')];
@@ -395,11 +489,16 @@
         URL.revokeObjectURL(a.href);
     }
 
-    if (!loadTeams() || teams.length === 0) {
-        resetDefault();
-    } else {
-        renderTable();
+    // ======================== INISIALISASI ========================
+    function init() {
+        loadLogoFromLocalStorage();
+        if (!loadTeams() || teams.length === 0) {
+            resetDefault();
+        } else {
+            renderTable();
+        }
     }
+    init();
 
     document.getElementById('addBtn').onclick = addTeam;
     document.getElementById('resetBtn').onclick = resetDefault;
