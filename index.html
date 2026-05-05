@@ -44,12 +44,17 @@
             border-radius: 1rem;
             padding: 10px;
             display: inline-block;
+            width: auto;
         }
+        /* Gambar logo bisa memanjang (lebar sesuai kontainer) */
         .logo-preview img {
-            max-width: 400px;
-            max-height: 120px;
-            object-fit: contain;
+            max-width: 100%;      /* lebar mengikuti kontainer */
+            max-height: none;     /* hilangkan batasan tinggi */
+            height: auto;         /* proporsional */
+            width: auto;          /* fleksibel */
             border-radius: 8px;
+            display: block;
+            margin: 0 auto;
         }
         .upload-btn {
             background: rgba(30, 40, 60, 0.9);
@@ -188,7 +193,7 @@
         }
         @media (max-width: 800px) {
             body { padding: 12px; }
-            .logo-preview img { max-width: 250px; }
+            .logo-preview img { max-width: 100%; }
             table, .podium table { font-size: 0.85rem; }
             th, td { padding: 6px 3px; }
             input { font-size: 0.8rem; padding: 5px 3px; }
@@ -209,7 +214,9 @@
             <label class="upload-btn">
                 <i class="fas fa-upload"></i> Upload Logo / Judul
                 <input type="file" id="logoUpload" accept="image/*" style="display: none;">
-         </div>
+            </label>
+            <div class="sub">Edit langsung (Nama, M1, M2, M3, KILL, PLACE) | TOTAL = KILL + PLACE</div>
+        </div>
     </div>
 
     <div class="toolbar" id="toolbar">
@@ -243,6 +250,11 @@
                 <tr><td><i class="fas fa-medal"></i> Juara 3</td><td>-</td><td>0</td></tr>
             </tbody>
         </table>
+    </div>
+
+    <div class="footer">
+        <span>📊 Total = KILL + PLACE | M1-M3 statistik per match</span>
+        <span>💾 Data tersimpan otomatis di browser</span>
     </div>
 </div>
 
@@ -328,39 +340,46 @@
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
         if (teams.length === 0) {
-            tbody.innerHTML = '<td><td colspan="8" style="text-align:center; padding:1rem;">Belum ada data</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:1rem;">Belum ada data</td></tr>';
             updatePodium();
             return;
         }
         teams.forEach((team, idx) => {
             const row = tbody.insertRow();
             row.insertCell(0).innerText = idx+1;
+            // TEAM
             const nameCell = row.insertCell(1);
             const nameInput = document.createElement('input');
             nameInput.type = 'text';
             nameInput.value = team.name;
             nameInput.classList.add('team-input');
             nameCell.appendChild(nameInput);
+            // M1
             const m1Cell = row.insertCell(2);
             const m1Input = document.createElement('input');
             m1Input.type = 'number'; m1Input.value = team.m1;
             m1Cell.appendChild(m1Input);
+            // M2
             const m2Cell = row.insertCell(3);
             const m2Input = document.createElement('input');
             m2Input.type = 'number'; m2Input.value = team.m2;
             m2Cell.appendChild(m2Input);
+            // M3
             const m3Cell = row.insertCell(4);
             const m3Input = document.createElement('input');
             m3Input.type = 'number'; m3Input.value = team.m3;
             m3Cell.appendChild(m3Input);
+            // KILL
             const killCell = row.insertCell(5);
             const killInput = document.createElement('input');
             killInput.type = 'number'; killInput.value = team.kill;
             killCell.appendChild(killInput);
+            // PLACE
             const placeCell = row.insertCell(6);
             const placeInput = document.createElement('input');
             placeInput.type = 'number'; placeInput.value = team.place;
             placeCell.appendChild(placeInput);
+            // TOTAL
             const totalCell = row.insertCell(7);
             const totalSpan = document.createElement('span');
             totalSpan.className = 'total-cell';
@@ -408,7 +427,7 @@
 
     // ======================== DOWNLOAD POSTER ========================
     async function downloadPoster() {
-        // 1. Ubah semua input di tabel menjadi span (agar nilai yang diisi user terekam)
+        // Ubah semua input di tabel menjadi span
         const inputs = document.querySelectorAll('#mainTable input');
         const replacements = [];
         inputs.forEach(inp => {
@@ -425,12 +444,12 @@
             inp.parentNode.replaceChild(span, inp);
         });
 
-        // 2. Sembunyikan toolbar
+        // Sembunyikan toolbar
         const toolbar = document.getElementById('toolbar');
         const origToolbarDisplay = toolbar.style.display;
         toolbar.style.display = 'none';
 
-        // 3. Sembunyikan tombol upload logo (tapi biarkan logo/gambar tetap terlihat)
+        // Sembunyikan tombol upload logo
         const uploadBtn = document.querySelector('.upload-btn');
         const origUploadDisplay = uploadBtn.style.display;
         uploadBtn.style.display = 'none';
@@ -456,9 +475,7 @@
         } finally {
             // Kembalikan input
             replacements.forEach(r => r.parent.replaceChild(r.input, r.span));
-            // Kembalikan toolbar
             toolbar.style.display = origToolbarDisplay;
-            // Kembalikan tombol upload
             uploadBtn.style.display = origUploadDisplay;
         }
     }
