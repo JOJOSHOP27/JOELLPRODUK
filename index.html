@@ -44,14 +44,13 @@
             border-radius: 1rem;
             padding: 10px;
             display: inline-block;
-            width: auto;
         }
-        /* Gambar logo bisa memanjang (lebar sesuai kontainer) */
+        /* Tinggi logo dibatasi seperti awal (120px), lebar fleksibel */
         .logo-preview img {
-            max-width: 100%;      /* lebar mengikuti kontainer */
-            max-height: none;     /* hilangkan batasan tinggi */
-            height: auto;         /* proporsional */
-            width: auto;          /* fleksibel */
+            max-height: 120px;
+            width: auto;
+            max-width: 100%;
+            height: auto;
             border-radius: 8px;
             display: block;
             margin: 0 auto;
@@ -193,7 +192,7 @@
         }
         @media (max-width: 800px) {
             body { padding: 12px; }
-            .logo-preview img { max-width: 100%; }
+            .logo-preview img { max-height: 90px; }
             table, .podium table { font-size: 0.85rem; }
             th, td { padding: 6px 3px; }
             input { font-size: 0.8rem; padding: 5px 3px; }
@@ -235,7 +234,7 @@
     <div class="table-wrapper">
         <table id="mainTable">
             <thead>
-                <tr><th>#</th><th>TEAM</th><th>M1</th><th>M2</th><th>M3</th><th>KILL</th><th>PLACE</th><th>TOTAL</th></tr>
+                <tr><th>#</th><th>TEAM</th><th>M1</th><th>M2</th><th>M3</th><th>KILL</th><th>PLACE</th><th>TOTAL</th>｜｜DSML｜｜
             </thead>
             <tbody id="tableBody"></tbody>
         </table>
@@ -245,9 +244,9 @@
         <table style="width:100%">
             <thead><tr><th>JUARA</th><th>NICKNAME</th><th>POINT</th></tr></thead>
             <tbody id="podiumBody">
-                <tr><td><i class="fas fa-medal"></i> Juara 1</td><td>-</td><td>0</td></tr>
-                <tr><td><i class="fas fa-medal"></i> Juara 2</td><td>-</td><td>0</td></tr>
-                <tr><td><i class="fas fa-medal"></i> Juara 3</td><td>-</td><td>0</td></tr>
+                <tr><td><i class="fas fa-medal"></i> Juara 1<br>🥇</td><td>-</td><td>0</td></tr>
+                <tr><td><i class="fas fa-medal"></i> Juara 2<br>🥈</td><td>-</td><td>0</td></tr>
+                <tr><td><i class="fas fa-medal"></i> Juara 3<br>🥉</td><td>-</td><td>0</td></tr>
             </tbody>
         </table>
     </div>
